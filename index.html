@@ -36,7 +36,7 @@ button.w{grid-column:span 2}
 <script>
 var cur='0',prev=null,op=null,fresh=false,err=false;
 /* Hasil lucu-lucuan: tulis "angka1+operator+angka2": "teks yang muncul". Operator: + − × ÷ */
-var EGGS={'1+1':'Hello World','2+1':'BEGO LU!'};
+var EGGS={'1+1':'Hello World','1+2':'BEGO LU!'};
 var out=document.getElementById('out'),his=document.getElementById('his');
 function fmt(s){if(err)return s;var p=String(s).split('.');p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');return p.join(',')}
 function show(){out.textContent=fmt(cur);his.textContent=(prev!==null&&op)?fmt(prev)+' '+op:''}
