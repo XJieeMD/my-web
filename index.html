@@ -1,88 +1,749 @@
-<!DOCTYPE html>
-<html lang="id">
+<!doctype html>
+<html lang="id" translate="no" class="notranslate">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Kalkulator</title>
-<style>
-:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mut:#6b7385;--key:#eef0f6;--op:#4f46e5;--opx:#fff;--eq:#16a34a}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1c1f2b;--tx:#eceef5;--mut:#9aa2b5;--key:#2a2e3f;--op:#818cf8;--opx:#12141c;--eq:#4ade80}}
-:root[data-theme="dark"]{--bg:#12141c;--card:#1c1f2b;--tx:#eceef5;--mut:#9aa2b5;--key:#2a2e3f;--op:#818cf8;--opx:#12141c;--eq:#4ade80}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--tx);font:18px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:16px}
-.calc{width:100%;max-width:340px;background:var(--card);border-radius:20px;padding:16px;box-shadow:0 8px 30px rgba(0,0,0,.12)}
-.scr{background:var(--bg);border-radius:14px;padding:12px 14px;margin-bottom:14px;text-align:right;min-height:84px;display:flex;flex-direction:column;justify-content:flex-end}
-#his{color:var(--mut);font-size:.85rem;min-height:1.3em;overflow:hidden;white-space:nowrap}
-#out{font-size:2.2rem;font-weight:600;overflow-x:auto;white-space:nowrap}
-.pad{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-button{font:inherit;font-size:1.25rem;border:0;border-radius:14px;height:60px;background:var(--key);color:var(--tx);cursor:pointer}
-button:active{transform:scale(.96)}
-button.o{background:var(--op);color:var(--opx)}
-button.e{background:var(--eq);color:#fff}
-button.w{grid-column:span 2}
-</style>
+  <meta charset="UTF-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>XJiee — Multi Tools & Mini Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <meta name="theme-color" content="#FFF1C9">
+  <style>
+    :root {
+      --bg-main: #FFF1C9;
+      --bg-dot: #E5D4A4;
+      --card-bg: #FFF9E6;
+      --card-white: #FFFFFF;
+      --text-main: #111111;
+      --text-muted: #525252;
+      --border-color: #111111;
+      --accent-yellow: #FFD84D;
+      --accent-blue: #76B9FF;
+      --accent-blue-light: #DCEBFF;
+      --accent-green: #68E391;
+      --accent-red: #FF7A7A;
+      --shadow-sm: 3px 3px 0px #111111;
+      --shadow-md: 4px 4px 0px #111111;
+      --shadow-lg: 6px 6px 0px #111111;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+    }
+
+    body.dark-mode {
+      --bg-main: #150F2A;
+      --bg-dot: #2A2048;
+      --card-bg: #1F1738;
+      --card-white: #292047;
+      --text-main: #F7F4FF;
+      --text-muted: #B6ADD1;
+      --border-color: #000000;
+      --accent-yellow: #F2B807;
+      --accent-blue: #4B96F3;
+      --accent-blue-light: #2E3B6E;
+      --accent-green: #38C96B;
+      --shadow-sm: 3px 3px 0px #000000;
+      --shadow-md: 4px 4px 0px #000000;
+      --shadow-lg: 6px 6px 0px #000000;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-main);
+      background-image: radial-gradient(var(--bg-dot) 1.5px, transparent 1.5px);
+      background-size: 22px 22px;
+      color: var(--text-main);
+      min-height: 100vh;
+      padding-bottom: 96px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 14px 16px 32px;
+    }
+
+    /* TOP NAVBAR */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+    }
+
+    .brand-pill {
+      background: var(--accent-yellow);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 14px;
+      padding: 7px 18px;
+      font-weight: 800;
+      font-size: 1.08rem;
+      letter-spacing: -0.3px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      color: #111;
+    }
+
+    .brand-pill:active, .neo-btn:active, .icon-circle-btn:active, .tool-card:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--border-color);
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .icon-circle-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      color: #111111;
+    }
+
+    .icon-circle-btn .material-symbols-outlined {
+      font-size: 20px;
+      font-variation-settings: 'wght' 600;
+    }
+
+    .btn-theme { background: var(--accent-yellow); }
+    .btn-music { background: var(--accent-green); }
+    .btn-lang  { background: var(--accent-blue); }
+    .btn-notif { background: #7EC8FF; }
+
+    /* NEOBRUTALISM CARDS & BADGES */
+    .neo-card {
+      background: var(--card-bg);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .neo-card-white {
+      background: var(--card-white);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .section-pill-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 22px 0 14px;
+    }
+
+    .section-pill {
+      background: var(--accent-blue);
+      color: #111111;
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 999px;
+      padding: 6px 20px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .title-pill {
+      background: var(--accent-yellow);
+      color: #111111;
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: 16px;
+      padding: 10px 26px;
+      font-weight: 800;
+      font-size: 1.25rem;
+      display: inline-block;
+    }
+
+    /* WELCOME HERO */
+    .hero-box {
+      background: var(--card-white);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+      border-radius: 20px;
+      padding: 20px 22px;
+      text-align: center;
+      margin: 6px auto 24px;
+      max-width: 90%;
+    }
+
+    .hero-text {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #1A5CFF;
+      line-height: 1.3;
+    }
+
+    body.dark-mode .hero-text {
+      color: #76B9FF;
+    }
+
+    .cursor-blink {
+      display: inline-block;
+      width: 3px;
+      height: 1.3em;
+      background: #1A5CFF;
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* INFO WIDGETS */
+    .info-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .info-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .info-value-mono {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 1.15rem;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    /* NEWS SLIDER */
+    .news-item-card {
+      background: var(--accent-yellow);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      color: #111111;
+      min-height: 112px;
+    }
+
+    .news-thumb {
+      width: 84px;
+      height: 84px;
+      border-radius: 10px;
+      border: 2px solid #111;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #ddd;
+    }
+
+    .news-tag {
+      background: #111111;
+      color: #FFFFFF;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .news-headline {
+      font-size: 0.88rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .news-date {
+      font-size: 0.7rem;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    .news-progress-bar {
+      height: 6px;
+      background: #E0E0E0;
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 12px 0 10px;
+      border: 1.5px solid var(--border-color);
+    }
+
+    .news-progress-fill {
+      height: 100%;
+      width: 45%;
+      background: #2B70FF;
+      transition: width 0.3s ease;
+    }
+
+    .dots-pill {
+      background: #111111;
+      border-radius: 999px;
+      padding: 6px 14px;
+      display: inline-flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #666666;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .dot.active {
+      background: #FFFFFF;
+      transform: scale(1.2);
+    }
+
+    /* SEARCH & TOOLS LIST */
+    .search-input-wrap {
+      background: var(--card-white);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .search-input-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .tool-card {
+      background: var(--accent-blue);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: 18px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      color: #111111;
+      position: relative;
+    }
+
+    .tool-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: #1F242D;
+      border: 2px solid #111111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    .tool-info {
+      flex: 1;
+      padding-right: 20px;
+    }
+
+    .tool-title {
+      font-weight: 800;
+      font-size: 1.02rem;
+      margin-bottom: 3px;
+      color: #111111;
+    }
+
+    .tool-desc {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1E293B;
+      line-height: 1.3;
+    }
+
+    .tool-arrow {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #111111;
+    }
+
+    /* TOOL DETAIL VIEW */
+    .back-btn {
+      background: var(--accent-blue);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 12px;
+      width: 48px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-bottom: 16px;
+      color: #111111;
+    }
+
+    .neo-input, .neo-textarea, .neo-select {
+      width: 100%;
+      background: var(--card-white);
+      color: var(--text-main);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 14px;
+      padding: 13px 15px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      outline: none;
+      margin-bottom: 14px;
+    }
+
+    .neo-btn {
+      width: 100%;
+      background: #2B85FF;
+      color: #FFFFFF;
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .neo-btn-yellow {
+      background: var(--accent-yellow);
+      color: #111111;
+    }
+
+    .neo-btn-green {
+      background: var(--accent-green);
+      color: #111111;
+    }
+
+    .field-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .canvas-preview-wrap {
+      position: relative;
+      border: 2.5px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #ffffff;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .canvas-preview-wrap canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* BOTTOM NAVIGATION */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card-white);
+      border-top: 3px solid var(--border-color);
+      z-index: 200;
+      padding: 8px 12px 10px;
+    }
+
+    .bottom-nav-inner {
+      max-width: 500px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 4px;
+      border-radius: 14px;
+      cursor: pointer;
+      color: var(--text-main);
+      border: 2px solid transparent;
+      transition: all 0.15s ease;
+      user-select: none;
+      background: transparent;
+    }
+
+    .nav-item .material-symbols-outlined {
+      font-size: 22px;
+      margin-bottom: 2px;
+    }
+
+    .nav-item span.nav-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-item.active {
+      background: var(--accent-blue);
+      color: #111111;
+      border: 2px solid #111111;
+      box-shadow: 2px 2px 0px #111111;
+    }
+
+    /* FOOTER */
+    .app-footer {
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 26px 0 12px;
+      line-height: 1.5;
+    }
+
+    /* TOAST */
+    .toast-box {
+      position: fixed;
+      top: 72px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: var(--accent-yellow);
+      color: #111111;
+      border: 2.5px solid #111111;
+      box-shadow: var(--shadow-md);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+
+    .toast-box.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* STEP PILLS FOR AM PREMIUM */
+    .step-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .step-pill {
+      background: var(--card-white);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .step-pill.active {
+      background: var(--accent-yellow);
+      color: #111;
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    .hidden { display: none !important; }
+  </style>
 </head>
 <body>
-<div class="calc">
-<div class="scr"><div id="his"></div><div id="out">0</div></div>
-<div class="pad">
-<button data-a="C" class="o">C</button><button data-a="del" class="o">⌫</button><button data-a="%" class="o">%</button><button data-o="÷" class="o">÷</button>
-<button data-n="7">7</button><button data-n="8">8</button><button data-n="9">9</button><button data-o="×" class="o">×</button>
-<button data-n="4">4</button><button data-n="5">5</button><button data-n="6">6</button><button data-o="−" class="o">−</button>
-<button data-n="1">1</button><button data-n="2">2</button><button data-n="3">3</button><button data-o="+" class="o">+</button>
-<button data-a="neg">±</button><button data-n="0">0</button><button data-n=".">.</button><button data-a="=" class="e">=</button>
-</div>
-</div>
-<script>
-var cur='0',prev=null,op=null,fresh=false,err=false;
-/* Hasil lucu-lucuan: tulis "angka1+operator+angka2": "teks yang muncul". Operator: + − × ÷ */
-var EGGS={'1+1':'Hello World','1+2':'BEGO LU!'};
-var out=document.getElementById('out'),his=document.getElementById('his');
-function fmt(s){if(err)return s;var p=String(s).split('.');p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');return p.join(',')}
-function show(){out.textContent=fmt(cur);his.textContent=(prev!==null&&op)?fmt(prev)+' '+op:''}
-function calc(a,b,o){
- a=parseFloat(a);b=parseFloat(b);var r;
- if(o=='+')r=a+b;else if(o=='−')r=a-b;else if(o=='×')r=a*b;else{if(b===0){err=true;return 'Tidak bisa dibagi 0'}r=a/b}
- return String(parseFloat(r.toPrecision(12)))}
-function num(d){
- if(err)reset();
- if(fresh){cur='0';fresh=false}
- if(d=='.'){if(cur.indexOf('.')<0)cur+='.'}
- else cur=(cur=='0')?d:(cur.length<15?cur+d:cur);
- show()}
-function oper(o){
- if(err)return;
- if(op&&!fresh){cur=calc(prev,cur,op);if(err){show();return}}
- prev=cur;op=o;fresh=true;show()}
-function eq(){
- if(err||!op||prev===null)return;
- var h=fmt(prev)+' '+op+' '+fmt(cur)+' =';
- var egg=EGGS[parseFloat(prev)+op+parseFloat(cur)];
- if(egg){cur=egg;err=true;prev=null;op=null;show();his.textContent=h;return}
- cur=calc(prev,cur,op);prev=null;op=null;fresh=true;show();his.textContent=h}
-function reset(){cur='0';prev=null;op=null;fresh=false;err=false;show()}
-function act(a){
- if(a=='C')reset();
- else if(err)return;
- else if(a=='del'){if(fresh)return;cur=cur.length>1&&!(cur.length==2&&cur[0]=='-')?cur.slice(0,-1):'0';show()}
- else if(a=='neg'){if(cur!='0'){cur=cur[0]=='-'?cur.slice(1):'-'+cur;show()}}
- else if(a=='%'){cur=String(parseFloat((parseFloat(cur)/100).toPrecision(12)));show()}
- else if(a=='=')eq()}
-document.querySelector('.pad').addEventListener('click',function(e){
- var b=e.target.closest('button');if(!b)return;
- if(b.dataset.n!==undefined)num(b.dataset.n);
- else if(b.dataset.o)oper(b.dataset.o);
- else act(b.dataset.a)});
-document.addEventListener('keydown',function(e){
- var k=e.key,m={'*':'×','/':'÷','-':'−','+':'+'};
- if(/^[0-9.]$/.test(k))num(k);
- else if(m[k]){e.preventDefault();oper(m[k])}
- else if(k==','){num('.')}
- else if(k=='Enter'||k=='='){e.preventDefault();act('=')}
- else if(k=='Backspace')act('del');
- else if(k=='Escape'||k=='Delete')act('C');
- else if(k=='%')act('%')});
-show();
-</script>
-</body>
-</html>
+
+  <div id="toast" class="toast-box">Notifikasi</div>
+
+  <div class="app-container">
+    <!-- TOP BAR -->
+    <header class="top-bar">
+      <div class="brand-pill" id="brandHomeBtn">XJiee</div>
+      <div class="top-actions">
+        <button class="icon-circle-btn btn-theme" id="themeBtn" title="Ganti Tema">
+          <span class="material-symbols-outlined" id="themeIcon">light_mode</span>
+        </button>
+        <button class="icon-circle-btn btn-music" id="musicBtn" title="Musik Lofi">
+          <span class="material-symbols-outlined" id="musicIcon">music_off</span>
+        </button>
+        <button class="icon-circle-btn btn-lang" id="langBtn" title="Bahasa">
+          <span class="material-symbols-outlined">translate</span>
+        </button>
+        <button class="icon-circle-btn btn-notif" id="notifBtn" title="Info Update">
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==================== TAB 1: HOME ==================== -->
+    <main id="tab-home" class="tab-view">
+      <div class="hero-box">
+        <div class="hero-text">
+          Selamat Datang<br>Di notxjiee.my.id<span class="cursor-blink"></span>
+        </div>
+      </div>
+
+      <!-- INFORMASI -->
+      <div class="section-pill-wrap">
+        <span class="section-pill">INFORMASI</span>
+      </div>
+
+      <div class="neo-card">
+        <div class="neo-card-white">
+          <div class="info-label">
+            <span class="material-symbols-outlined" style="font-size:16px">schedule</span> WAKTU
+          </div>
+          <div class="info-value-mono" id="clockDisplay">08-11-2026 [17:39:40]</div>
+        </div>
+
+        <div class="info-grid-2">
+          <div class="neo-card-white">
+            <div class="info-label">
+              <span class="material-symbols-outlined" style="font-size:16px">battery_charging_full</span> BATERAI
+            </div>
+            <div class="info-value-mono" id="batteryDisplay">88%</div>
+          </div>
+
+          <div class="neo-card-white">
+            <div class="info-label" style="justify-content:space-between">
+              <span style="display:flex;align-items:center;gap:4px">
+                <span class="material-symbols-outlined" style="font-size:16px">person_pin_circle</span> IP
+              </span>
+              <span class="material-symbols-outlined" id="toggleIpBtn" style="font-size:18px;cursor:pointer">visibility</span>
+            </div>
+            <div class="info-value-mono" id="ipDisplay" style="font-size:0.95rem">•••.•••.•••.•••</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BERITA -->
+      <div class="section-pill-wrap">
+        <span class="section-pill">BERITA</span>
+      </div>
+
+      <div class="neo-card">
+        <h3 style="font-size:1.15rem;font-weight:800;margin-bottom:12px">Berita Terbaru</h3>
+        <div class="news-item-card" id="newsCard">
+          <img id="newsImg" class="news-thumb" src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=300&auto=format&fit=crop&q=80" alt="News">
+          <div>
+            <span class="news-tag" id="newsSource">ANTARA</span>
+            <div class="news-headline" id="newsTitle">Anggota DPR dukung Kejagung usut kasus tata kelola nikel di Sultra</div>
+            <div class="news-date" id="newsDate">Min, 08 Nov 2026 • 17:00 WIB</div>
+          </div>
+        </div>
+        <div class="news-progress-bar">
+          <div class="news-progress-fill" id="newsProgress"></div>
+        </div>
+        <div style="text-align:center">
+          <div class="dots-pill" id="newsDots"></div>
+        </div>
+      </div>
+
+      <!-- SOSMED -->
+      <div class="section-pill-wrap">
+        <span class="section-pill">SOSMED</span>
+      </div>
+
+      <div class="neo-card">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:14px">
+          <div style="width:54px;height:54px;border-radius:50%;background:#111;border:2.5px solid #111;display:flex;align-items:center;justify-content:center;color:#FFD84D;font-weight:800;font-size:1.2rem;flex-shrink:0">
+            XJ
+          </div>
+          <div style="flex:1">
+            <div style="font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:4px;margin-bottom:4px">
+              XJiee <span class="material-symbols-outlined" style="color:#1D9BF0;font-size:18px;font-variation-settings:'FILL' 1">verified</span>
+            </div>
+            <div class="neo-card-white" style="padding:10px 12px;font-size:0.82rem;font-weight:600">
+              Suatu hari, kamu akan berterima kasih pada dirimu sendiri.
+            </div>
+          </div>
+        </div>
+
+        <div class="info-grid-2">
+          <div class="neo-card-white">
+            <div class="info-label">
+              <span class="material-symbols-outlined" style="font-size:16px">group</span> MEMBER
+            </div>
+            <div class="info
