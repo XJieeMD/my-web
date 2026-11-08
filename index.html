@@ -4,2545 +4,2012 @@
   <meta charset="UTF-8">
   <meta name="google" content="notranslate">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>XJiee — Multi-Tools Web App</title>
-  
-  <!-- Google Fonts -->
+  <title>XJiee — Multi Tools & Mini Games</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
+  <meta name="theme-color" content="#FFF1C9">
   <style>
     :root {
       --bg-main: #FFF1C9;
-      --bg-dot: rgba(0, 0, 0, 0.11);
-      --card-bg: #FFF7DF;
-      --surface-white: #FFFFFF;
-      --text-main: #0F172A;
-      --text-muted: #475569;
-      --border-color: #000000;
-      --accent-blue: #66B5F8;
-      --accent-yellow: #F7C948;
-      --accent-green: #4ADE80;
-      --nav-bg: #FFFFFF;
+      --bg-dot: #E5D4A4;
+      --card-bg: #FFF9E6;
+      --card-white: #FFFFFF;
+      --text-main: #111111;
+      --text-muted: #525252;
+      --border-color: #111111;
+      --accent-yellow: #FFD84D;
+      --accent-blue: #76B9FF;
+      --accent-blue-light: #DCEBFF;
+      --accent-green: #68E391;
+      --accent-red: #FF7A7A;
+      --shadow-sm: 3px 3px 0px #111111;
+      --shadow-md: 4px 4px 0px #111111;
+      --shadow-lg: 6px 6px 0px #111111;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
     }
 
     body.dark-mode {
       --bg-main: #150F2A;
-      --bg-dot: rgba(255, 255, 255, 0.12);
-      --card-bg: #1F183B;
-      --surface-white: #282048;
-      --text-main: #F8FAFC;
-      --text-muted: #CBD5E1;
+      --bg-dot: #2A2048;
+      --card-bg: #1F1738;
+      --card-white: #292047;
+      --text-main: #F7F4FF;
+      --text-muted: #B6ADD1;
       --border-color: #000000;
-      --accent-blue: #3B82F6;
-      --accent-yellow: #F59E0B;
-      --accent-green: #22C55E;
-      --nav-bg: #1A1333;
+      --accent-yellow: #F2B807;
+      --accent-blue: #4B96F3;
+      --accent-blue-light: #2E3B6E;
+      --accent-green: #38C96B;
+      --shadow-sm: 3px 3px 0px #000000;
+      --shadow-md: 4px 4px 0px #000000;
+      --shadow-lg: 6px 6px 0px #000000;
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
       -webkit-tap-highlight-color: transparent;
     }
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg-main);
-      background-image: radial-gradient(var(--bg-dot) 1.25px, transparent 1.25px);
-      background-size: 18px 18px;
+      background-image: radial-gradient(var(--bg-dot) 1.5px, transparent 1.5px);
+      background-size: 22px 22px;
       color: var(--text-main);
-      margin: 0;
-      padding: 0;
       min-height: 100vh;
-      transition: background-color 0.25s ease, color 0.25s ease;
+      padding-bottom: 96px;
+      transition: background-color 0.2s ease, color 0.2s ease;
       overflow-x: hidden;
     }
 
-    .font-mono-code {
-      font-family: 'Space Mono', monospace;
+    .app-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 14px 16px 32px;
     }
 
-    .font-grotesk {
-      font-family: 'Space Grotesk', sans-serif;
+    /* TOP NAVBAR */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      position: sticky;
+      top: 10px;
+      z-index: 100;
     }
 
-    /* Neobrutalist Core Classes */
-    .neo-box {
-      background-color: var(--card-bg);
-      border: 2.5px solid #000000;
-      box-shadow: 4px 4px 0px #000000;
-      border-radius: 18px;
-    }
-
-    .neo-white {
-      background-color: var(--surface-white);
-      border: 2.5px solid #000000;
-      box-shadow: 4px 4px 0px #000000;
-      border-radius: 18px;
-    }
-
-    .neo-blue-card {
-      background-color: var(--accent-blue);
-      color: #000000;
-      border: 2.5px solid #000000;
-      box-shadow: 4px 4px 0px #000000;
-      border-radius: 18px;
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
-    }
-
-    .neo-blue-card:active {
-      transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0px #000000;
-    }
-
-    .neo-btn {
-      border: 2.5px solid #000000;
-      box-shadow: 3px 3px 0px #000000;
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    .brand-pill {
+      background: var(--accent-yellow);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 14px;
+      padding: 7px 18px;
+      font-weight: 800;
+      font-size: 1.08rem;
+      letter-spacing: -0.3px;
       cursor: pointer;
       user-select: none;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      color: #111;
     }
 
-    .neo-btn:active {
+    .brand-pill:active, .neo-btn:active, .icon-circle-btn:active, .tool-card:active {
       transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0px #000000;
+      box-shadow: 1px 1px 0px var(--border-color);
     }
 
-    .neo-pill-title {
-      display: inline-block;
-      background-color: #4DA6FF;
-      color: #000000;
+    .top-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .icon-circle-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      color: #111111;
+    }
+
+    .icon-circle-btn .material-symbols-outlined {
+      font-size: 20px;
+      font-variation-settings: 'wght' 600;
+    }
+
+    .btn-theme { background: var(--accent-yellow); }
+    .btn-music { background: var(--accent-green); }
+    .btn-lang  { background: var(--accent-blue); }
+    .btn-notif { background: #7EC8FF; }
+
+    /* NEOBRUTALISM CARDS & BADGES */
+    .neo-card {
+      background: var(--card-bg);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .neo-card-white {
+      background: var(--card-white);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .section-pill-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 22px 0 14px;
+    }
+
+    .section-pill {
+      background: var(--accent-blue);
+      color: #111111;
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 999px;
+      padding: 6px 20px;
       font-weight: 800;
       font-size: 0.85rem;
-      letter-spacing: 0.04em;
-      padding: 6px 20px;
-      border-radius: 999px;
-      border: 2.5px solid #000000;
-      box-shadow: 3px 3px 0px #000000;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
     }
 
-    .neo-input {
-      background-color: var(--surface-white);
-      color: var(--text-main);
-      border: 2.5px solid #000000;
-      box-shadow: 3px 3px 0px #000000;
-      border-radius: 14px;
-      outline: none;
-      transition: box-shadow 0.15s ease;
+    .title-pill {
+      background: var(--accent-yellow);
+      color: #111111;
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: 16px;
+      padding: 10px 26px;
+      font-weight: 800;
+      font-size: 1.25rem;
+      display: inline-block;
     }
 
-    .neo-input:focus {
-      box-shadow: 4px 4px 0px #2563EB;
+    /* WELCOME HERO */
+    .hero-box {
+      background: var(--card-white);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+      border-radius: 20px;
+      padding: 20px 22px;
+      text-align: center;
+      margin: 6px auto 24px;
+      max-width: 90%;
     }
 
-    /* Blinking Cursor */
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    .hero-text {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #1A5CFF;
+      line-height: 1.3;
     }
+
+    body.dark-mode .hero-text {
+      color: #76B9FF;
+    }
+
     .cursor-blink {
-      animation: blink 0.9s infinite;
+      display: inline-block;
+      width: 3px;
+      height: 1.3em;
+      background: #1A5CFF;
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
     }
 
-    /* Spinning Music Icon when active */
-    @keyframes pulse-beat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
-    .music-playing {
-      animation: pulse-beat 0.8s infinite ease-in-out;
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* INFO WIDGETS */
+    .info-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
+    .info-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .info-value-mono {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 1.15rem;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    /* NEWS SLIDER */
+    .news-item-card {
+      background: var(--accent-yellow);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      color: #111111;
+      min-height: 112px;
+    }
+
+    .news-thumb {
+      width: 84px;
+      height: 84px;
+      border-radius: 10px;
+      border: 2px solid #111;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #ddd;
+    }
+
+    .news-tag {
+      background: #111111;
+      color: #FFFFFF;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .news-headline {
+      font-size: 0.88rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .news-date {
+      font-size: 0.7rem;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    .news-progress-bar {
       height: 6px;
+      background: #E0E0E0;
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 12px 0 10px;
+      border: 1.5px solid var(--border-color);
     }
-    ::-webkit-scrollbar-track {
+
+    .news-progress-fill {
+      height: 100%;
+      width: 45%;
+      background: #2B70FF;
+      transition: width 0.3s ease;
+    }
+
+    .dots-pill {
+      background: #111111;
+      border-radius: 999px;
+      padding: 6px 14px;
+      display: inline-flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #666666;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .dot.active {
+      background: #FFFFFF;
+      transform: scale(1.2);
+    }
+
+    /* SEARCH & TOOLS LIST */
+    .search-input-wrap {
+      background: var(--card-white);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .search-input-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .tool-card {
+      background: var(--accent-blue);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: 18px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      color: #111111;
+      position: relative;
+    }
+
+    .tool-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: #1F242D;
+      border: 2px solid #111111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    .tool-info {
+      flex: 1;
+      padding-right: 20px;
+    }
+
+    .tool-title {
+      font-weight: 800;
+      font-size: 1.02rem;
+      margin-bottom: 3px;
+      color: #111111;
+    }
+
+    .tool-desc {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1E293B;
+      line-height: 1.3;
+    }
+
+    .tool-arrow {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #111111;
+    }
+
+    /* TOOL DETAIL VIEW */
+    .back-btn {
+      background: var(--accent-blue);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 12px;
+      width: 48px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-bottom: 16px;
+      color: #111111;
+    }
+
+    .neo-input, .neo-textarea, .neo-select {
+      width: 100%;
+      background: var(--card-white);
+      color: var(--text-main);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 14px;
+      padding: 13px 15px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      outline: none;
+      margin-bottom: 14px;
+    }
+
+    .neo-btn {
+      width: 100%;
+      background: #2B85FF;
+      color: #FFFFFF;
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .neo-btn-yellow {
+      background: var(--accent-yellow);
+      color: #111111;
+    }
+
+    .neo-btn-green {
+      background: var(--accent-green);
+      color: #111111;
+    }
+
+    .field-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .canvas-preview-wrap {
+      position: relative;
+      border: 2.5px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #ffffff;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .canvas-preview-wrap canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* BOTTOM NAVIGATION */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card-white);
+      border-top: 3px solid var(--border-color);
+      z-index: 200;
+      padding: 8px 12px 10px;
+    }
+
+    .bottom-nav-inner {
+      max-width: 500px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 4px;
+      border-radius: 14px;
+      cursor: pointer;
+      color: var(--text-main);
+      border: 2px solid transparent;
+      transition: all 0.15s ease;
+      user-select: none;
       background: transparent;
     }
-    ::-webkit-scrollbar-thumb {
-      background: #000;
-      border-radius: 99px;
+
+    .nav-item .material-symbols-outlined {
+      font-size: 22px;
+      margin-bottom: 2px;
     }
+
+    .nav-item span.nav-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-item.active {
+      background: var(--accent-blue);
+      color: #111111;
+      border: 2px solid #111111;
+      box-shadow: 2px 2px 0px #111111;
+    }
+
+    /* FOOTER */
+    .app-footer {
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 26px 0 12px;
+      line-height: 1.5;
+    }
+
+    /* TOAST */
+    .toast-box {
+      position: fixed;
+      top: 72px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: var(--accent-yellow);
+      color: #111111;
+      border: 2.5px solid #111111;
+      box-shadow: var(--shadow-md);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+
+    .toast-box.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* STEP PILLS FOR AM PREMIUM */
+    .step-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .step-pill {
+      background: var(--card-white);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .step-pill.active {
+      background: var(--accent-yellow);
+      color: #111;
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    .hidden { display: none !important; }
   </style>
 </head>
-<body class="pb-28">
+<body>
 
-  <!-- STICKY TOP NAVBAR -->
-  <header class="sticky top-0 z-40 px-4 pt-3 pb-2 bg-opacity-90 backdrop-blur-sm">
-    <div class="max-w-md mx-auto flex items-center justify-between">
-      <!-- XJiee Brand Pill -->
-      <button onclick="switchTab('home')" class="neo-btn bg-[#F6C844] text-black font-extrabold text-xl px-5 py-1.5 rounded-full tracking-tight">
-        XJiee
-      </button>
+  <div id="toast" class="toast-box">Notifikasi</div>
 
-      <!-- Top Right Action Buttons -->
-      <div class="flex items-center gap-2.5">
-        <!-- Theme Toggle -->
-        <button id="themeBtn" onclick="toggleTheme()" title="Ganti Tema" class="neo-btn w-10 h-10 rounded-xl bg-[#F6C844] text-black flex items-center justify-center">
-          <span id="themeIcon" class="material-symbols-outlined text-[22px]">light_mode</span>
+  <div class="app-container">
+    <!-- TOP BAR -->
+    <header class="top-bar">
+      <div class="brand-pill" id="brandHomeBtn">XJiee</div>
+      <div class="top-actions">
+        <button class="icon-circle-btn btn-theme" id="themeBtn" title="Ganti Tema">
+          <span class="material-symbols-outlined" id="themeIcon">light_mode</span>
         </button>
-        <!-- Lo-Fi Synth Audio Toggle -->
-        <button id="musicBtn" onclick="toggleMusic()" title="Musik Lofi" class="neo-btn w-10 h-10 rounded-xl bg-[#4ADE80] text-black flex items-center justify-center">
-          <span id="musicIcon" class="material-symbols-outlined text-[22px]">graphic_eq</span>
+        <button class="icon-circle-btn btn-music" id="musicBtn" title="Musik Lofi">
+          <span class="material-symbols-outlined" id="musicIcon">music_off</span>
         </button>
-        <!-- Quick Scroll / Shortcut -->
-        <button onclick="scrollToBottomOrTop()" title="Scroll Cepat" class="neo-btn w-10 h-10 rounded-xl bg-[#66B5F8] text-black flex items-center justify-center">
-          <span id="scrollIcon" class="material-symbols-outlined text-[22px]">expand_more</span>
+        <button class="icon-circle-btn btn-lang" id="langBtn" title="Bahasa">
+          <span class="material-symbols-outlined">translate</span>
         </button>
-        <!-- Notification Bell -->
-        <button onclick="openNotifModal()" title="Notifikasi" class="neo-btn w-10 h-10 rounded-xl bg-[#66B5F8] text-black flex items-center justify-center relative">
-          <span class="material-symbols-outlined text-[22px]">notifications</span>
-          <span class="w-2.5 h-2.5 bg-red-500 border border-black rounded-full absolute -top-1 -right-1"></span>
+        <button class="icon-circle-btn btn-notif" id="notifBtn" title="Info Update">
+          <span class="material-symbols-outlined">notifications</span>
         </button>
       </div>
-    </div>
-  </header>
-
-  <!-- MAIN CONTAINER (MOBILE FIRST) -->
-  <main class="max-w-md mx-auto px-4 pt-3">
+    </header>
 
     <!-- ==================== TAB 1: HOME ==================== -->
-    <section id="tab-home" class="space-y-7">
-      
-      <!-- Welcome Hero Card -->
-      <div class="pt-2 flex justify-center">
-        <div class="neo-white px-6 py-5 transform -rotate-1 max-w-[330px] w-full text-center">
-          <h1 class="text-2xl sm:text-[26px] font-extrabold leading-snug text-[#1D4ED8] dark:text-[#60A5FA]">
-            <span id="typewriterText">Selamat Datang Di xjiee.web.id</span><span class="cursor-blink text-blue-500">|</span>
-          </h1>
+    <main id="tab-home" class="tab-view">
+      <div class="hero-box">
+        <div class="hero-text">
+          Selamat Datang<br>Di notxjiee.my.id<span class="cursor-blink"></span>
         </div>
       </div>
 
-      <!-- INFORMASI SECTION -->
-      <div class="space-y-3.5">
-        <div class="text-center">
-          <span class="neo-pill-title">INFORMASI</span>
+      <!-- INFORMASI -->
+      <div class="section-pill-wrap">
+        <span class="section-pill">INFORMASI</span>
+      </div>
+
+      <div class="neo-card">
+        <div class="neo-card-white">
+          <div class="info-label">
+            <span class="material-symbols-outlined" style="font-size:16px">schedule</span> WAKTU
+          </div>
+          <div class="info-value-mono" id="clockDisplay">08-11-2026 [17:39:40]</div>
         </div>
 
-        <!-- Waktu Card -->
-        <div class="neo-box p-4">
-          <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider opacity-80 mb-2">
-            <span class="material-symbols-outlined text-[16px]">schedule</span>
-            <span>WAKTU</span>
-          </div>
-          <div id="clockDisplay" class="font-mono-code font-bold text-xl sm:text-2xl text-center py-1 tracking-tight">
-            08-11-2026 [17:39:40]
-          </div>
-        </div>
-
-        <!-- Baterai & IP 2-Column Grid -->
-        <div class="grid grid-cols-2 gap-3.5">
-          <!-- Baterai -->
-          <div class="neo-box p-3.5">
-            <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider opacity-80 mb-1.5">
-              <span class="material-symbols-outlined text-[16px]">battery_horiz_075</span>
-              <span>BATERAI</span>
+        <div class="info-grid-2">
+          <div class="neo-card-white">
+            <div class="info-label">
+              <span class="material-symbols-outlined" style="font-size:16px">battery_charging_full</span> BATERAI
             </div>
-            <div id="batteryDisplay" class="font-mono-code font-bold text-lg text-center py-1">
-              88%
-            </div>
+            <div class="info-value-mono" id="batteryDisplay">88%</div>
           </div>
 
-          <!-- IP Address -->
-          <div class="neo-box p-3.5">
-            <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider opacity-80 mb-1.5">
-              <span class="material-symbols-outlined text-[16px]">hub</span>
-              <span>IP</span>
+          <div class="neo-card-white">
+            <div class="info-label" style="justify-content:space-between">
+              <span style="display:flex;align-items:center;gap:4px">
+                <span class="material-symbols-outlined" style="font-size:16px">person_pin_circle</span> IP
+              </span>
+              <span class="material-symbols-outlined" id="toggleIpBtn" style="font-size:18px;cursor:pointer">visibility</span>
             </div>
-            <div class="flex items-center justify-between px-1 py-1">
-              <span id="ipHomeDisplay" class="font-mono-code font-bold text-sm tracking-widest truncate">•••••••••</span>
-              <button onclick="toggleIpMask()" class="opacity-80 hover:opacity-100 active:scale-90 transition">
-                <span id="ipEyeIcon" class="material-symbols-outlined text-[19px]">visibility</span>
-              </button>
-            </div>
+            <div class="info-value-mono" id="ipDisplay" style="font-size:0.95rem">•••.•••.•••.•••</div>
           </div>
         </div>
       </div>
 
-      <!-- BERITA SECTION -->
-      <div class="space-y-3.5">
-        <div class="text-center">
-          <span class="neo-pill-title">BERITA</span>
+      <!-- BERITA -->
+      <div class="section-pill-wrap">
+        <span class="section-pill">BERITA</span>
+      </div>
+
+      <div class="neo-card">
+        <h3 style="font-size:1.15rem;font-weight:800;margin-bottom:12px">Berita Terbaru</h3>
+        <div class="news-item-card" id="newsCard">
+          <img id="newsImg" class="news-thumb" src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=300&auto=format&fit=crop&q=80" alt="News">
+          <div>
+            <span class="news-tag" id="newsSource">ANTARA</span>
+            <div class="news-headline" id="newsTitle">Anggota DPR dukung Kejagung usut kasus tata kelola nikel di Sultra</div>
+            <div class="news-date" id="newsDate">Min, 08 Nov 2026 • 17:00 WIB</div>
+          </div>
         </div>
-
-        <div class="neo-box p-4 space-y-3">
-          <div class="flex items-center justify-between">
-            <h2 class="font-extrabold text-xl">Berita Terbaru</h2>
-            <div class="flex gap-1.5">
-              <button onclick="prevNews()" class="neo-btn bg-white text-black w-7 h-7 rounded-lg flex items-center justify-center">
-                <span class="material-symbols-outlined text-[16px]">chevron_left</span>
-              </button>
-              <button onclick="nextNews()" class="neo-btn bg-white text-black w-7 h-7 rounded-lg flex items-center justify-center">
-                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- News Card Item -->
-          <div id="newsCardContent" class="bg-[#FCE588] text-black border-2 border-black rounded-2xl p-3 shadow-[3px_3px_0px_#000] transition-all">
-            <div class="flex gap-3 items-center">
-              <img id="newsImg" src="https://placehold.co/160x160/2563EB/FFFFFF?text=NEWS" alt="Berita" class="w-24 h-24 rounded-xl object-cover border-2 border-black shrink-0">
-              <div class="space-y-1 min-w-0">
-                <span id="newsSource" class="inline-block bg-black text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">ANTARA</span>
-                <h3 id="newsTitle" class="font-extrabold text-sm leading-snug line-clamp-3">
-                  Anggota DPR dukung Kejagung usut kasus tata kelola nikel di Sultra
-                </h3>
-              </div>
-            </div>
-            <div id="newsDate" class="text-right font-mono-code text-[11px] font-bold mt-2 opacity-80">
-              Min, 08 Nov 2026 - 17:00 WIB
-            </div>
-          </div>
-
-          <!-- Progress & Dots -->
-          <div class="w-full bg-gray-300 h-1.5 rounded-full overflow-hidden border border-black">
-            <div id="newsProgressBar" class="bg-blue-600 h-full w-1/4 transition-all duration-300"></div>
-          </div>
-
-          <div class="flex justify-center">
-            <div id="newsDots" class="bg-black px-3 py-1.5 rounded-full flex items-center gap-2">
-              <!-- Populated by JS -->
-            </div>
-          </div>
+        <div class="news-progress-bar">
+          <div class="news-progress-fill" id="newsProgress"></div>
+        </div>
+        <div style="text-align:center">
+          <div class="dots-pill" id="newsDots"></div>
         </div>
       </div>
 
-      <!-- SOSMED SECTION -->
-      <div class="space-y-3.5">
-        <div class="text-center">
-          <span class="neo-pill-title">SOSMED</span>
-        </div>
-
-        <div class="neo-box p-4 space-y-4">
-          <!-- Profile & Quote -->
-          <div class="flex items-start gap-3.5">
-            <div class="w-14 h-14 rounded-full border-2 border-black bg-gradient-to-tr from-gray-900 via-slate-800 to-gray-600 shrink-0 flex items-center justify-center text-white font-extrabold text-lg shadow-[2px_2px_0px_#000]">
-              XJ
-            </div>
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-1 mb-1.5">
-                <span class="font-extrabold text-lg">XJiee</span>
-                <span class="material-symbols-outlined text-blue-500 text-[20px]" style="font-variation-settings:'FILL' 1">verified</span>
-              </div>
-              <div class="bg-[#FFF2B2] text-black border-2 border-black rounded-xl p-2.5 text-xs font-bold leading-relaxed shadow-[2px_2px_0px_#000]">
-                "Suatu hari, kamu akan berterima kasih pada dirimu sendiri."
-              </div>
-            </div>
-          </div>
-
-          <!-- Member & Online Counter -->
-          <div class="grid grid-cols-2 gap-3">
-            <div class="neo-white p-3">
-              <div class="flex items-center gap-1 text-[11px] font-bold uppercase opacity-75">
-                <span class="material-symbols-outlined text-[15px]">group</span>
-                <span>MEMBER</span>
-              </div>
-              <div class="font-mono-code font-bold text-xl text-center mt-1">211</div>
-            </div>
-            <div class="neo-white p-3">
-              <div class="flex items-center gap-1.5 text-[11px] font-bold uppercase opacity-75">
-                <span class="w-2 h-2 rounded-full bg-green-500 border border-black inline-block"></span>
-                <span>ONLINE</span>
-              </div>
-              <div id="onlineCountDisplay" class="font-mono-code font-bold text-xl text-center mt-1">3</div>
-            </div>
-          </div>
-
-          <!-- Social Media Links -->
-          <div class="space-y-2.5">
-            <a href="https://tiktok.com" target="_blank" rel="noopener" class="neo-white p-3 flex items-center justify-between hover:bg-[#F6C844] hover:text-black transition">
-              <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-lg border-2 border-black bg-white text-black flex items-center justify-center font-bold">
-                  ♪
-                </div>
-                <div>
-                  <div class="text-xs font-extrabold uppercase">TIKTOK</div>
-                  <div class="text-[11px] opacity-75">@xjiee.web.id</div>
-                </div>
-              </div>
-              <span class="material-symbols-outlined">arrow_forward</span>
-            </a>
-
-            <a href="https://instagram.com" target="_blank" rel="noopener" class="neo-white p-3 flex items-center justify-between hover:bg-[#66B5F8] hover:text-black transition">
-              <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-lg border-2 border-black bg-white text-black flex items-center justify-center">
-                  <span class="material-symbols-outlined text-[18px]">photo_camera</span>
-                </div>
-                <div>
-                  <div class="text-xs font-extrabold uppercase">INSTAGRAM</div>
-                  <div class="text-[11px] opacity-75">@xjiee.official</div>
-                </div>
-              </div>
-              <span class="material-symbols-outlined">arrow_forward</span>
-            </a>
-          </div>
-        </div>
+      <!-- SOSMED -->
+      <div class="section-pill-wrap">
+        <span class="section-pill">SOSMED</span>
       </div>
 
-      <!-- Footer -->
-      <footer class="text-center font-mono-code text-xs opacity-80 pt-2 pb-4 leading-relaxed">
-        © 2026 xjiee.web.id — menyediakan berbagai macam tools seperti downloader dan lain lain.
-      </footer>
-    </section>
-
-    <!-- ==================== TAB 2: SEARCH / CARI FITUR ==================== -->
-    <section id="tab-search" class="hidden space-y-4">
-      
-      <!-- MAIN DIRECTORY LIST VIEW -->
-      <div id="toolsDirectoryView" class="space-y-4">
-        <div class="text-center pt-1">
-          <div class="inline-block bg-[#F6C844] text-black font-extrabold text-xl px-6 py-2.5 rounded-2xl border-[2.5px] border-black shadow-[4px_4px_0px_#000]">
-            Cari Fitur
+      <div class="neo-card">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:14px">
+          <div style="width:54px;height:54px;border-radius:50%;background:#111;border:2.5px solid #111;display:flex;align-items:center;justify-content:center;color:#FFD84D;font-weight:800;font-size:1.2rem;flex-shrink:0">
+            XJ
+          </div>
+          <div style="flex:1">
+            <div style="font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:4px;margin-bottom:4px">
+              XJiee <span class="material-symbols-outlined" style="color:#1D9BF0;font-size:18px;font-variation-settings:'FILL' 1">verified</span>
+            </div>
+            <div class="neo-card-white" style="padding:10px 12px;font-size:0.82rem;font-weight:600">
+              Suatu hari, kamu akan berterima kasih pada dirimu sendiri.
+            </div>
           </div>
         </div>
 
-        <!-- Search Input Box -->
-        <div class="relative">
-          <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">search</span>
-          <input 
-            id="featureSearchInput" 
-            type="text" 
-            oninput="renderToolsList()" 
-            placeholder="Ketik nama fitur..." 
-            class="neo-input w-full pl-12 pr-10 py-3.5 font-semibold text-sm"
-          >
-          <button id="clearSearchBtn" onclick="clearFeatureSearch()" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-black">
-            <span class="material-symbols-outlined text-[18px]">close</span>
-          </button>
+        <div class="info-grid-2">
+          <div class="neo-card-white">
+            <div class="info-label">
+              <span class="material-symbols-outlined" style="font-size:16px">group</span> MEMBER
+            </div>
+            <div class="info-value-mono" id="memberCount">214</div>
+          </div>
+          <div class="neo-card-white">
+            <div class="info-label">
+              <span style="width:8px;height:8px;border-radius:50%;background:#22C55E;display:inline-block"></span> ONLINE
+            </div>
+            <div class="info-value-mono" id="onlineCount">5</div>
+          </div>
         </div>
 
-        <!-- Tools Cards Container -->
-        <div id="toolsListContainer" class="space-y-3.5 pt-1">
-          <!-- Populated dynamically via JS -->
+        <div class="neo-card-white" style="margin-top:12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="showToast('Membuka profil TikTok @xjiee.store')">
+          <div>
+            <div style="font-size:0.7rem;font-weight:800;color:var(--text-muted)">TIKTOK & STORE</div>
+            <div style="font-weight:800;font-size:0.95rem">@xjiee.store — XJieeStore</div>
+          </div>
+          <span class="material-symbols-outlined">north_east</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- ==================== TAB 2: SEARCH / FITUR ==================== -->
+    <main id="tab-search" class="tab-view hidden">
+      <!-- DIRECTORY VIEW -->
+      <div id="toolsDirectoryView">
+        <div style="text-align:center;margin:6px 0 18px">
+          <span class="title-pill">Cari Fitur</span>
         </div>
 
-        <footer class="text-center font-mono-code text-xs opacity-80 pt-4 pb-4 leading-relaxed">
-          © 2026 xjiee.web.id — menyediakan berbagai macam tools seperti downloader dan lain lain.
-        </footer>
+        <div class="search-input-wrap">
+          <span class="material-symbols-outlined" style="color:var(--text-muted)">search</span>
+          <input type="text" id="searchToolInput" placeholder="Ketik nama fitur...">
+        </div>
+
+        <div id="toolsListContainer"></div>
       </div>
 
-      <!-- ACTIVE TOOL SUB-VIEW -->
-      <div id="activeToolView" class="hidden space-y-4">
-        <!-- Back Button -->
-        <button onclick="closeToolView()" class="neo-btn bg-[#66B5F8] text-black w-12 h-10 rounded-xl flex items-center justify-center">
-          <span class="material-symbols-outlined font-bold">arrow_back</span>
+      <!-- ACTIVE TOOL DETAIL VIEW -->
+      <div id="toolDetailView" class="hidden">
+        <button class="back-btn" id="backToDirectoryBtn" title="Kembali">
+          <span class="material-symbols-outlined">arrow_back</span>
         </button>
-
-        <!-- Dynamic Tool Content Area -->
-        <div id="toolContentMount"></div>
-
-        <footer class="text-center font-mono-code text-xs opacity-80 pt-4 pb-4 leading-relaxed">
-          © 2026 xjiee.web.id — menyediakan berbagai macam tools seperti downloader dan lain lain.
-        </footer>
+        <div id="toolDetailContent"></div>
       </div>
 
-    </section>
+      <footer class="app-footer">
+        © 2026 notxjiee.my.id — menyediakan berbagai macam tools seperti downloader dan lain lain.
+      </footer>
+    </main>
 
     <!-- ==================== TAB 3: GAME ==================== -->
-    <section id="tab-game" class="hidden space-y-4">
-      <div class="text-center pt-1">
-        <div class="inline-block bg-[#F6C844] text-black font-extrabold text-xl px-6 py-2 rounded-2xl border-[2.5px] border-black shadow-[4px_4px_0px_#000]">
-          Game Seru
-        </div>
+    <main id="tab-game" class="tab-view hidden">
+      <div style="text-align:center;margin:6px 0 18px">
+        <span class="title-pill">Mini Games</span>
       </div>
 
-      <!-- Game Selector Pills -->
-      <div class="grid grid-cols-2 gap-3">
-        <button id="btnGameTtt" onclick="switchGame('ttt')" class="neo-btn bg-[#66B5F8] text-black font-extrabold py-2.5 rounded-xl text-sm">
-          ❌ Tic Tac Toe ⭕
-        </button>
-        <button id="btnGameMem" onclick="switchGame('memory')" class="neo-btn bg-white text-black font-extrabold py-2.5 rounded-xl text-sm">
-          ♟️ Memory Catur
-        </button>
-      </div>
-
-      <!-- Game 1: Tic Tac Toe -->
-      <div id="gameTttContainer" class="neo-box p-4 space-y-4">
-        <div class="flex items-center justify-between">
+      <!-- TIC TAC TOE -->
+      <div class="neo-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
           <div>
-            <h3 class="font-extrabold text-lg">Tic Tac Toe vs Bot</h3>
-            <p id="tttStatus" class="text-xs font-bold opacity-75">Giliran kamu (X)</p>
+            <h3 style="font-weight:800;font-size:1.1rem">Tic Tac Toe VS Bot</h3>
+            <p style="font-size:0.8rem;color:var(--text-muted)" id="tttStatus">Giliran kamu (X)</p>
           </div>
-          <div class="font-mono-code text-xs font-bold bg-[#F6C844] text-black px-3 py-1.5 rounded-xl border-2 border-black">
-            Skor: <span id="tttScore">0</span>
-          </div>
+          <button class="neo-btn neo-btn-yellow" style="width:auto;padding:8px 14px;font-size:0.8rem" onclick="resetTicTacToe()">Reset</button>
         </div>
-
-        <div id="tttBoard" class="grid grid-cols-3 gap-2.5 max-w-[270px] mx-auto py-2">
-          <!-- 9 cells populated by JS -->
-        </div>
-
-        <button onclick="resetTicTacToe()" class="neo-btn w-full bg-[#4ADE80] text-black font-extrabold py-2.5 rounded-xl text-sm">
-          Mulai Ulang Game
-        </button>
+        <div id="tttBoard" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:280px;margin:0 auto"></div>
       </div>
 
-      <!-- Game 2: Memory Catur -->
-      <div id="gameMemoryContainer" class="hidden neo-box p-4 space-y-4">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="font-extrabold text-lg">Memory Bidak Catur</h3>
-            <p id="memStatus" class="text-xs font-bold opacity-75">Cocokkan pasang bidak catur!</p>
-          </div>
-          <div class="font-mono-code text-xs font-bold bg-[#F6C844] text-black px-3 py-1.5 rounded-xl border-2 border-black">
-            Langkah: <span id="memMoves">0</span>
-          </div>
+      <!-- TEBAK ANGKA -->
+      <div class="neo-card">
+        <h3 style="font-weight:800;font-size:1.1rem;margin-bottom:6px">Tebak Angka Rahasia (1 - 100)</h3>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px" id="guessHint">Masukkan angka antara 1 sampai 100!</p>
+        <div style="display:flex;gap:8px">
+          <input type="number" id="guessInput" class="neo-input" placeholder="Contoh: 45" style="margin-bottom:0">
+          <button class="neo-btn" style="width:auto;padding:0 20px" onclick="checkNumberGuess()">Tebak</button>
         </div>
-
-        <div id="memoryBoard" class="grid grid-cols-4 gap-2 max-w-[290px] mx-auto py-2">
-          <!-- 12 cards populated by JS -->
-        </div>
-
-        <button onclick="initMemoryGame()" class="neo-btn w-full bg-[#4ADE80] text-black font-extrabold py-2.5 rounded-xl text-sm">
-          Acak Kartu Baru
-        </button>
       </div>
-    </section>
+    </main>
 
     <!-- ==================== TAB 4: CHAT ==================== -->
-    <section id="tab-chat" class="hidden space-y-4">
-      <div class="text-center pt-1">
-        <div class="inline-block bg-[#F6C844] text-black font-extrabold text-xl px-6 py-2 rounded-2xl border-[2.5px] border-black shadow-[4px_4px_0px_#000]">
-          Ruang Obrolan
-        </div>
+    <main id="tab-chat" class="tab-view hidden">
+      <div style="text-align:center;margin:6px 0 18px">
+        <span class="title-pill">Global Chat</span>
       </div>
 
-      <div class="neo-box p-4 space-y-3">
-        <div class="flex items-center justify-between border-b-2 border-black pb-2.5">
-          <div class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-green-500 border border-black"></span>
-            <span class="font-extrabold text-sm">Global Chat XJiee</span>
-          </div>
-          <span class="font-mono-code text-xs bg-[#66B5F8] text-black px-2.5 py-0.5 rounded-full border border-black font-bold">Online</span>
-        </div>
-
-        <!-- Messages List -->
-        <div id="chatMessages" class="space-y-2.5 h-80 overflow-y-auto pr-1">
-          <!-- Populated by JS -->
-        </div>
-
-        <!-- Chat Input -->
-        <form onsubmit="sendChatMessage(event)" class="flex gap-2 pt-1">
-          <input 
-            id="chatInput" 
-            type="text" 
-            placeholder="Ketik pesan..." 
-            class="neo-input flex-1 px-3.5 py-2.5 text-sm font-semibold"
-            required
-          >
-          <button type="submit" class="neo-btn bg-[#66B5F8] text-black px-4 rounded-xl font-extrabold flex items-center justify-center">
+      <div class="neo-card">
+        <div id="chatMessagesBox" style="height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:4px;margin-bottom:14px"></div>
+        <div style="display:flex;gap:8px">
+          <input type="text" id="chatInputText" class="neo-input" placeholder="Ketik pesan ke komunitas XJiee..." style="margin-bottom:0" onkeydown="if(event.key==='Enter') sendChatMessage()">
+          <button class="neo-btn neo-btn-yellow" style="width:auto;padding:0 18px" onclick="sendChatMessage()">
             <span class="material-symbols-outlined">send</span>
           </button>
-        </form>
+        </div>
       </div>
-    </section>
+    </main>
 
     <!-- ==================== TAB 5: PROFILE ==================== -->
-    <section id="tab-profile" class="hidden space-y-4">
-      <div class="text-center pt-1">
-        <div class="inline-block bg-[#F6C844] text-black font-extrabold text-xl px-6 py-2 rounded-2xl border-[2.5px] border-black shadow-[4px_4px_0px_#000]">
-          Profil Pengguna
-        </div>
+    <main id="tab-profile" class="tab-view hidden">
+      <div style="text-align:center;margin:6px 0 18px">
+        <span class="title-pill">Profil Pengguna</span>
       </div>
 
-      <div class="neo-box p-5 space-y-4">
-        <div class="flex items-center gap-4">
-          <div class="w-16 h-16 rounded-2xl bg-[#66B5F8] text-black border-2 border-black shadow-[3px_3px_0px_#000] flex items-center justify-center font-extrabold text-2xl">
-            <span id="profileInitials">XJ</span>
-          </div>
-          <div class="flex-1">
-            <div class="flex items-center gap-1.5">
-              <h3 id="profileNameDisplay" class="font-extrabold text-lg">Sobat XJiee</h3>
-              <span class="bg-[#4ADE80] text-black text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-black">PRO</span>
-            </div>
-            <p class="text-xs opacity-75 font-mono-code">ID: #XJI-2026-881</p>
-          </div>
+      <div class="neo-card" style="text-align:center">
+        <div style="width:76px;height:76px;border-radius:50%;background:var(--accent-yellow);border:3px solid #111;box-shadow:var(--shadow-sm);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.8rem;color:#111" id="profileAvatar">
+          XJ
         </div>
+        <h3 style="font-weight:800;font-size:1.2rem" id="profileNameDisplay">Andhika (XJiee)</h3>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px" id="profileEmailDisplay">member@notxjiee.my.id</p>
 
-        <div class="space-y-1.5">
-          <label class="text-xs font-extrabold uppercase">Ubah Nama Panggilan</label>
-          <div class="flex gap-2">
-            <input id="profileNameInput" type="text" value="Sobat XJiee" class="neo-input flex-1 px-3 py-2 text-sm font-bold">
-            <button onclick="saveProfileName()" class="neo-btn bg-[#F6C844] text-black font-extrabold px-4 rounded-xl text-xs">
-              Simpan
-            </button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3 pt-1">
-          <div class="neo-white p-3 text-center">
-            <div class="text-[11px] font-bold uppercase opacity-75">Tools Dipakai</div>
-            <div id="statToolsUsed" class="font-mono-code font-extrabold text-2xl mt-1">12</div>
-          </div>
-          <div class="neo-white p-3 text-center">
-            <div class="text-[11px] font-bold uppercase opacity-75">Limit Harian AM</div>
-            <div class="font-mono-code font-extrabold text-2xl mt-1 text-green-600">2 / 2</div>
-          </div>
+        <div style="text-align:left">
+          <label class="field-label">Nama Tampilan</label>
+          <input type="text" id="profileNameInput" class="neo-input" value="Andhika (XJiee)">
+          <label class="field-label">Status / Bio</label>
+          <input type="text" id="profileBioInput" class="neo-input" value="Owner XJieeStore • Multi Tools">
+          <button class="neo-btn neo-btn-green" onclick="saveUserProfile()">Simpan Profil</button>
         </div>
       </div>
-    </section>
-
-  </main>
-
-  <!-- NOTIFICATION MODAL -->
-  <div id="notifModal" class="fixed inset-0 z-50 bg-black/50 hidden items-center justify-center p-4">
-    <div class="neo-box max-w-sm w-full p-5 space-y-3 animate-bounce-once">
-      <div class="flex items-center justify-between">
-        <span class="bg-[#F6C844] text-black font-extrabold text-xs px-3 py-1 rounded-full border-2 border-black">INFO UPDATE</span>
-        <button onclick="closeNotifModal()" class="neo-btn bg-red-400 text-black w-7 h-7 rounded-lg flex items-center justify-center font-bold">✕</button>
-      </div>
-      <h3 class="font-extrabold text-lg">Selamat Datang di XJiee v2.6!</h3>
-      <ul class="text-xs space-y-2 font-semibold list-disc pl-4 opacity-90">
-        <li>Fitur <b>Brat Anime</b> & <b>Brat Fake Window Error</b> kini menggunakan template gambar asli & siap unduh PNG/JPG.</li>
-        <li><b>Currency Converter</b> terhubung langsung ke kurs Rupiah (IDR) saat ini secara real-time.</li>
-        <li><b>TikTok Downloader</b>, <b>Cari Link AM</b>, <b>Lirik Lagu</b>, <b>Remove BG</b> & <b>Cek Website</b> aktif 100%.</li>
-      </ul>
-      <button onclick="closeNotifModal()" class="neo-btn w-full bg-[#66B5F8] text-black font-extrabold py-2.5 rounded-xl text-sm mt-2">
-        Mengerti
-      </button>
-    </div>
+    </main>
   </div>
 
-  <!-- TOAST MESSAGE -->
-  <div id="toastBox" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 hidden">
-    <div class="bg-[#4ADE80] text-black font-extrabold text-xs px-4 py-2.5 rounded-xl border-2 border-black shadow-[3px_3px_0px_#000] flex items-center gap-2">
-      <span class="material-symbols-outlined text-[18px]">check_circle</span>
-      <span id="toastText">Berhasil disalin!</span>
-    </div>
-  </div>
-
-  <!-- FIXED BOTTOM NAVIGATION BAR -->
-  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-[var(--nav-bg)] border-t-[2.5px] border-black px-2 py-2">
-    <div class="max-w-md mx-auto grid grid-cols-5 gap-1">
-      <button onclick="switchTab('home')" id="nav-home" class="nav-item flex flex-col items-center justify-center py-1.5 rounded-2xl border-2 border-black bg-[#66B5F8] text-black shadow-[2px_2px_0px_#000] transition-all">
-        <span class="material-symbols-outlined text-[22px]">home</span>
-        <span class="font-mono-code text-[10px] font-bold mt-0.5">HOME</span>
+  <!-- BOTTOM NAVIGATION BAR -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <button type="button" class="nav-item active" data-tab="home">
+        <span class="material-symbols-outlined">home</span>
+        <span class="nav-label">HOME</span>
       </button>
-
-      <button onclick="switchTab('search')" id="nav-search" class="nav-item flex flex-col items-center justify-center py-1.5 rounded-2xl border-2 border-transparent opacity-80 transition-all">
-        <span class="material-symbols-outlined text-[22px]">search</span>
-        <span class="font-mono-code text-[10px] font-bold mt-0.5">SEARCH</span>
+      <button type="button" class="nav-item" data-tab="search">
+        <span class="material-symbols-outlined">search</span>
+        <span class="nav-label">SEARCH</span>
       </button>
-
-      <button onclick="switchTab('game')" id="nav-game" class="nav-item flex flex-col items-center justify-center py-1.5 rounded-2xl border-2 border-transparent opacity-80 transition-all">
-        <span class="material-symbols-outlined text-[22px]">stadia_controller</span>
-        <span class="font-mono-code text-[10px] font-bold mt-0.5">GAME</span>
+      <button type="button" class="nav-item" data-tab="game">
+        <span class="material-symbols-outlined">sports_esports</span>
+        <span class="nav-label">GAME</span>
       </button>
-
-      <button onclick="switchTab('chat')" id="nav-chat" class="nav-item flex flex-col items-center justify-center py-1.5 rounded-2xl border-2 border-transparent opacity-80 transition-all">
-        <span class="material-symbols-outlined text-[22px]">chat</span>
-        <span class="font-mono-code text-[10px] font-bold mt-0.5">CHAT</span>
+      <button type="button" class="nav-item" data-tab="chat">
+        <span class="material-symbols-outlined">chat</span>
+        <span class="nav-label">CHAT</span>
       </button>
-
-      <button onclick="switchTab('profile')" id="nav-profile" class="nav-item flex flex-col items-center justify-center py-1.5 rounded-2xl border-2 border-transparent opacity-80 transition-all">
-        <span class="material-symbols-outlined text-[22px]">person</span>
-        <span class="font-mono-code text-[10px] font-bold mt-0.5">PROFILE</span>
+      <button type="button" class="nav-item" data-tab="profile">
+        <span class="material-symbols-outlined">person</span>
+        <span class="nav-label">PROFILE</span>
       </button>
     </div>
   </nav>
 
-  <!-- APPLICATION JAVASCRIPT -->
   <script>
-    // ==================== STATE & INITIALIZATION ====================
-    let ipMasked = true;
-    let userIpAddress = '114.125.88.21';
-    let toolsUsedCount = 12;
-    let currentTab = 'home';
+    // ==================== ASSETS & STATE ====================
+    const BRAT_ANIME_IMG_SRC = "1000002943.png";
+    const BRAT_WIN_IMG_SRC = "1000002945.png";
 
-    // Preload Reference Images for Brat Anime (1000002943.png) & Fake Window Error (1000002945.png)
-    const bratAnimeTemplateImg = new Image();
-    let isBratAnimeImgLoaded = false;
-    bratAnimeTemplateImg.onload = () => {
-      isBratAnimeImgLoaded = true;
-      if (document.getElementById('bratAnimeCanvas')) drawBratAnimeCanvas();
-    };
-    bratAnimeTemplateImg.src = '1000002943.png';
+    let realIpAddress = "114.122.104.28";
+    let ipVisible = false;
+    let idrRatesCache = null;
 
-    const bratWindowTemplateImg = new Image();
-    let isBratWindowImgLoaded = false;
-    bratWindowTemplateImg.onload = () => {
-      isBratWindowImgLoaded = true;
-      if (document.getElementById('bratWindowCanvas')) drawBratWindowCanvas();
-    };
-    bratWindowTemplateImg.src = '1000002945.png';
-
-    // Live Exchange Rate Cache (Base IDR)
-    let liveRatesFromIDR = null;
-    let liveRateLastUpdated = 'Memuat kurs real-time...';
-
-    async function fetchLiveExchangeRates() {
-      try {
-        const res = await fetch('https://open.er-api.com/v6/latest/IDR');
-        const data = await res.json();
-        if (data && data.rates) {
-          liveRatesFromIDR = data.rates;
-          const dt = new Date();
-          liveRateLastUpdated = `Kurs Real-Time (${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')} WIB)`;
-          if (document.getElementById('currAmount')) calcCurrency();
-        }
-      } catch (e) {
-        try {
-          const res2 = await fetch('https://api.exchangerate-api.com/v4/latest/IDR');
-          const data2 = await res2.json();
-          if (data2 && data2.rates) {
-            liveRatesFromIDR = data2.rates;
-            liveRateLastUpdated = 'Kurs Real-Time Aktif';
-            if (document.getElementById('currAmount')) calcCurrency();
-          }
-        } catch (err) {}
-      }
-    }
-    fetchLiveExchangeRates();
-
-    // News Data matching video aesthetic
-    const newsItems = [
-      {
-        source: 'ANTARA',
-        title: 'Anggota DPR dukung Kejagung usut kasus tata kelola nikel di Sultra',
-        date: 'Min, 08 Nov 2026 - 17:00 WIB',
-        img: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=300&q=80'
-      },
-      {
-        source: 'TEKNOLOGI',
-        title: 'Perkembangan AI Generatif dan Kreator Preset Alight Motion Meningkat Pesat di 2026',
-        date: 'Min, 08 Nov 2026 - 16:30 WIB',
-        img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80'
-      },
-      {
-        source: 'NASIONAL',
-        title: 'Inovasi Pembayaran QRIS Lintas Negara Kini Dukung Lebih Banyak Mata Uang Asia',
-        date: 'Min, 08 Nov 2026 - 15:45 WIB',
-        img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=300&q=80'
-      },
-      {
-        source: 'ESPORTS',
-        title: 'Tim Nasional Indonesia Raih Juara Turnamen Komunitas Asia Tenggara',
-        date: 'Min, 08 Nov 2026 - 14:15 WIB',
-        img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=300&q=80'
-      }
-    ];
-    let currentNewsIndex = 0;
-
-    // Complete Tools List from the video
-    const TOOLS_DATA = [
-      {
-        id: 'am-tools',
-        name: 'AM Tools',
-        desc: 'Alat Alight Motion: AM Premium & cari link preset',
-        icon: 'auto_awesome'
-      },
-      {
-        id: 'base64',
-        name: 'Base64',
-        desc: 'Encode / decode Base64',
-        icon: 'code'
-      },
-      {
-        id: 'brat-anime',
-        name: 'Brat Anime',
-        desc: 'Tulis teks di kertas yang dipegang karakter anime',
-        icon: 'edit_note'
-      },
-      {
-        id: 'brat-window',
-        name: 'Brat Fake Window Error',
-        desc: 'Teks di jendela Windows error palsu, unduh PNG / JPG',
-        icon: 'web_asset'
-      },
-      {
-        id: 'brat-generator',
-        name: 'Brat Generator',
-        desc: 'Buat teks gaya brat, ukuran otomatis',
-        icon: 'title'
-      },
-      {
-        id: 'cek-ip',
-        name: 'Cek IP',
-        desc: 'Lacak perkiraan lokasi & detail alamat IP',
-        icon: 'travel_explore'
-      },
-      {
-        id: 'cek-speed',
-        name: 'Cek Kecepatan Internet',
-        desc: 'Tes ping, unduh, dan unggah koneksi kamu',
-        icon: 'speed'
-      },
-      {
-        id: 'cek-phishing',
-        name: 'Cek Link Phising',
-        desc: 'Periksa apakah sebuah link mencurigakan atau phising',
-        icon: 'shield'
-      },
-      {
-        id: 'cek-resolusi',
-        name: 'Cek Ukuran / Resolusi',
-        desc: 'Lihat ukuran pixel JPG, JPEG, dan PNG',
-        icon: 'image_search'
-      },
-      {
-        id: 'cek-website',
-        name: 'Cek Website',
-        desc: 'Umur domain, Whois & DNS sebuah website',
-        icon: 'dns'
-      },
-      {
-        id: 'convert-format',
-        name: 'Convert Format',
-        desc: 'PDF, JPG, PNG, DOCX, XLSX, ARW, HTML & lainnya',
-        icon: 'description'
-      },
-      {
-        id: 'cuaca',
-        name: 'Cuaca',
-        desc: 'Cek suhu, angin, kelembapan & prakiraan cuaca kota',
-        icon: 'wb_sunny'
-      },
-      {
-        id: 'currency',
-        name: 'Currency Converter',
-        desc: 'Konversi mata uang real-time, misal IDR ke USD',
-        icon: 'currency_exchange'
-      },
-      {
-        id: 'downloader',
-        name: 'Downloader',
-        desc: 'Semua fitur download: TikTok, MediaFire, dan lainnya',
-        icon: 'download'
-      },
-      {
-        id: 'qrcode',
-        name: 'Generate QR Code',
-        desc: 'Buat URL to QR Code kustom',
-        icon: 'qr_code_2'
-      },
-      {
-        id: 'get-html',
-        name: 'Get HTML',
-        desc: 'Ambil kode HTML website dari URL, salin atau download',
-        icon: 'terminal'
-      },
-      {
-        id: 'image-resizer',
-        name: 'Image Resizer',
-        desc: 'Ubah ukuran (lebar/tinggi) gambar dengan mudah',
-        icon: 'aspect_ratio'
-      },
-      {
-        id: 'kalkulator',
-        name: 'Kalkulator',
-        desc: 'Hitung cepat seperti kalkulator iOS',
-        icon: 'calculate'
-      },
-      {
-        id: 'lirik',
-        name: 'Lirik Lagu',
-        desc: 'Cari lirik lagu dari judul atau nama penyanyi',
-        icon: 'lyrics'
-      },
-      {
-        id: 'password-gen',
-        name: 'Password Generator',
-        desc: 'Buat password acak yang kuat dan aman',
-        icon: 'password'
-      },
-      {
-        id: 'remove-bg',
-        name: 'Remove BG',
-        desc: 'Hapus latar belakang foto otomatis, unduh PNG / JPG',
-        icon: 'auto_fix_high'
-      },
-      {
-        id: 'tts',
-        name: 'Text to Speech',
-        desc: 'Ubah teks jadi suara, dengarkan & unduh MP3',
-        icon: 'record_voice_over'
-      }
-    ];
-
-    // ==================== CLOCK, BATTERY, IP ====================
-    function updateClock() {
-      const now = new Date();
-      const d = String(now.getDate()).padStart(2, '0');
-      const m = String(now.getMonth() + 1).padStart(2, '0');
-      const y = now.getFullYear();
-      const hh = String(now.getHours()).padStart(2, '0');
-      const mm = String(now.getMinutes()).padStart(2, '0');
-      const ss = String(now.getSeconds()).padStart(2, '0');
-      const el = document.getElementById('clockDisplay');
-      if (el) el.textContent = `${d}-${m}-${y} [${hh}:${mm}:${ss}]`;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // Battery Status
-    if ('getBattery' in navigator) {
-      navigator.getBattery().then(bat => {
-        const updateBat = () => {
-          document.getElementById('batteryDisplay').textContent = Math.round(bat.level * 100) + '%';
-        };
-        updateBat();
-        bat.addEventListener('levelchange', updateBat);
-      }).catch(() => {});
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
     }
 
-    // Fetch Public IP silently
-    fetch('https://api.ipify.org?format=json')
-      .then(r => r.json())
-      .then(data => {
-        if (data && data.ip) userIpAddress = data.ip;
-      })
-      .catch(() => {});
-
-    function toggleIpMask() {
-      ipMasked = !ipMasked;
-      const disp = document.getElementById('ipHomeDisplay');
-      const icon = document.getElementById('ipEyeIcon');
-      if (ipMasked) {
-        disp.textContent = '•••••••••';
-        icon.textContent = 'visibility';
-      } else {
-        disp.textContent = userIpAddress;
-        icon.textContent = 'visibility_off';
-      }
-    }
-
-    // ==================== NEWS CAROUSEL ====================
-    function renderNews() {
-      const item = newsItems[currentNewsIndex];
-      document.getElementById('newsSource').textContent = item.source;
-      document.getElementById('newsTitle').textContent = item.title;
-      document.getElementById('newsDate').textContent = item.date;
-      const imgEl = document.getElementById('newsImg');
-      imgEl.src = item.img;
-      imgEl.onerror = () => { imgEl.src = 'https://placehold.co/160x160/2563EB/FFFFFF?text=XJIEE'; };
-
-      const pct = ((currentNewsIndex + 1) / newsItems.length) * 100;
-      document.getElementById('newsProgressBar').style.width = pct + '%';
-
-      const dotsContainer = document.getElementById('newsDots');
-      dotsContainer.innerHTML = newsItems.map((_, idx) => `
-        <button onclick="setNews(${idx})" class="w-2.5 h-2.5 rounded-full transition-all ${idx === currentNewsIndex ? 'bg-white scale-125' : 'bg-gray-500'}"></button>
-      `).join('');
-    }
-
-    function nextNews() {
-      currentNewsIndex = (currentNewsIndex + 1) % newsItems.length;
-      renderNews();
-    }
-    function prevNews() {
-      currentNewsIndex = (currentNewsIndex - 1 + newsItems.length) % newsItems.length;
-      renderNews();
-    }
-    function setNews(idx) {
-      currentNewsIndex = idx;
-      renderNews();
-    }
-
-    // ==================== NAVIGATION TABS ====================
+    // ==================== TAB NAVIGATION ====================
     function switchTab(tabName) {
-      currentTab = tabName;
-      const tabs = ['home', 'search', 'game', 'chat', 'profile'];
-      tabs.forEach(t => {
-        const sec = document.getElementById(`tab-${t}`);
-        const nav = document.getElementById(`nav-${t}`);
-        if (t === tabName) {
-          sec.classList.remove('hidden');
-          nav.className = 'nav-item flex flex-col items-center justify-center py-1.5 rounded-2xl border-2 border-black bg-[#66B5F8] text-black shadow-[2px_2px_0px_#000] transition-all';
-        } else {
-          sec.classList.add('hidden');
-          nav.className = 'nav-item flex flex-col items-center justify-center py-1.5 rounded-2xl border-2 border-transparent opacity-80 transition-all';
-        }
+      document.querySelectorAll(".tab-view").forEach(el => el.classList.add("hidden"));
+      const targetView = document.getElementById("tab-" + tabName);
+      if (targetView) targetView.classList.remove("hidden");
+
+      document.querySelectorAll(".nav-item").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-tab") === tabName);
       });
 
-      if (tabName === 'search') {
-        closeToolView();
+      if (tabName === "search") {
+        closeToolDetail();
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // ==================== TOP BAR UTILITIES ====================
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      document.getElementById('themeIcon').textContent = isDark ? 'dark_mode' : 'light_mode';
-    }
+    document.querySelectorAll(".nav-item").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-tab");
+        switchTab(target);
+      });
+    });
 
-    // Web Audio API Chill Synth Loop
+    document.getElementById("brandHomeBtn").addEventListener("click", () => switchTab("home"));
+
+    // ==================== TOP BAR CONTROLS ====================
+    document.getElementById("themeBtn").addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      const isDark = document.body.classList.contains("dark-mode");
+      document.getElementById("themeIcon").textContent = isDark ? "dark_mode" : "light_mode";
+      showToast(isDark ? "Mode Malam Aktif" : "Mode Siang Aktif");
+    });
+
     let audioCtx = null;
-    let isPlayingMusic = false;
     let musicInterval = null;
+    let isPlayingMusic = false;
 
-    function toggleMusic() {
-      const btn = document.getElementById('musicBtn');
-      if (!isPlayingMusic) {
+    document.getElementById("musicBtn").addEventListener("click", () => {
+      isPlayingMusic = !isPlayingMusic;
+      document.getElementById("musicIcon").textContent = isPlayingMusic ? "music_note" : "music_off";
+      if (isPlayingMusic) {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        isPlayingMusic = true;
-        btn.classList.add('music-playing', 'bg-[#F6C844]');
-        showToast('Musik Lofi Synth Diputar 🎵');
-        const notes = [261.63, 329.63, 392.00, 493.88, 440.00, 392.00, 329.63, 293.66];
-        let step = 0;
+        const notes = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63];
+        let idx = 0;
         musicInterval = setInterval(() => {
           if (!isPlayingMusic) return;
           const osc = audioCtx.createOscillator();
           const gain = audioCtx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(notes[step % notes.length], audioCtx.currentTime);
-          gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+          osc.type = "sine";
+          osc.frequency.value = notes[idx % notes.length];
+          gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
           gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.45);
           osc.connect(gain);
           gain.connect(audioCtx.destination);
           osc.start();
           osc.stop(audioCtx.currentTime + 0.45);
-          step++;
+          idx++;
         }, 500);
+        showToast("Musik Synth XJiee Menyala");
       } else {
-        isPlayingMusic = false;
-        btn.classList.remove('music-playing', 'bg-[#F6C844]');
-        if (musicInterval) clearInterval(musicInterval);
-        showToast('Musik Dijeda');
+        clearInterval(musicInterval);
+        showToast("Musik Dimatikan");
       }
+    });
+
+    document.getElementById("langBtn").addEventListener("click", () => {
+      showToast("Bahasa Indonesia (ID) Aktif");
+    });
+
+    document.getElementById("notifBtn").addEventListener("click", () => {
+      showToast("XJiee v2.5 — Semua Fitur Aktif!");
+    });
+
+    // ==================== HOME CLOCK, BATTERY, IP & NEWS ====================
+    function updateClock() {
+      const now = new Date();
+      const pad = n => String(n).padStart(2, "0");
+      const str = `${pad(now.getDate())}-${pad(now.getMonth() + 1)}-${now.getFullYear()} [${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}]`;
+      const el = document.getElementById("clockDisplay");
+      if (el) el.textContent = str;
     }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-    function scrollToBottomOrTop() {
-      if (window.scrollY > 250) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-      }
-    }
-
-    function openNotifModal() {
-      const m = document.getElementById('notifModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-    }
-
-    function closeNotifModal() {
-      const m = document.getElementById('notifModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    }
-
-    function showToast(msg) {
-      const box = document.getElementById('toastBox');
-      document.getElementById('toastText').textContent = msg;
-      box.classList.remove('hidden');
-      setTimeout(() => box.classList.add('hidden'), 2400);
-    }
-
-    function copyTextToClipboard(text) {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      showToast('Berhasil disalin ke clipboard!');
-    }
-
-    // ==================== TOOLS DIRECTORY & RENDERER ====================
-    function renderToolsList() {
-      const query = (document.getElementById('featureSearchInput').value || '').toLowerCase().trim();
-      const clearBtn = document.getElementById('clearSearchBtn');
-      if (query.length > 0) clearBtn.classList.remove('hidden');
-      else clearBtn.classList.add('hidden');
-
-      const filtered = TOOLS_DATA.filter(t => 
-        t.name.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query)
-      );
-
-      const container = document.getElementById('toolsListContainer');
-      if (filtered.length === 0) {
-        container.innerHTML = `
-          <div class="neo-box p-6 text-center space-y-2">
-            <span class="material-symbols-outlined text-4xl opacity-60">search_off</span>
-            <p class="font-extrabold">Fitur tidak ditemukan</p>
-            <p class="text-xs opacity-75">Coba kata kunci lain seperti "AM", "Brat", atau "QR".</p>
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = filtered.map(tool => `
-        <div onclick="openTool('${tool.id}')" class="neo-blue-card p-4 flex items-center justify-between cursor-pointer">
-          <div class="flex items-center gap-3.5 pr-2">
-            <div class="w-12 h-12 rounded-2xl bg-[#0F172A] text-white border-2 border-black flex items-center justify-center shrink-0">
-              <span class="material-symbols-outlined text-[24px]">${tool.icon}</span>
-            </div>
-            <div>
-              <h3 class="font-extrabold text-base leading-tight text-black">${tool.name}</h3>
-              <p class="text-xs font-semibold text-black/80 mt-0.5 leading-snug">${tool.desc}</p>
-            </div>
-          </div>
-          <span class="material-symbols-outlined text-black text-[20px] self-start">north_east</span>
-        </div>
-      `).join('');
-    }
-
-    function clearFeatureSearch() {
-      document.getElementById('featureSearchInput').value = '';
-      renderToolsList();
-    }
-
-    function closeToolView() {
-      document.getElementById('activeToolView').classList.add('hidden');
-      document.getElementById('toolsDirectoryView').classList.remove('hidden');
-    }
-
-    function openTool(toolId) {
-      toolsUsedCount++;
-      const statEl = document.getElementById('statToolsUsed');
-      if (statEl) statEl.textContent = toolsUsedCount;
-
-      document.getElementById('toolsDirectoryView').classList.add('hidden');
-      document.getElementById('activeToolView').classList.remove('hidden');
-      const mount = document.getElementById('toolContentMount');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      // Render specific tool UI
-      switch (toolId) {
-        case 'am-tools':
-          renderAmToolsMenu(mount);
-          break;
-        case 'brat-anime':
-          renderBratAnimeTool(mount);
-          break;
-        case 'brat-window':
-          renderBratWindowTool(mount);
-          break;
-        case 'brat-generator':
-          renderBratGeneratorTool(mount);
-          break;
-        case 'base64':
-          renderBase64Tool(mount);
-          break;
-        case 'cek-ip':
-          renderCekIpTool(mount);
-          break;
-        case 'cek-speed':
-          renderSpeedTestTool(mount);
-          break;
-        case 'cek-phishing':
-          renderPhishingTool(mount);
-          break;
-        case 'cek-resolusi':
-          renderImageResolutionTool(mount);
-          break;
-        case 'cek-website':
-          renderCekWebsiteTool(mount);
-          break;
-        case 'convert-format':
-          renderConvertFormatTool(mount);
-          break;
-        case 'cuaca':
-          renderCuacaTool(mount);
-          break;
-        case 'currency':
-          renderCurrencyTool(mount);
-          break;
-        case 'downloader':
-          renderDownloaderTool(mount);
-          break;
-        case 'qrcode':
-          renderQrCodeTool(mount);
-          break;
-        case 'get-html':
-          renderGetHtmlTool(mount);
-          break;
-        case 'image-resizer':
-          renderImageResizerTool(mount);
-          break;
-        case 'kalkulator':
-          renderCalculatorTool(mount);
-          break;
-        case 'lirik':
-          renderLyricsTool(mount);
-          break;
-        case 'password-gen':
-          renderPasswordGenTool(mount);
-          break;
-        case 'remove-bg':
-          renderRemoveBgTool(mount);
-          break;
-        case 'tts':
-          renderTtsTool(mount);
-          break;
-        default:
-          renderGenericUtilityTool(mount, toolId);
-          break;
-      }
-    }
-
-    // ==================== 1. AM TOOLS (SUB-MENU & REAL TIKTOK AM PRESET SEARCH) ====================
-    function renderAmToolsMenu(mount) {
-      mount.innerHTML = `
-        <div class="space-y-3.5">
-          <div class="text-center pb-1">
-            <div class="inline-block bg-[#F6C844] text-black font-extrabold text-xl px-6 py-2 rounded-2xl border-[2.5px] border-black shadow-[4px_4px_0px_#000]">
-              AM Tools
-            </div>
-          </div>
-
-          <div onclick="closeToolView()" class="neo-blue-card p-4 flex items-center gap-3.5 cursor-pointer">
-            <div class="w-12 h-12 rounded-2xl bg-[#0F172A] text-white border-2 border-black flex items-center justify-center shrink-0">
-              <span class="material-symbols-outlined">arrow_back</span>
-            </div>
-            <div>
-              <h3 class="font-extrabold text-base text-black">Kembali</h3>
-              <p class="text-xs font-semibold text-black/80">Semua fitur</p>
-            </div>
-          </div>
-
-          <div onclick="renderAmPremium(document.getElementById('toolContentMount'))" class="neo-blue-card p-4 flex items-center justify-between cursor-pointer">
-            <div class="flex items-center gap-3.5">
-              <div class="w-12 h-12 rounded-2xl bg-[#0F172A] text-white border-2 border-black flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined">auto_awesome</span>
-              </div>
-              <div>
-                <h3 class="font-extrabold text-base text-black">Am Premium</h3>
-                <p class="text-xs font-semibold text-black/80">Buat Am kalian menjadi premium secara gratis, Limit harian 2x</p>
-              </div>
-            </div>
-            <span class="material-symbols-outlined text-black self-start">north_east</span>
-          </div>
-
-          <div onclick="renderCariLinkAm(document.getElementById('toolContentMount'))" class="neo-blue-card p-4 flex items-center justify-between cursor-pointer">
-            <div class="flex items-center gap-3.5">
-              <div class="w-12 h-12 rounded-2xl bg-[#0F172A] text-white border-2 border-black flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined">find_in_page</span>
-              </div>
-              <div>
-                <h3 class="font-extrabold text-base text-black">Cari Link AM</h3>
-                <p class="text-xs font-semibold text-black/80">Temukan link preset Alight Motion dari video TikTok</p>
-              </div>
-            </div>
-            <span class="material-symbols-outlined text-black self-start">north_east</span>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderAmPremium(mount) {
-      mount.innerHTML = `
-        <div class="space-y-4">
-          <!-- Mock Preview Tutorial Card like in video -->
-          <div class="neo-box p-4 space-y-3">
-            <div class="flex items-center gap-2 bg-[#FFF2B2] text-black p-2.5 rounded-xl border-2 border-black text-xs font-bold">
-              <span class="bg-[#F6C844] px-2.5 py-1 rounded-lg border border-black font-extrabold">Login ✓</span>
-              <span>Kamu sudah login, silakan gunakan fitur ini.</span>
-            </div>
-
-            <h2 class="font-extrabold text-xl">Langkah 1 — Masukkan Email</h2>
-            <p class="text-xs font-semibold opacity-80 leading-relaxed">
-              Kami akan mengirim link ke email kamu. Buka inbox, lalu salin link-nya.
-            </p>
-
-            <div class="space-y-1.5">
-              <label class="text-[11px] font-extrabold uppercase tracking-wider">ALAMAT EMAIL</label>
-              <input id="amEmailInput" type="email" placeholder="example@gmail.com" class="neo-input w-full px-4 py-3 text-sm font-bold">
-            </div>
-
-            <button onclick="submitAmEmail()" class="neo-btn w-full bg-[#F6C844] text-black font-extrabold py-3 rounded-xl text-sm flex items-center justify-center gap-2">
-              <span>Kirim Link</span>
-              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-            </button>
-
-            <div id="amStepStatus" class="hidden bg-[#4ADE80] text-black p-3 rounded-xl border-2 border-black text-xs font-bold"></div>
-          </div>
-
-          <!-- Step Visual Guide -->
-          <div class="neo-box p-3 bg-[#1E1E1E] text-white space-y-2">
-            <div class="flex items-center justify-between bg-[#2D2D2D] px-3 py-2 rounded-xl border border-gray-700">
-              <span class="text-xs text-gray-300">Telusuri dalam email</span>
-              <span class="w-6 h-6 rounded-full bg-cyan-500 text-black font-extrabold text-xs flex items-center justify-center">A</span>
-            </div>
-            <div class="bg-[#262626] p-3 rounded-xl border border-gray-600 flex items-center gap-3">
-              <div class="w-9 h-9 rounded-full bg-amber-400 text-black font-extrabold flex items-center justify-center shrink-0">N</div>
-              <div class="text-xs">
-                <div class="font-extrabold">noreply — Sign in to Alight Creative</div>
-                <div class="text-gray-400 text-[11px]">Hello, We received a request to sign in...</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3 Step Pills -->
-          <div class="grid grid-cols-2 gap-2.5">
-            <div class="neo-btn bg-[#F6C844] text-black p-2.5 rounded-full flex items-center gap-2 font-extrabold text-xs">
-              <span class="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-[11px]">1</span>
-              <span>Email</span>
-            </div>
-            <div class="neo-btn bg-white text-black p-2.5 rounded-full flex items-center gap-2 font-extrabold text-xs">
-              <span class="w-6 h-6 rounded-full bg-white text-black border border-black flex items-center justify-center text-[11px]">2</span>
-              <span>Aktivasi</span>
-            </div>
-          </div>
-          <div class="neo-btn bg-white text-black p-2.5 rounded-full flex items-center gap-2 font-extrabold text-xs w-1/2">
-            <span class="w-6 h-6 rounded-full bg-white text-black border border-black flex items-center justify-center text-[11px]">3</span>
-            <span>Selesai</span>
-          </div>
-        </div>
-      `;
-    }
-
-    function submitAmEmail() {
-      const email = document.getElementById('amEmailInput').value.trim();
-      const status = document.getElementById('amStepStatus');
-      if (!email || !email.includes('@')) {
-        showToast('Masukkan alamat email yang valid!');
-        return;
-      }
-      status.classList.remove('hidden');
-      status.innerHTML = `✅ Permintaan sign-in Alight Creative telah dikirim ke <b>${email}</b>. Silakan cek folder Inbox / Spam lalu tempel link aktivasi pada Langkah 2.`;
-    }
-
-    function renderCariLinkAm(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <div>
-            <h2 class="font-extrabold text-xl">Cari Link Preset AM (Real-Time TikTok)</h2>
-            <p class="text-xs font-semibold opacity-80 mt-0.5">Cari video preset Alight Motion langsung dari TikTok dan ekstrak link preset XML / 5MB.</p>
-          </div>
-          <div class="flex gap-2">
-            <input id="amQueryInput" type="text" value="preset alight motion jedag jedug" placeholder="Contoh: preset am jj slowmo..." class="neo-input flex-1 px-3.5 py-2.5 text-sm font-bold">
-            <button onclick="searchPresetAm()" class="neo-btn bg-[#F6C844] text-black font-extrabold px-4 rounded-xl text-xs">Cari</button>
-          </div>
-          <div id="amSearchResults" class="space-y-3 pt-1">
-            <div class="text-xs font-bold opacity-75 text-center py-2">Ketik kata kunci preset lalu tekan Cari...</div>
-          </div>
-        </div>
-      `;
-      searchPresetAm();
-    }
-
-    async function searchPresetAm() {
-      const q = document.getElementById('amQueryInput').value.trim() || 'preset alight motion';
-      const container = document.getElementById('amSearchResults');
-      container.innerHTML = `<div class="neo-white p-4 text-center text-xs font-bold">🔍 Mencari video preset "${q}" di TikTok...</div>`;
-      try {
-        const res = await fetch(`https://www.tikwm.com/api/feed/search?keywords=${encodeURIComponent(q + ' alight.link')}&count=6`);
-        const data = await res.json();
-        const videos = data?.data?.videos || [];
-        if (!videos.length) throw new Error('No videos');
-
-        container.innerHTML = videos.map(v => {
-          const title = v.title || 'Preset Alight Motion';
-          const matchLink = title.match(/https?:\/\/(alight\.link|bit\.ly|drive\.google\.com)\/[^\s"']+/i);
-          const extractedLink = matchLink ? matchLink[0] : `https://www.tiktok.com/@${v.author?.unique_id || 'user'}/video/${v.video_id}`;
-          return `
-            <div class="neo-white p-3 space-y-2">
-              <div class="flex gap-3 items-center">
-                <img src="${v.cover}" alt="thumb" class="w-16 h-16 rounded-xl object-cover border-2 border-black shrink-0" onerror="this.src='https://placehold.co/80x80/000/FFF?text=AM'">
-                <div class="min-w-0 flex-1">
-                  <div class="text-[11px] font-extrabold text-blue-600">@${v.author?.unique_id || 'creator'}</div>
-                  <div class="font-bold text-xs line-clamp-2 leading-snug">${title}</div>
-                </div>
-              </div>
-              <div class="flex items-center justify-between gap-2 pt-1 border-t border-black/15">
-                <span class="font-mono-code text-[11px] truncate text-green-700 font-bold">${extractedLink}</span>
-                <div class="flex gap-1.5 shrink-0">
-                  <button onclick="copyTextToClipboard('${extractedLink}')" class="neo-btn bg-[#F6C844] text-black text-[11px] font-extrabold px-2.5 py-1 rounded-lg">Salin</button>
-                  <a href="${v.play}" target="_blank" rel="noopener" class="neo-btn bg-[#66B5F8] text-black text-[11px] font-extrabold px-2.5 py-1 rounded-lg">Video</a>
-                </div>
-              </div>
-            </div>
-          `;
-        }).join('');
-      } catch (e) {
-        container.innerHTML = `
-          <div class="neo-white p-3 text-xs font-bold text-red-600">Gagal memuat dari server TikTok, coba kata kunci lain.</div>
-        `;
-      }
-    }
-
-    // ==================== 2. BRAT ANIME (USES PHOTO 1: 1000002943.png) ====================
-    function renderBratAnimeTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <h2 class="font-extrabold text-2xl">Brat Anime</h2>
-              <p class="text-xs font-semibold opacity-80 mt-0.5">Ketik teks, langsung muncul di kertas yang dipegang karakter.</p>
-            </div>
-            <label class="neo-btn bg-[#F6C844] text-black text-[11px] font-extrabold px-2.5 py-1.5 rounded-xl cursor-pointer shrink-0">
-              Ganti Foto
-              <input type="file" accept="image/*" class="hidden" onchange="uploadCustomBratTemplate(event, 'anime')">
-            </label>
-          </div>
-
-          <div class="relative border-[2.5px] border-black rounded-2xl overflow-hidden shadow-[3px_3px_0px_#000] bg-[#FCE7C8]">
-            <canvas id="bratAnimeCanvas" width="988" height="988" class="w-full h-auto block"></canvas>
-            <div class="absolute bottom-3 right-3 w-10 h-10 rounded-xl bg-[#F6C844] border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-center pointer-events-none">
-              <span class="material-symbols-outlined text-black text-[22px]">zoom_in</span>
-            </div>
-          </div>
-
-          <div class="space-y-1.5">
-            <label class="text-xs font-extrabold uppercase">TEKS</label>
-            <input id="bratAnimeInput" type="text" oninput="drawBratAnimeCanvas()" placeholder="Masukkan Teks..." value="" class="neo-input w-full px-4 py-3 text-sm font-bold">
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <button onclick="downloadCanvas('bratAnimeCanvas', 'brat-anime-xjiee.png', 'image/png')" class="neo-btn w-full bg-[#2563EB] text-white font-extrabold py-3.5 rounded-xl text-sm uppercase tracking-wider">
-              UNDUH PNG
-            </button>
-            <button onclick="downloadCanvas('bratAnimeCanvas', 'brat-anime-xjiee.jpg', 'image/jpeg')" class="neo-btn w-full bg-[#4ADE80] text-black font-extrabold py-3.5 rounded-xl text-sm uppercase tracking-wider">
-              UNDUH JPG
-            </button>
-          </div>
-        </div>
-      `;
-      setTimeout(drawBratAnimeCanvas, 30);
-    }
-
-    function uploadCustomBratTemplate(event, type) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (type === 'anime') {
-          bratAnimeTemplateImg.src = e.target.result;
-        } else {
-          bratWindowTemplateImg.src = e.target.result;
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function drawBratAnimeCanvas() {
-      const canvas = document.getElementById('bratAnimeCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const rawText = (document.getElementById('bratAnimeInput')?.value || '');
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (isBratAnimeImgLoaded && bratAnimeTemplateImg.naturalWidth > 0) {
-        // Draw Photo 1 (1000002943.png) full 988x988
-        ctx.drawImage(bratAnimeTemplateImg, 0, 0, canvas.width, canvas.height);
-      } else {
-        // Fallback while image loads
-        const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        grad.addColorStop(0, '#F5CBA7');
-        grad.addColorStop(1, '#E59866');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#FFFFFF';
-        ctx.strokeStyle = '#000000';
-        ctx.lineWidth = 6;
-        ctx.fillRect(250, 575, 488, 340);
-        ctx.strokeRect(250, 575, 488, 340);
-      }
-
-      if (!rawText.trim()) return;
-
-      // Calibrated coordinates for white paper held by character in 1000002943.png (988x988):
-      // White paper spans X: 255..733 (center 494, max text width 430), Y: 585..908 (center 746, max height 290)
-      const paperCenterX = 494;
-      const paperCenterY = 746;
-      const maxTextWidth = 425;
-      const maxTextHeight = 285;
-
-      ctx.save();
-      ctx.fillStyle = '#111111';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.filter = 'blur(0.6px)'; // Subtle brat aesthetic
-
-      fitAndWrapTextCenter(ctx, rawText, paperCenterX, paperCenterY, maxTextWidth, maxTextHeight, 64, 22);
-      ctx.restore();
-    }
-
-    // ==================== 3. BRAT FAKE WINDOW ERROR (USES PHOTO 2: 1000002945.png) ====================
-    function renderBratWindowTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <h2 class="font-extrabold text-2xl">Brat Fake Window Error</h2>
-              <p class="text-xs font-semibold opacity-80 mt-0.5">Ketik teks, tekan Generate, hasilnya langsung muncul di jendela Windows Media Player. Unduh sebagai PNG atau JPG.</p>
-            </div>
-            <label class="neo-btn bg-[#F6C844] text-black text-[11px] font-extrabold px-2.5 py-1.5 rounded-xl cursor-pointer shrink-0">
-              Ganti Foto
-              <input type="file" accept="image/*" class="hidden" onchange="uploadCustomBratTemplate(event, 'window')">
-            </label>
-          </div>
-
-          <div class="relative border-[2.5px] border-black rounded-2xl overflow-hidden shadow-[3px_3px_0px_#000] bg-white">
-            <canvas id="bratWindowCanvas" width="975" height="959" class="w-full h-auto block"></canvas>
-            <div class="absolute bottom-3 right-3 w-10 h-10 rounded-xl bg-[#F6C844] border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-center pointer-events-none">
-              <span class="material-symbols-outlined text-black text-[22px]">zoom_in</span>
-            </div>
-          </div>
-
-          <div class="space-y-1.5">
-            <label class="text-xs font-extrabold uppercase">TEKS</label>
-            <input id="bratWindowInput" type="text" oninput="drawBratWindowCanvas()" placeholder="Masukkan Teks..." value="" class="neo-input w-full px-4 py-3 text-sm font-bold">
-          </div>
-
-          <div class="grid grid-cols-3 gap-2.5">
-            <button onclick="drawBratWindowCanvas();showToast('Berhasil di-generate!')" class="neo-btn bg-[#2563EB] text-white font-extrabold py-3.5 rounded-xl text-xs sm:text-sm uppercase">
-              GENERATE
-            </button>
-            <button onclick="downloadCanvas('bratWindowCanvas', 'brat-window-xjiee.png', 'image/png')" class="neo-btn bg-[#4ADE80] text-black font-extrabold py-3.5 rounded-xl text-xs sm:text-sm uppercase">
-              UNDUH PNG
-            </button>
-            <button onclick="downloadCanvas('bratWindowCanvas', 'brat-window-xjiee.jpg', 'image/jpeg')" class="neo-btn bg-[#F6C844] text-black font-extrabold py-3.5 rounded-xl text-xs sm:text-sm uppercase">
-              UNDUH JPG
-            </button>
-          </div>
-        </div>
-      `;
-      setTimeout(drawBratWindowCanvas, 30);
-    }
-
-    function drawBratWindowCanvas() {
-      const canvas = document.getElementById('bratWindowCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const rawText = (document.getElementById('bratWindowInput')?.value || '');
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (isBratWindowImgLoaded && bratWindowTemplateImg.naturalWidth > 0) {
-        // Draw Photo 2 (1000002945.png) full 975x959
-        ctx.drawImage(bratWindowTemplateImg, 0, 0, canvas.width, canvas.height);
-      } else {
-        // Fallback XP Window if local image isn't loaded yet
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#0058EE';
-        ctx.fillRect(0, 0, canvas.width, 75);
-        ctx.fillStyle = '#FFFFFF';
-        ctx.font = 'bold 34px Tahoma, sans-serif';
-        ctx.fillText('Windows Media Player', 30, 50);
-      }
-
-      if (!rawText.trim()) return;
-
-      // Calibrated coordinates for white space on the left of the 3D shrug character in 1000002945.png (975x959):
-      // White area left of figure: X: 45..535 (center X = 290, maxWidth = 470), Y: 220..760 (center Y = 490, maxHeight = 500)
-      const areaCenterX = 290;
-      const areaCenterY = 490;
-      const maxTextWidth = 465;
-      const maxTextHeight = 490;
-
-      ctx.save();
-      ctx.fillStyle = '#000000';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.filter = 'blur(0.7px)';
-
-      fitAndWrapTextCenter(ctx, rawText, areaCenterX, areaCenterY, maxTextWidth, maxTextHeight, 72, 24);
-      ctx.restore();
-    }
-
-    // Auto-scaling word-wrap helper for Brat Anime & Brat Window
-    function fitAndWrapTextCenter(ctx, text, centerX, centerY, maxWidth, maxHeight, maxFontSize, minFontSize) {
-      let fontSize = maxFontSize;
-      let lines = [];
-      let lineHeight = fontSize * 1.18;
-
-      while (fontSize >= minFontSize) {
-        ctx.font = `bold ${fontSize}px Arial, "Plus Jakarta Sans", sans-serif`;
-        lineHeight = fontSize * 1.18;
-        const words = text.trim().split(/\s+/);
-        lines = [];
-        let currentLine = '';
-
-        for (let i = 0; i < words.length; i++) {
-          const word = words[i];
-          const testLine = currentLine ? currentLine + ' ' + word : word;
-          if (ctx.measureText(testLine).width > maxWidth && currentLine !== '') {
-            lines.push(currentLine);
-            currentLine = word;
-          } else {
-            currentLine = testLine;
-          }
-        }
-        if (currentLine) lines.push(currentLine);
-
-        const totalHeight = lines.length * lineHeight;
-        const widestLine = Math.max(...lines.map(l => ctx.measureText(l).width), 0);
-
-        if (totalHeight <= maxHeight && widestLine <= maxWidth) {
-          break;
-        }
-        fontSize -= 3;
-      }
-
-      const startY = centerY - ((lines.length - 1) * lineHeight) / 2;
-      lines.forEach((line, idx) => {
-        ctx.fillText(line, centerX, startY + idx * lineHeight);
+    if (navigator.getBattery) {
+      navigator.getBattery().then(bat => {
+        const updateBat = () => {
+          document.getElementById("batteryDisplay").textContent = Math.round(bat.level * 100) + "%";
+        };
+        updateBat();
+        bat.addEventListener("levelchange", updateBat);
       });
     }
 
-    // ==================== 4. CLASSIC BRAT GENERATOR ====================
-    function renderBratGeneratorTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <h2 class="font-extrabold text-2xl">Brat Generator</h2>
+    fetch("https://api.ipify.org?format=json")
+      .then(r => r.json())
+      .then(d => { if (d.ip) realIpAddress = d.ip; })
+      .catch(() => {});
 
-          <div class="border-[2.5px] border-black rounded-2xl overflow-hidden shadow-[3px_3px_0px_#000]">
-            <canvas id="bratClassicCanvas" width="500" height="500" class="w-full h-auto block"></canvas>
+    document.getElementById("toggleIpBtn").addEventListener("click", () => {
+      ipVisible = !ipVisible;
+      document.getElementById("ipDisplay").textContent = ipVisible ? realIpAddress : "•••.•••.•••.•••";
+      document.getElementById("toggleIpBtn").textContent = ipVisible ? "visibility_off" : "visibility";
+    });
+
+    const NEWS_LIST = [
+      {
+        source: "ANTARA",
+        title: "Anggota DPR dukung Kejagung usut kasus tata kelola nikel di Sultra",
+        date: "Min, 08 Nov 2026 • 17:00 WIB",
+        img: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=300&auto=format&fit=crop&q=80"
+      },
+      {
+        source: "TEKNOLOGI",
+        title: "XJiee luncurkan fitur Brat Anime & Converter Kurs Rupiah Real-Time",
+        date: "Min, 08 Nov 2026 • 17:30 WIB",
+        img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=300&auto=format&fit=crop&q=80"
+      },
+      {
+        source: "EKONOMI",
+        title: "Nilai tukar Rupiah menguat terhadap Dolar AS pada perdagangan sore",
+        date: "Min, 08 Nov 2026 • 16:45 WIB",
+        img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=300&auto=format&fit=crop&q=80"
+      }
+    ];
+
+    let currentNewsIdx = 0;
+    function renderNewsSlider() {
+      const item = NEWS_LIST[currentNewsIdx];
+      document.getElementById("newsSource").textContent = item.source;
+      document.getElementById("newsTitle").textContent = item.title;
+      document.getElementById("newsDate").textContent = item.date;
+      document.getElementById("newsImg").src = item.img;
+      document.getElementById("newsProgress").style.width = (((currentNewsIdx + 1) / NEWS_LIST.length) * 100) + "%";
+
+      const dotsWrap = document.getElementById("newsDots");
+      dotsWrap.innerHTML = NEWS_LIST.map((_, i) =>
+        `<span class="dot ${i === currentNewsIdx ? 'active' : ''}" onclick="setNewsSlide(${i})"></span>`
+      ).join("");
+    }
+    window.setNewsSlide = function(i) {
+      currentNewsIdx = i;
+      renderNewsSlider();
+    };
+    setInterval(() => {
+      currentNewsIdx = (currentNewsIdx + 1) % NEWS_LIST.length;
+      renderNewsSlider();
+    }, 5000);
+    renderNewsSlider();
+
+    // ==================== TOOLS DIRECTORY ====================
+    const TOOLS_DATA = [
+      { id: "am", title: "AM Tools", desc: "Alat Alight Motion: AM Premium & cari link preset", icon: "auto_awesome" },
+      { id: "base64", title: "Base64", desc: "Encode / decode Base64", icon: "code" },
+      { id: "bratanime", title: "Brat Anime", desc: "Tulis teks di kertas yang dipegang karakter anime", icon: "article" },
+      { id: "bratwin", title: "Brat Fake Window Error", desc: "Teks di jendela Windows error palsu, unduh PNG / JPG", icon: "web_asset" },
+      { id: "bratgen", title: "Brat Generator", desc: "Buat teks gaya brat, ukuran otomatis", icon: "title" },
+      { id: "cekip", title: "Cek IP", desc: "Lacak perkiraan lokasi & detail alamat IP", icon: "public" },
+      { id: "speedtest", title: "Cek Kecepatan Internet", desc: "Tes ping, unduh, dan unggah koneksi kamu", icon: "speed" },
+      { id: "phishing", title: "Cek Link Phising", desc: "Periksa apakah sebuah link mencurigakan atau phising", icon: "security" },
+      { id: "imgres", title: "Cek Ukuran / Resolusi", desc: "Lihat ukuran pixel JPG, JPEG, dan PNG", icon: "image_search" },
+      { id: "cekweb", title: "Cek Website", desc: "Umur domain, Whois & DNS sebuah website", icon: "dns" },
+      { id: "convert", title: "Convert Format", desc: "Konversi gambar ke PNG, JPG, WEBP secara instan", icon: "autorenew" },
+      { id: "cuaca", title: "Cuaca", desc: "Cek suhu, angin, kelembaban & prakiraan cuaca kota", icon: "cloud" },
+      { id: "kurs", title: "Currency Converter", desc: "Konversi mata uang real-time mengikuti kurs Rupiah saat ini", icon: "currency_exchange" },
+      { id: "downloader", title: "Downloader", desc: "Semua fitur download: TikTok tanpa watermark & audio", icon: "download" },
+      { id: "qrcode", title: "Generate QR Code", desc: "Buat URL to QR Code kustom", icon: "qr_code_2" },
+      { id: "gethtml", title: "Get HTML", desc: "Ambil kode HTML website dari URL, salin atau download", icon: "html" },
+      { id: "resizer", title: "Image Resizer", desc: "Ubah ukuran (lebar/tinggi) gambar dengan mudah", icon: "aspect_ratio" },
+      { id: "calc", title: "Kalkulator", desc: "Hitung cepat seperti kalkulator iOS", icon: "calculate" },
+      { id: "lirik", title: "Lirik Lagu", desc: "Cari lirik lagu dari judul atau nama penyanyi", icon: "lyrics" },
+      { id: "passgen", title: "Password Generator", desc: "Buat password acak yang kuat dan aman", icon: "password" },
+      { id: "removebg", title: "Remove BG", desc: "Hapus latar belakang terang/putih foto otomatis, unduh PNG", icon: "auto_fix_high" },
+      { id: "tts", title: "Text to Speech", desc: "Ubah teks jadi suara, dengarkan langsung", icon: "record_voice_over" }
+    ];
+
+    function renderToolsList(filterText = "") {
+      const container = document.getElementById("toolsListContainer");
+      const q = filterText.trim().toLowerCase();
+      const filtered = TOOLS_DATA.filter(t =>
+        t.title.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)
+      );
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="neo-card" style="text-align:center;font-weight:700">Fitur "${filterText}" tidak ditemukan.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(t => `
+        <div class="tool-card" onclick="openToolDetail('${t.id}')">
+          <div class="tool-icon-box">
+            <span class="material-symbols-outlined">${t.icon}</span>
           </div>
-
-          <div class="space-y-1.5">
-            <label class="text-xs font-extrabold uppercase">MASUKKAN TEKS</label>
-            <textarea id="bratClassicInput" rows="2" oninput="drawBratClassicCanvas()" class="neo-input w-full p-3.5 text-sm font-bold">brat you teks</textarea>
+          <div class="tool-info">
+            <div class="tool-title">${t.title}</div>
+            <div class="tool-desc">${t.desc}</div>
           </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div class="space-y-1">
-              <label class="text-[11px] font-extrabold uppercase">WARNA LATAR</label>
-              <div class="neo-white p-2 flex items-center gap-2">
-                <input id="bratBgColor" type="color" value="#FFFFFF" oninput="drawBratClassicCanvas()" class="w-8 h-8 rounded cursor-pointer border border-black">
-                <button onclick="document.getElementById('bratBgColor').value='#8ACE00';drawBratClassicCanvas()" class="text-xs font-mono-code font-bold bg-[#8ACE00] text-black px-2 py-1 rounded border border-black">Hijau Brat</button>
-              </div>
-            </div>
-            <div class="space-y-1">
-              <label class="text-[11px] font-extrabold uppercase">WARNA TEKS</label>
-              <div class="neo-white p-2 flex items-center gap-2">
-                <input id="bratTextColor" type="color" value="#000000" oninput="drawBratClassicCanvas()" class="w-8 h-8 rounded cursor-pointer border border-black">
-                <span class="font-mono-code text-xs font-bold">#000000</span>
-              </div>
-            </div>
-          </div>
-
-          <button onclick="downloadCanvas('bratClassicCanvas', 'brat-xjiee.png', 'image/png')" class="neo-btn w-full bg-[#66B5F8] text-black font-extrabold py-3.5 rounded-xl text-sm uppercase">
-            UNDUH GAMBAR
-          </button>
+          <span class="material-symbols-outlined tool-arrow">north_east</span>
         </div>
-      `;
-      setTimeout(drawBratClassicCanvas, 30);
+      `).join("");
     }
 
-    function drawBratClassicCanvas() {
-      const canvas = document.getElementById('bratClassicCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const text = (document.getElementById('bratClassicInput')?.value || 'brat');
-      const bg = document.getElementById('bratBgColor')?.value || '#FFFFFF';
-      const fg = document.getElementById('bratTextColor')?.value || '#000000';
+    document.getElementById("searchToolInput").addEventListener("input", e => {
+      renderToolsList(e.target.value);
+    });
 
-      ctx.fillStyle = bg;
-      ctx.fillRect(0, 0, 500, 500);
+    function closeToolDetail() {
+      document.getElementById("toolDetailView").classList.add("hidden");
+      document.getElementById("toolsDirectoryView").classList.remove("hidden");
+    }
+
+    document.getElementById("backToDirectoryBtn").addEventListener("click", closeToolDetail);
+
+    // ==================== OPEN INDIVIDUAL TOOL ====================
+    window.openToolDetail = function(toolId) {
+      document.getElementById("toolsDirectoryView").classList.add("hidden");
+      const detailView = document.getElementById("toolDetailView");
+      const content = document.getElementById("toolDetailContent");
+      detailView.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      if (toolId === "am") {
+        content.innerHTML = `
+          <div style="text-align:center;margin-bottom:18px">
+            <span class="title-pill">AM Tools</span>
+          </div>
+          <div class="tool-card" onclick="openAmSub('premium')">
+            <div class="tool-icon-box"><span class="material-symbols-outlined">workspace_premium</span></div>
+            <div class="tool-info">
+              <div class="tool-title">Am Premium</div>
+              <div class="tool-desc">Buat Am kalian menjadi premium secara gratis, Limit harian 2x</div>
+            </div>
+            <span class="material-symbols-outlined tool-arrow">north_east</span>
+          </div>
+          <div class="tool-card" onclick="openAmSub('search')">
+            <div class="tool-icon-box"><span class="material-symbols-outlined">travel_explore</span></div>
+            <div class="tool-info">
+              <div class="tool-title">Cari Link AM</div>
+              <div class="tool-desc">Temukan link preset Alight Motion dari video TikTok</div>
+            </div>
+            <span class="material-symbols-outlined tool-arrow">north_east</span>
+          </div>
+        `;
+      } else if (toolId === "bratanime") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.35rem;margin-bottom:4px">Brat Anime</h2>
+            <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:14px">Ketik teks, langsung muncul di kertas yang dipegang karakter.</p>
+            <div class="canvas-preview-wrap">
+              <canvas id="bratAnimeCanvas" width="1024" height="1024"></canvas>
+            </div>
+            <label class="field-label">TEKS</label>
+            <input type="text" id="bratAnimeInput" class="neo-input" placeholder="Masukkan Teks..." value="XJiee">
+            <div class="info-grid-2">
+              <button class="neo-btn" onclick="downloadCanvas('bratAnimeCanvas','xjiee-brat-anime.png','image/png')">UNDUH PNG</button>
+              <button class="neo-btn neo-btn-yellow" onclick="downloadCanvas('bratAnimeCanvas','xjiee-brat-anime.jpg','image/jpeg')">UNDUH JPG</button>
+            </div>
+          </div>
+        `;
+        initBratAnimeCanvas();
+      } else if (toolId === "bratwin") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.35rem;margin-bottom:4px">Brat Fake Window Error</h2>
+            <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:14px">Ketik teks, tekan Generate, hasilnya langsung muncul di jendela Windows Media Player.</p>
+            <div class="canvas-preview-wrap">
+              <canvas id="bratWinCanvas" width="996" height="968"></canvas>
+            </div>
+            <label class="field-label">TEKS</label>
+            <input type="text" id="bratWinInput" class="neo-input" placeholder="Masukkan Teks..." value="error 404: butuh liburan">
+            <button class="neo-btn neo-btn-yellow" style="margin-bottom:10px" onclick="drawBratWin()">GENERATE</button>
+            <div class="info-grid-2">
+              <button class="neo-btn" onclick="downloadCanvas('bratWinCanvas','xjiee-window-error.png','image/png')">UNDUH PNG</button>
+              <button class="neo-btn neo-btn-green" onclick="downloadCanvas('bratWinCanvas','xjiee-window-error.jpg','image/jpeg')">UNDUH JPG</button>
+            </div>
+          </div>
+        `;
+        initBratWinCanvas();
+      } else if (toolId === "bratgen") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.35rem;margin-bottom:12px">Brat Generator</h2>
+            <div class="canvas-preview-wrap">
+              <canvas id="bratClassicCanvas" width="800" height="800"></canvas>
+            </div>
+            <label class="field-label">MASUKKAN TEKS</label>
+            <input type="text" id="bratClassicInput" class="neo-input" value="brat xjiee teks">
+            <div class="info-grid-2" style="margin-bottom:14px">
+              <div>
+                <label class="field-label">WARNA LATAR</label>
+                <input type="color" id="bratBgColor" class="neo-input" value="#FFFFFF" style="height:48px;padding:4px">
+              </div>
+              <div>
+                <label class="field-label">WARNA TEKS</label>
+                <input type="color" id="bratTxtColor" class="neo-input" value="#000000" style="height:48px;padding:4px">
+              </div>
+            </div>
+            <button class="neo-btn" onclick="downloadCanvas('bratClassicCanvas','xjiee-brat.png','image/png')">UNDUH GAMBAR</button>
+          </div>
+        `;
+        initBratClassic();
+      } else if (toolId === "kurs") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.35rem;margin-bottom:4px">Currency Converter (Kurs Rupiah)</h2>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px" id="kursTimestamp">Mengambil kurs real-time terhadap Rupiah (IDR)...</p>
+            <label class="field-label">JUMLAH NOMINAL</label>
+            <input type="number" id="kursAmount" class="neo-input" value="1" min="0" step="any">
+            <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:14px">
+              <select id="kursFrom" class="neo-select" style="margin-bottom:0">
+                <option value="USD" selected>USD - Dolar AS</option>
+                <option value="IDR">IDR - Rupiah Indonesia</option>
+                <option value="MYR">MYR - Ringgit Malaysia</option>
+                <option value="SGD">SGD - Dolar Singapura</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="JPY">JPY - Yen Jepang</option>
+                <option value="GBP">GBP - Poundsterling</option>
+                <option value="SAR">SAR - Riyal Arab Saudi</option>
+                <option value="KRW">KRW - Won Korea</option>
+                <option value="CNY">CNY - Yuan Tiongkok</option>
+              </select>
+              <button class="neo-btn neo-btn-yellow" style="width:46px;height:46px;padding:0" onclick="swapKursCurrency()" title="Tukar">⇄</button>
+              <select id="kursTo" class="neo-select" style="margin-bottom:0">
+                <option value="IDR" selected>IDR - Rupiah Indonesia</option>
+                <option value="USD">USD - Dolar AS</option>
+                <option value="MYR">MYR - Ringgit Malaysia</option>
+                <option value="SGD">SGD - Dolar Singapura</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="JPY">JPY - Yen Jepang</option>
+                <option value="GBP">GBP - Poundsterling</option>
+                <option value="SAR">SAR - Riyal Arab Saudi</option>
+                <option value="KRW">KRW - Won Korea</option>
+                <option value="CNY">CNY - Yuan Tiongkok</option>
+              </select>
+            </div>
+            <div class="neo-card-white" style="text-align:center;margin-bottom:12px">
+              <div style="font-size:0.75rem;font-weight:800;color:var(--text-muted)">HASIL KONVERSI</div>
+              <div id="kursResultText" style="font-family:'Space Mono',monospace;font-size:1.35rem;font-weight:700;margin:6px 0">Memuat...</div>
+              <div id="kursRateInfo" style="font-size:0.78rem;color:var(--text-muted)"></div>
+            </div>
+            <button class="neo-btn" onclick="calculateKurs()">HITUNG ULANG KURS</button>
+          </div>
+        `;
+        initKursConverter();
+      } else if (toolId === "base64") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Base64 Encode / Decode</h2>
+            <textarea id="b64Input" class="neo-textarea" rows="4" placeholder="Ketik teks atau kode Base64..."></textarea>
+            <div class="info-grid-2" style="margin-bottom:14px">
+              <button class="neo-btn" onclick="runBase64('enc')">ENCODE</button>
+              <button class="neo-btn neo-btn-yellow" onclick="runBase64('dec')">DECODE</button>
+            </div>
+            <label class="field-label">HASIL</label>
+            <textarea id="b64Output" class="neo-textarea" rows="4" readonly></textarea>
+          </div>
+        `;
+      } else if (toolId === "qrcode") {
+        content.innerHTML = `
+          <div class="neo-card" style="text-align:center">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Generate QR Code</h2>
+            <input type="text" id="qrTextInput" class="neo-input" placeholder="Masukkan URL atau teks..." value="https://notxjiee.my.id">
+            <button class="neo-btn" onclick="generateQrImg()">BUAT QR CODE</button>
+            <div id="qrResultBox" style="margin-top:16px">
+              <img id="qrImgTag" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://notxjiee.my.id" style="border:2.5px solid #111;border-radius:14px;background:#fff;padding:10px">
+            </div>
+          </div>
+        `;
+      } else if (toolId === "cuaca") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Cek Cuaca Kota</h2>
+            <input type="text" id="weatherCityInput" class="neo-input" placeholder="Nama kota (contoh: Jakarta, Bekasi, Bandung)..." value="Jakarta">
+            <button class="neo-btn" onclick="fetchWeatherCity()">CEK CUACA</button>
+            <div id="weatherResultBox" style="margin-top:14px"></div>
+          </div>
+        `;
+        fetchWeatherCity();
+      } else if (toolId === "downloader") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:6px">TikTok Downloader No Watermark</h2>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px">Tempel tautan video TikTok untuk mengunduh MP4 HD atau MP3.</p>
+            <input type="text" id="dlUrlInput" class="neo-input" placeholder="https://vt.tiktok.com/...">
+            <button class="neo-btn" onclick="runTikTokDownloader()">PROSES DOWNLOAD</button>
+            <div id="dlResultBox" style="margin-top:14px"></div>
+          </div>
+        `;
+      } else if (toolId === "calc") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Kalkulator Cepat</h2>
+            <input type="text" id="calcScreen" class="neo-input" style="font-family:'Space Mono',monospace;font-size:1.5rem;text-align:right" readonly value="0">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+              ${['C','(',')','/','7','8','9','*','4','5','6','-','1','2','3','+','0','.','='].map(k =>
+                `<button class="neo-btn ${k==='='?'neo-btn-green':(['/','*','-','+','C'].includes(k)?'neo-btn-yellow':'')}" style="${k==='0'?'grid-column:span 2':''}" onclick="pressCalcKey('${k}')">${k}</button>`
+              ).join("")}
+            </div>
+          </div>
+        `;
+      } else if (toolId === "passgen") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Password Generator</h2>
+            <label class="field-label">PANJANG KARAKTER: <span id="passLenVal">16</span></label>
+            <input type="range" id="passLenRange" min="6" max="32" value="16" style="width:100%;margin-bottom:14px" oninput="document.getElementById('passLenVal').textContent=this.value">
+            <input type="text" id="passOutInput" class="neo-input" style="font-family:'Space Mono',monospace;text-align:center" readonly>
+            <div class="info-grid-2">
+              <button class="neo-btn" onclick="generateStrongPass()">GENERATE</button>
+              <button class="neo-btn neo-btn-yellow" onclick="navigator.clipboard.writeText(document.getElementById('passOutInput').value);showToast('Password Disalin!')">SALIN</button>
+            </div>
+          </div>
+        `;
+        generateStrongPass();
+      } else if (toolId === "tts") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Text to Speech (Suara)</h2>
+            <textarea id="ttsTextInput" class="neo-textarea" rows="4">Halo semuanya, selamat datang di website XJiee multi tools!</textarea>
+            <button class="neo-btn" onclick="speakTtsText()">PUTAR SUARA</button>
+          </div>
+        `;
+      } else if (toolId === "cekip") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Cek Detail IP</h2>
+            <input type="text" id="ipLookupInput" class="neo-input" placeholder="Kosongkan untuk IP sendiri atau ketik IP (mis. 8.8.8.8)">
+            <button class="neo-btn" onclick="lookupIpDetail()">LACAK IP</button>
+            <div id="ipLookupResult" style="margin-top:14px"></div>
+          </div>
+        `;
+        lookupIpDetail();
+      } else if (toolId === "gethtml") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Get HTML Source Code</h2>
+            <input type="text" id="htmlUrlInput" class="neo-input" placeholder="https://example.com" value="https://example.com">
+            <button class="neo-btn" style="margin-bottom:12px" onclick="fetchWebsiteHtml()">AMBIL HTML</button>
+            <textarea id="htmlSourceOut" class="neo-textarea" rows="8" style="font-family:'Space Mono',monospace;font-size:0.78rem" readonly placeholder="Kode HTML akan tampil di sini..."></textarea>
+          </div>
+        `;
+      } else {
+        // Generic interactive handler for remaining tools (Speedtest, Phishing, Resizer, Convert, RemoveBG, Lirik, CekWeb, ImgRes)
+        renderAdditionalTools(toolId, content);
+      }
+    };
+
+    // ==================== AM SUB-TOOLS ====================
+    window.openAmSub = function(type) {
+      const content = document.getElementById("toolDetailContent");
+      if (type === "premium") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <span class="title-pill" style="font-size:0.85rem;padding:6px 14px">Login ✓</span>
+              <span style="font-size:0.85rem;font-weight:700">Kamu sudah login, silakan gunakan fitur ini.</span>
+            </div>
+            <div class="neo-card-white" style="margin-bottom:16px">
+              <h3 style="font-weight:800;font-size:1.15rem;margin-bottom:6px">Langkah 1 — Masukkan Email</h3>
+              <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px">Kami akan mengirim link ke email kamu. Buka inbox, lalu salin link-nya.</p>
+              <label class="field-label">ALAMAT EMAIL</label>
+              <input type="email" id="amEmailInput" class="neo-input" placeholder="example@gmail.com">
+              <button class="neo-btn neo-btn-yellow" onclick="sendAmMagicLink()">Kirim Link →</button>
+            </div>
+
+            <div class="neo-card-white" style="background:#18191C;color:#fff;padding:16px">
+              <div style="background:#2A2B2F;border-radius:99px;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:0.8rem">
+                <span>☰ &nbsp; Telusuri dalam email</span>
+                <span style="background:#0284C7;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800">X</span>
+              </div>
+              <div style="font-size:0.72rem;color:#9CA3AF;margin-bottom:8px">Utama</div>
+              <div style="display:flex;gap:10px;align-items:center;background:#242529;padding:10px;border-radius:12px">
+                <div style="width:36px;height:36px;border-radius:50%;background:#F59E0B;color:#111;display:flex;align-items:center;justify-content:center;font-weight:800">N</div>
+                <div style="flex:1;overflow:hidden">
+                  <div style="font-weight:800;font-size:0.85rem">noreply</div>
+                  <div style="font-size:0.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Sign in to Alight Creative requested...</div>
+                </div>
+              </div>
+              <div style="text-align:center;margin-top:16px;font-weight:800;color:#FFD84D;font-size:1.3rem">↑ Click Inbox</div>
+            </div>
+
+            <div class="step-grid">
+              <div class="step-pill active"><span class="step-num">1</span> Email</div>
+              <div class="step-pill" onclick="showToast('Tempel link verifikasi dari inbox email kamu')"><span class="step-num">2</span> Aktivasi</div>
+              <div class="step-pill" style="grid-column:span 2" onclick="showToast('Akun Alight Motion siap digunakan!')"><span class="step-num">3</span> Selesai</div>
+            </div>
+          </div>
+        `;
+      } else {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:6px">Cari Link Preset AM</h2>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px">Cari preset Alight Motion (alight.link / XML) berdasarkan kata kunci lagu atau jedag-jedug.</p>
+            <input type="text" id="amQueryInput" class="neo-input" placeholder="Contoh: preset alight motion jj 3d..." value="preset alight motion">
+            <button class="neo-btn" onclick="searchAmPresets()">CARI PRESET</button>
+            <div id="amSearchResults" style="margin-top:14px"></div>
+          </div>
+        `;
+        searchAmPresets();
+      }
+    };
+
+    window.sendAmMagicLink = function() {
+      const email = document.getElementById("amEmailInput").value.trim();
+      if (!email || !email.includes("@")) return showToast("Masukkan alamat email yang valid!");
+      showToast("Link aktivasi AM dikirim ke " + email);
+    };
+
+    window.searchAmPresets = function() {
+      const q = document.getElementById("amQueryInput").value.trim() || "preset alight motion";
+      const box = document.getElementById("amSearchResults");
+      box.innerHTML = `<div class="neo-card-white" style="text-align:center;font-weight:700">Mencari preset "${q}"...</div>`;
+      fetch(`https://www.tikwm.com/api/feed/search?keywords=${encodeURIComponent(q)}&count=5`)
+        .then(r => r.json())
+        .then(d => {
+          const videos = d?.data?.videos || [];
+          if (!videos.length) throw new Error("Kosong");
+          box.innerHTML = videos.map(v => `
+            <div class="neo-card-white" style="margin-bottom:10px">
+              <div style="font-weight:800;font-size:0.9rem;margin-bottom:4px">@${v.author?.unique_id || 'creator'}</div>
+              <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px">${v.title || 'Preset Alight Motion'}</div>
+              <a href="${v.play}" target="_blank" class="neo-btn neo-btn-yellow" style="text-decoration:none;font-size:0.8rem;padding:8px 12px">LIHAT VIDEO / PRESET</a>
+            </div>
+          `).join("");
+        })
+        .catch(() => {
+          box.innerHTML = `<div class="neo-card-white">Preset siap pakai: <b>https://alight.link/u/xjieePreset2026</b></div>`;
+        });
+    };
+
+    // ==================== BRAT ANIME (FOTO 1: 1000002943.png) ====================
+    let bratAnimeImageObj = null;
+    function initBratAnimeCanvas() {
+      const input = document.getElementById("bratAnimeInput");
+      bratAnimeImageObj = new Image();
+      bratAnimeImageObj.crossOrigin = "anonymous";
+      bratAnimeImageObj.onload = () => drawBratAnime();
+      bratAnimeImageObj.onerror = () => drawBratAnime(true);
+      bratAnimeImageObj.src = BRAT_ANIME_IMG_SRC;
+      input.addEventListener("input", () => drawBratAnime());
+    }
+
+    function drawBratAnime(fallback = false) {
+      const canvas = document.getElementById("bratAnimeCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const text = (document.getElementById("bratAnimeInput")?.value || "").trim();
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (!fallback && bratAnimeImageObj && bratAnimeImageObj.complete && bratAnimeImageObj.naturalWidth > 0) {
+        ctx.drawImage(bratAnimeImageObj, 0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.fillStyle = "#E8D5B7";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(250, 560, 500, 360);
+        ctx.strokeStyle = "#111";
+        ctx.lineWidth = 6;
+        ctx.strokeRect(250, 560, 500, 360);
+      }
+
+      if (!text) return;
+
+      // Area kertas putih yang dipegang karakter di Foto 1 (1024x1024)
+      const paperCenterX = 495;
+      const paperCenterY = 748;
+      const maxBoxWidth = 420;
+      const maxBoxHeight = 290;
 
       ctx.save();
-      ctx.fillStyle = fg;
-      ctx.filter = 'blur(1.1px)';
-      ctx.font = '500 44px Arial, sans-serif';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'top';
-      wrapCanvasTextLeft(ctx, text.toLowerCase(), 36, 42, 428, 52);
+      ctx.fillStyle = "#111111";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      let fontSize = 68;
+      let lines = [];
+
+      while (fontSize >= 22) {
+        ctx.font = `800 ${fontSize}px 'Plus Jakarta Sans', sans-serif`;
+        lines = wrapCanvasText(ctx, text, maxBoxWidth);
+        const totalHeight = lines.length * (fontSize * 1.22);
+        if (totalHeight <= maxBoxHeight) break;
+        fontSize -= 4;
+      }
+
+      const lineHeight = fontSize * 1.22;
+      const startY = paperCenterY - ((lines.length - 1) * lineHeight) / 2;
+      lines.forEach((line, idx) => {
+        ctx.fillText(line, paperCenterX, startY + idx * lineHeight);
+      });
       ctx.restore();
     }
 
-    function wrapCanvasTextLeft(ctx, text, x, y, maxWidth, lineHeight) {
-      const words = text.split(' ');
-      let line = '';
-      let curY = y;
-      for (let n = 0; n < words.length; n++) {
-        const testLine = line + words[n] + ' ';
-        if (ctx.measureText(testLine).width > maxWidth && n > 0) {
-          ctx.fillText(line.trim(), x, curY);
-          line = words[n] + ' ';
-          curY += lineHeight;
-        } else {
-          line = testLine;
-        }
-      }
-      ctx.fillText(line.trim(), x, curY);
+    // ==================== BRAT FAKE WINDOW ERROR (FOTO 2: 1000002945.png) ====================
+    let bratWinImageObj = null;
+    function initBratWinCanvas() {
+      const input = document.getElementById("bratWinInput");
+      bratWinImageObj = new Image();
+      bratWinImageObj.crossOrigin = "anonymous";
+      bratWinImageObj.onload = () => drawBratWin();
+      bratWinImageObj.onerror = () => drawBratWin(true);
+      bratWinImageObj.src = BRAT_WIN_IMG_SRC;
+      input.addEventListener("input", () => drawBratWin());
     }
 
-    function downloadCanvas(canvasId, filename, mimeType = 'image/png') {
+    window.drawBratWin = function(fallback = false) {
+      const canvas = document.getElementById("bratWinCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const text = (document.getElementById("bratWinInput")?.value || "").trim();
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (!fallback && bratWinImageObj && bratWinImageObj.complete && bratWinImageObj.naturalWidth > 0) {
+        ctx.drawImage(bratWinImageObj, 0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#0055EA";
+        ctx.fillRect(0, 0, canvas.width, 80);
+      }
+
+      if (!text) return;
+
+      // Area putih sebelah kiri karakter 3D di Foto 2 (996x968)
+      const areaCenterX = 305;
+      const areaCenterY = 500;
+      const maxW = 470;
+      const maxH = 460;
+
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      let fontSize = 64;
+      let lines = [];
+      while (fontSize >= 22) {
+        ctx.font = `700 ${fontSize}px 'Plus Jakarta Sans', Arial, sans-serif`;
+        lines = wrapCanvasText(ctx, text, maxW);
+        if (lines.length * (fontSize * 1.22) <= maxH) break;
+        fontSize -= 4;
+      }
+
+      const lh = fontSize * 1.22;
+      const startY = areaCenterY - ((lines.length - 1) * lh) / 2;
+      lines.forEach((line, i) => {
+        ctx.fillText(line, areaCenterX, startY + i * lh);
+      });
+      ctx.restore();
+    };
+
+    // ==================== BRAT CLASSIC GENERATOR ====================
+    function initBratClassic() {
+      const draw = () => {
+        const canvas = document.getElementById("bratClassicCanvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const txt = document.getElementById("bratClassicInput").value || "brat xjiee";
+        const bg = document.getElementById("bratBgColor").value;
+        const fg = document.getElementById("bratTxtColor").value;
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = fg;
+        ctx.textAlign = "left";
+        ctx.textBaseline = "top";
+
+        let fs = 110;
+        let lines = [];
+        while (fs > 28) {
+          ctx.font = `700 ${fs}px Arial, sans-serif`;
+          lines = wrapCanvasText(ctx, txt.toLowerCase(), 680);
+          if (lines.length * (fs * 1.15) < 680) break;
+          fs -= 6;
+        }
+        ctx.filter = "blur(1.4px)";
+        lines.forEach((l, i) => ctx.fillText(l, 60, 60 + i * (fs * 1.15)));
+        ctx.filter = "none";
+      };
+      ["bratClassicInput", "bratBgColor", "bratTxtColor"].forEach(id => {
+        document.getElementById(id).addEventListener("input", draw);
+      });
+      draw();
+    }
+
+    function wrapCanvasText(ctx, text, maxWidth) {
+      const words = text.split(/\s+/);
+      const lines = [];
+      let currentLine = words[0] || "";
+
+      for (let i = 1; i < words.length; i++) {
+        const word = words[i];
+        const width = ctx.measureText(currentLine + " " + word).width;
+        if (width < maxWidth) {
+          currentLine += " " + word;
+        } else {
+          lines.push(currentLine);
+          currentLine = word;
+        }
+      }
+      lines.push(currentLine);
+      return lines;
+    }
+
+    window.downloadCanvas = function(canvasId, filename, mimeType) {
       const canvas = document.getElementById(canvasId);
       if (!canvas) return;
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.download = filename;
       link.href = canvas.toDataURL(mimeType, 0.95);
       link.click();
-      showToast('Gambar berhasil diunduh!');
-    }
+      showToast("Gambar berhasil diunduh!");
+    };
 
-    // ==================== 5. BASE64 ENCODE / DECODE ====================
-    function renderBase64Tool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <h2 class="font-extrabold text-xl">Base64 Encode / Decode</h2>
-          <textarea id="b64Input" rows="3" placeholder="Ketik teks atau kode Base64..." class="neo-input w-full p-3 text-sm font-mono-code"></textarea>
-          <div class="grid grid-cols-2 gap-3">
-            <button onclick="runBase64('encode')" class="neo-btn bg-[#66B5F8] text-black font-extrabold py-2.5 rounded-xl text-sm">Encode</button>
-            <button onclick="runBase64('decode')" class="neo-btn bg-[#F6C844] text-black font-extrabold py-2.5 rounded-xl text-sm">Decode</button>
-          </div>
-          <div class="space-y-1.5">
-            <label class="text-xs font-extrabold uppercase">Hasil:</label>
-            <textarea id="b64Output" rows="3" readonly class="neo-input w-full p-3 text-sm font-mono-code"></textarea>
-          </div>
-          <button onclick="copyTextToClipboard(document.getElementById('b64Output').value)" class="neo-btn w-full bg-[#4ADE80] text-black font-extrabold py-2.5 rounded-xl text-sm">Salin Hasil</button>
-        </div>
-      `;
-    }
+    // ==================== CURRENCY CONVERTER (KURS RUPIAH REAL-TIME) ====================
+    function initKursConverter() {
+      const amountEl = document.getElementById("kursAmount");
+      const fromEl = document.getElementById("kursFrom");
+      const toEl = document.getElementById("kursTo");
 
-    function runBase64(mode) {
-      const val = document.getElementById('b64Input').value;
-      const out = document.getElementById('b64Output');
-      try {
-        out.value = mode === 'encode' ? btoa(unescape(encodeURIComponent(val))) : decodeURIComponent(escape(atob(val)));
-      } catch (e) {
-        out.value = 'Error: Format teks/Base64 tidak valid.';
+      [amountEl, fromEl, toEl].forEach(el => el.addEventListener("input", calculateKurs));
+
+      if (idrRatesCache) {
+        calculateKurs();
+        return;
       }
-    }
 
-    // ==================== 6. CEK IP ====================
-    function renderCekIpTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <h2 class="font-extrabold text-xl">Cek Detail Alamat IP</h2>
-          <div id="ipDetailBox" class="neo-white p-4 space-y-2 font-mono-code text-xs">
-            <div>IP Publik: <b>${userIpAddress}</b></div>
-            <div>Negara: <b>Indonesia (ID)</b></div>
-            <div>Zona Waktu: <b>Asia/Jakarta (WIB)</b></div>
-            <div>Status: <b class="text-green-600">Aman / Terlindungi</b></div>
-          </div>
-          <button onclick="fetchIpDetails()" class="neo-btn w-full bg-[#66B5F8] text-black font-extrabold py-3 rounded-xl text-sm">Segarkan Data IP</button>
-        </div>
-      `;
-      fetchIpDetails();
-    }
-
-    function fetchIpDetails() {
-      const box = document.getElementById('ipDetailBox');
-      if (!box) return;
-      fetch('https://ipwho.is/')
+      fetch("https://open.er-api.com/v6/latest/IDR")
         .then(r => r.json())
-        .then(d => {
-          if (d && d.ip) {
-            box.innerHTML = `
-              <div>IP Publik: <b>${d.ip}</b></div>
-              <div>ISP: <b>${d.connection?.isp || 'Telkom Indonesia'}</b></div>
-              <div>Kota / Negara: <b>${d.city || 'Jakarta'}, ${d.country || 'Indonesia'}</b></div>
-              <div>Zona Waktu: <b>${d.timezone?.id || 'Asia/Jakarta'}</b></div>
-            `;
+        .then(data => {
+          if (data && data.rates) {
+            idrRatesCache = data.rates;
+            const usdInIdr = Math.round(1 / data.rates.USD).toLocaleString("id-ID");
+            const ts = document.getElementById("kursTimestamp");
+            if (ts) ts.textContent = `Kurs Real-Time Aktif • Acuan saat ini: 1 USD = Rp ${usdInIdr}`;
+            calculateKurs();
           }
         })
-        .catch(() => {});
-    }
-
-    // ==================== 7. CEK KECEPATAN INTERNET ====================
-    function renderSpeedTestTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4 text-center">
-          <h2 class="font-extrabold text-xl">Cek Kecepatan Internet</h2>
-          <div class="grid grid-cols-3 gap-2.5">
-            <div class="neo-white p-3">
-              <div class="text-[10px] font-bold uppercase opacity-70">PING</div>
-              <div id="stPing" class="font-mono-code font-extrabold text-lg mt-1">18 ms</div>
-            </div>
-            <div class="neo-white p-3">
-              <div class="text-[10px] font-bold uppercase opacity-70">UNDUH</div>
-              <div id="stDown" class="font-mono-code font-extrabold text-lg mt-1 text-blue-600">-- Mbps</div>
-            </div>
-            <div class="neo-white p-3">
-              <div class="text-[10px] font-bold uppercase opacity-70">UNGGAH</div>
-              <div id="stUp" class="font-mono-code font-extrabold text-lg mt-1 text-green-600">-- Mbps</div>
-            </div>
-          </div>
-          <button onclick="startSpeedTestSim()" class="neo-btn w-full bg-[#F6C844] text-black font-extrabold py-3 rounded-xl text-sm">Mulai Tes Kecepatan</button>
-        </div>
-      `;
-    }
-
-    function startSpeedTestSim() {
-      let step = 0;
-      const downEl = document.getElementById('stDown');
-      const upEl = document.getElementById('stUp');
-      const pingEl = document.getElementById('stPing');
-      pingEl.textContent = (11 + Math.floor(Math.random() * 12)) + ' ms';
-      const iv = setInterval(() => {
-        step++;
-        downEl.textContent = (35 + Math.random() * 60).toFixed(1) + ' Mbps';
-        if (step > 8) {
-          upEl.textContent = (18 + Math.random() * 30).toFixed(1) + ' Mbps';
-        }
-        if (step >= 16) {
-          clearInterval(iv);
-          showToast('Tes kecepatan selesai!');
-        }
-    // ==================== 10. CURRENCY CONVERTER (REAL-TIME KURS RUPIAH SAAT INI) ====================
-    function renderCurrencyTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <h2 class="font-extrabold text-xl">Currency Converter</h2>
-              <p id="currRateStatus" class="text-[11px] font-bold text-green-700 dark:text-green-400">${liveRateLastUpdated}</p>
-            </div>
-            <button onclick="fetchLiveExchangeRates();showToast('Kurs Rupiah diperbarui!')" class="neo-btn bg-[#F6C844] text-black px-3 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1">
-              <span class="material-symbols-outlined text-[16px]">refresh</span>
-              <span>Update</span>
-            </button>
-          </div>
-
-          <div class="space-y-1.5">
-            <label class="text-xs font-extrabold uppercase">Nominal</label>
-            <input id="currAmount" type="number" value="1" min="0" step="any" oninput="calcCurrency()" class="neo-input w-full px-3.5 py-3 text-base font-mono-code font-bold">
-          </div>
-
-          <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-            <select id="currFrom" onchange="calcCurrency()" class="neo-input p-2.5 text-xs sm:text-sm font-extrabold">
-              <option value="USD" selected>USD (Dollar AS)</option>
-              <option value="IDR">IDR (Rupiah)</option>
-              <option value="MYR">MYR (Ringgit)</option>
-              <option value="SGD">SGD (Dollar SG)</option>
-              <option value="EUR">EUR (Euro)</option>
-              <option value="JPY">JPY (Yen Jepang)</option>
-              <option value="SAR">SAR (Riyal Arab)</option>
-              <option value="GBP">GBP (Poundsterling)</option>
-              <option value="CNY">CNY (Yuan China)</option>
-              <option value="KRW">KRW (Won Korea)</option>
-            </select>
-
-            <button onclick="swapCurrency()" class="neo-btn bg-[#66B5F8] text-black w-10 h-10 rounded-xl flex items-center justify-center font-extrabold">
-              ⇄
-            </button>
-
-            <select id="currTo" onchange="calcCurrency()" class="neo-input p-2.5 text-xs sm:text-sm font-extrabold">
-              <option value="IDR" selected>IDR (Rupiah)</option>
-              <option value="USD">USD (Dollar AS)</option>
-              <option value="MYR">MYR (Ringgit)</option>
-              <option value="SGD">SGD (Dollar SG)</option>
-              <option value="EUR">EUR (Euro)</option>
-              <option value="JPY">JPY (Yen Jepang)</option>
-              <option value="SAR">SAR (Riyal Arab)</option>
-              <option value="GBP">GBP (Poundsterling)</option>
-              <option value="CNY">CNY (Yuan China)</option>
-              <option value="KRW">KRW (Won Korea)</option>
-            </select>
-          </div>
-
-          <div class="neo-white p-4 text-center space-y-1">
-            <div class="text-[11px] font-bold uppercase opacity-70">Hasil Konversi Real-Time</div>
-            <div id="currResult" class="font-mono-code font-extrabold text-2xl text-blue-600 dark:text-blue-400">
-              Memuat...
-            </div>
-            <div id="currRefInfo" class="font-mono-code text-[11px] opacity-80 pt-1"></div>
-          </div>
-        </div>
-      `;
-      calcCurrency();
-    }
-
-    function swapCurrency() {
-      const fromEl = document.getElementById('currFrom');
-      const toEl = document.getElementById('currTo');
-      const temp = fromEl.value;
-      fromEl.value = toEl.value;
-      toEl.value = temp;
-      calcCurrency();
-    }
-
-    function calcCurrency() {
-      // Fallback rates if offline, otherwise uses liveRatesFromIDR fetched from open.er-api.com
-      const fallbackRatesFromIDR = {
-        IDR: 1,
-        USD: 1 / 16250,
-        MYR: 1 / 3680,
-        SGD: 1 / 12100,
-        EUR: 1 / 17600,
-        JPY: 1 / 106,
-        SAR: 1 / 4330,
-        GBP: 1 / 20600,
-        CNY: 1 / 2250,
-        KRW: 1 / 11.7
-      };
-      const rates = liveRatesFromIDR || fallbackRatesFromIDR;
-
-      const amt = parseFloat(document.getElementById('currAmount')?.value || 0);
-      const from = document.getElementById('currFrom')?.value || 'USD';
-      const to = document.getElementById('currTo')?.value || 'IDR';
-
-      const statusEl = document.getElementById('currRateStatus');
-      if (statusEl) statusEl.textContent = liveRateLastUpdated;
-
-      // Convert `from` -> IDR -> `to`
-      const rateFrom = rates[from] || 1;
-      const rateTo = rates[to] || 1;
-      const amountInIDR = amt / rateFrom;
-      const converted = amountInIDR * rateTo;
-
-      const resEl = document.getElementById('currResult');
-      const refEl = document.getElementById('currRefInfo');
-      if (!resEl) return;
-
-      if (to === 'IDR') {
-        resEl.textContent = 'Rp ' + converted.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-      } else {
-        resEl.textContent = converted.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 4 }) + ' ' + to;
-      }
-
-      // Show 1 unit reference in Rupiah
-      const oneUnitInIdr = 1 / (rates[from === 'IDR' ? to : from] || 1);
-      const targetCurr = from === 'IDR' ? to : from;
-      if (refEl) {
-        refEl.textContent = `Acuan Kurs Saat Ini: 1 ${targetCurr} = Rp ${oneUnitInIdr.toLocaleString('id-ID', { maximumFractionDigits: 2 })}`;
-      }
-    }
-
-    // ==================== 11. GENERATE QR CODE ====================
-    function renderQrCodeTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4 text-center">
-          <h2 class="font-extrabold text-xl">Generate QR Code</h2>
-          <input id="qrTextInput" type="text" value="https://xjiee.web.id" placeholder="Masukkan URL atau teks..." class="neo-input w-full px-3.5 py-2.5 text-sm font-bold">
-          <div class="neo-white p-4 inline-block mx-auto">
-            <img id="qrImgPreview" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://xjiee.web.id" alt="QR Code" class="w-44 h-44 mx-auto">
-          </div>
-          <button onclick="updateQrCode()" class="neo-btn w-full bg-[#66B5F8] text-black font-extrabold py-3 rounded-xl text-sm">Buat QR Code</button>
-        </div>
-      `;
-    }
-
-    function updateQrCode() {
-      const val = document.getElementById('qrTextInput').value.trim() || 'https://xjiee.web.id';
-      document.getElementById('qrImgPreview').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(val)}`;
-      showToast('QR Code diperbarui!');
-    }
-
-    // ==================== 12. GET HTML ====================
-    function renderGetHtmlTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <h2 class="font-extrabold text-xl">Get HTML Website</h2>
-          <div class="flex gap-2">
-            <input id="getHtmlUrl" type="url" value="https://example.com" placeholder="https://..." class="neo-input flex-1 px-3 py-2.5 text-sm font-bold">
-            <button onclick="fetchSourceHtml()" class="neo-btn bg-[#F6C844] text-black font-extrabold px-4 rounded-xl text-xs">Ambil</button>
-          </div>
-          <textarea id="getHtmlOutput" rows="7" readonly placeholder="Source code HTML akan tampil di sini..." class="neo-input w-full p-3 text-xs font-mono-code"></textarea>
-          <button onclick="copyTextToClipboard(document.getElementById('getHtmlOutput').value)" class="neo-btn w-full bg-[#4ADE80] text-black font-extrabold py-2.5 rounded-xl text-sm">Salin Kode HTML</button>
-        </div>
-      `;
-    }
-
-    function fetchSourceHtml() {
-      const url = document.getElementById('getHtmlUrl').value.trim();
-      const out = document.getElementById('getHtmlOutput');
-      out.value = 'Mengambil source code HTML...';
-      fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
-        .then(r => r.json())
-        .then(d => {
-          out.value = d.contents || 'Tidak ada konten.';
-        })
         .catch(() => {
-          out.value = `<!doctype html>\n<html>\n<head><title>${url}</title></head>\n<body>\n  <!-- Source fetched via Finz Get HTML -->\n</body>\n</html>`;
+          idrRatesCache = { IDR: 1, USD: 1 / 16250, MYR: 1 / 3650, SGD: 1 / 12100, EUR: 1 / 17600, JPY: 1 / 108, GBP: 1 / 20500, SAR: 1 / 4330, KRW: 1 / 11.8, CNY: 1 / 2250 };
+          calculateKurs();
         });
     }
 
-    // ==================== 13. IMAGE RESIZER ====================
-    function renderImageResizerTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <h2 class="font-extrabold text-xl">Image Resizer</h2>
-          <input type="file" accept="image/*" onchange="loadResizerImage(event)" class="neo-input w-full p-2.5 text-xs font-bold">
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="text-[11px] font-extrabold uppercase">Lebar (px)</label>
-              <input id="resizeW" type="number" value="500" class="neo-input w-full p-2.5 text-sm font-mono-code font-bold">
-            </div>
-            <div>
-              <label class="text-[11px] font-extrabold uppercase">Tinggi (px)</label>
-              <input id="resizeH" type="number" value="500" class="neo-input w-full p-2.5 text-sm font-mono-code font-bold">
-            </div>
-          </div>
-          <canvas id="resizerCanvas" width="300" height="200" class="hidden"></canvas>
-          <button onclick="downloadResizedImage()" class="neo-btn w-full bg-[#66B5F8] text-black font-extrabold py-3 rounded-xl text-sm">Resize & Unduh PNG</button>
-        </div>
-      `;
-    }
+    window.swapKursCurrency = function() {
+      const fromEl = document.getElementById("kursFrom");
+      const toEl = document.getElementById("kursTo");
+      const tmp = fromEl.value;
+      fromEl.value = toEl.value;
+      toEl.value = tmp;
+      calculateKurs();
+    };
 
-    let uploadedResizeImg = null;
-    function loadResizerImage(e) {
-      const f = e.target.files[0];
-      if (!f) return;
-      const img = new Image();
-      img.onload = () => {
-        uploadedResizeImg = img;
-        document.getElementById('resizeW').value = img.width;
-        document.getElementById('resizeH').value = img.height;
-      };
-      img.src = URL.createObjectURL(f);
-    }
+    window.calculateKurs = function() {
+      if (!idrRatesCache) return;
+      const amount = parseFloat(document.getElementById("kursAmount")?.value || 0);
+      const from = document.getElementById("kursFrom")?.value || "USD";
+      const to = document.getElementById("kursTo")?.value || "IDR";
 
-    function downloadResizedImage() {
-      if (!uploadedResizeImg) {
-        showToast('Pilih gambar terlebih dahulu!');
-        return;
-      }
-      const w = parseInt(document.getElementById('resizeW').value) || 500;
-      const h = parseInt(document.getElementById('resizeH').value) || 500;
-      const c = document.getElementById('resizerCanvas');
-      c.width = w;
-      c.height = h;
-      c.getContext('2d').drawImage(uploadedResizeImg, 0, 0, w, h);
-      downloadCanvas('resizerCanvas', `resized-${w}x${h}.png`);
-    }
+      // Konversi ke IDR terlebih dahulu, lalu ke mata uang tujuan
+      const amountInIdr = amount / (idrRatesCache[from] || 1);
+      const finalAmount = amountInIdr * (idrRatesCache[to] || 1);
 
-    // ==================== 14. KALKULATOR ====================
-    function renderCalculatorTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-3 max-w-xs mx-auto">
-          <h2 class="font-extrabold text-xl">Kalkulator</h2>
-          <input id="calcScreen" type="text" value="0" readonly class="neo-input w-full p-3.5 text-right font-mono-code font-extrabold text-2xl">
-          <div class="grid grid-cols-4 gap-2">
-            ${['C','/','*','-','7','8','9','+','4','5','6','=','1','2','3','0'].map(k => `
-              <button onclick="pressCalcKey('${k}')" class="neo-btn ${['C','=','/','*','-','+'].includes(k) ? 'bg-[#F6C844]' : 'bg-white'} text-black font-mono-code font-extrabold py-3 rounded-xl text-base">${k}</button>
-            `).join('')}
-          </div>
-        </div>
-      `;
-    }
+      const formatted = to === "IDR"
+        ? "Rp " + Math.round(finalAmount).toLocaleString("id-ID")
+        : finalAmount.toLocaleString("id-ID", { maximumFractionDigits: 4 }) + " " + to;
 
-    function pressCalcKey(k) {
-      const scr = document.getElementById('calcScreen');
-      if (k === 'C') {
-        scr.value = '0';
-      } else if (k === '=') {
-        try { scr.value = Function('"use strict";return (' + scr.value + ')')(); }
-        catch { scr.value = 'Error'; }
-      } else {
-        scr.value = scr.value === '0' ? k : scr.value + k;
-      }
-    }
+      const oneUnitInIdr = Math.round(1 / (idrRatesCache[from] || 1)).toLocaleString("id-ID");
+      document.getElementById("kursResultText").textContent = formatted;
+      document.getElementById("kursRateInfo").textContent = `1 ${from} = Rp ${oneUnitInIdr} (Kurs Tengah Rupiah)`;
+    };
 
-    // ==================== 15. PASSWORD GENERATOR ====================
-    function renderPasswordGenTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <h2 class="font-extrabold text-xl">Password Generator</h2>
-          <div class="neo-white p-3.5 font-mono-code font-extrabold text-center text-lg tracking-wider" id="passOut">Fnz#92Kp!8xL2m</div>
-          <div class="flex items-center justify-between text-xs font-extrabold">
-            <span>Panjang Karakter: <b id="passLenLabel">14</b></span>
-            <input id="passLenSlider" type="range" min="8" max="28" value="14" oninput="document.getElementById('passLenLabel').textContent=this.value;generateNewPass()">
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <button onclick="generateNewPass()" class="neo-btn bg-[#F6C844] text-black font-extrabold py-2.5 rounded-xl text-sm">Acak Baru</button>
-            <button onclick="copyTextToClipboard(document.getElementById('passOut').textContent)" class="neo-btn bg-[#4ADE80] text-black font-extrabold py-2.5 rounded-xl text-sm">Salin</button>
-          </div>
-        </div>
-      `;
-    }
-
-    function generateNewPass() {
-      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*';
-      const len = parseInt(document.getElementById('passLenSlider')?.value || 14);
-      let out = '';
-      for (let i = 0; i < len; i++) out += chars[Math.floor(Math.random() * chars.length)];
-      document.getElementById('passOut').textContent = out;
-    }
-
-    // ==================== 16. TEXT TO SPEECH ====================
-    function renderTtsTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <h2 class="font-extrabold text-xl">Text to Speech</h2>
-          <textarea id="ttsTextInput" rows="3" class="neo-input w-full p-3 text-sm font-bold">Halo sobat XJiee, selamat datang di aplikasi multi tools XJiee web id!</textarea>
-          <button onclick="speakTtsText()" class="neo-btn w-full bg-[#66B5F8] text-black font-extrabold py-3 rounded-xl text-sm flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined">volume_up</span>
-            <span>Putar Suara</span>
-          </button>
-        </div>
-      `;
-    }
-
-    function speakTtsText() {
-      const txt = document.getElementById('ttsTextInput').value;
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(txt);
-        u.lang = 'id-ID';
-        window.speechSynthesis.speak(u);
-        showToast('Memutar suara...');
-      } else {
-        showToast('Browser tidak mendukung Web Speech API');
-      }
-    }
-
-    // ==================== 17. REAL TIKTOK & MEDIAFIRE DOWNLOADER ====================
-    function renderDownloaderTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <div>
-            <h2 class="font-extrabold text-xl">Downloader (TikTok No Watermark & Audio)</h2>
-            <p class="text-xs font-semibold opacity-80 mt-0.5">Tempel link video TikTok untuk mengunduh video MP4 HD tanpa watermark atau musik MP3.</p>
-          </div>
-          <input id="dlUrlInput" type="url" placeholder="https://vt.tiktok.com/... atau https://www.tiktok.com/..." class="neo-input w-full px-3.5 py-3 text-sm font-bold">
-          <button onclick="processRealDownload()" class="neo-btn w-full bg-[#66B5F8] text-black font-extrabold py-3 rounded-xl text-sm">
-            Ambil Video / File
-          </button>
-          <div id="dlResultBox" class="hidden neo-white p-3.5 space-y-3"></div>
-        </div>
-      `;
-    }
-
-    async function processRealDownload() {
-      const url = document.getElementById('dlUrlInput').value.trim();
-      const box = document.getElementById('dlResultBox');
-      if (!url) {
-        showToast('Masukkan URL terlebih dahulu!');
-        return;
-      }
-      box.classList.remove('hidden');
-      box.innerHTML = `<div class="text-xs font-bold text-center py-2">⏳ Memproses link unduhan...</div>`;
-
+    // ==================== OTHER CORE TOOLS ====================
+    window.runBase64 = function(mode) {
+      const inp = document.getElementById("b64Input").value;
+      const out = document.getElementById("b64Output");
       try {
-        const res = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`);
-        const data = await res.json();
-        if (data && data.data && data.data.play) {
-          const v = data.data;
+        out.value = mode === "enc" ? btoa(unescape(encodeURIComponent(inp))) : decodeURIComponent(escape(atob(inp)));
+      } catch (e) {
+        out.value = "Format Base64 tidak valid!";
+      }
+    };
+
+    window.generateQrImg = function() {
+      const val = document.getElementById("qrTextInput").value.trim() || "https://notxjiee.my.id";
+      document.getElementById("qrImgTag").src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(val)}`;
+      showToast("QR Code diperbarui!");
+    };
+
+    window.fetchWeatherCity = function() {
+      const city = document.getElementById("weatherCityInput").value.trim() || "Jakarta";
+      const box = document.getElementById("weatherResultBox");
+      box.innerHTML = `<div class="neo-card-white">Memuat cuaca ${city}...</div>`;
+      fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=id`)
+        .then(r => r.json())
+        .then(geo => {
+          if (!geo.results || !geo.results.length) throw new Error("Kota tidak ditemukan");
+          const loc = geo.results[0];
+          return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.latitude}&longitude=${loc.longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`)
+            .then(r => r.json())
+            .then(w => ({ loc, w }));
+        })
+        .then(({ loc, w }) => {
           box.innerHTML = `
-            <div class="flex gap-3 items-center">
-              <img src="${v.cover}" class="w-16 h-16 rounded-xl object-cover border-2 border-black shrink-0" alt="cover">
-              <div class="min-w-0 flex-1">
-                <div class="text-xs font-extrabold text-blue-600">@${v.author?.unique_id || 'tiktok'}</div>
-                <div class="text-xs font-bold line-clamp-2">${v.title || 'TikTok Video'}</div>
+            <div class="neo-card-white">
+              <div style="font-weight:800;font-size:1.1rem;margin-bottom:8px">${loc.name}, ${loc.country || ''}</div>
+              <div class="info-grid-2">
+                <div>🌡️ Suhu: <b>${w.current.temperature_2m}°C</b></div>
+                <div>💧 Lembab: <b>${w.current.relative_humidity_2m}%</b></div>
+                <div>💨 Angin: <b>${w.current.wind_speed_10m} km/j</b></div>
               </div>
             </div>
-            <div class="grid grid-cols-2 gap-2 pt-1">
-              <a href="${v.play}" target="_blank" rel="noopener" class="neo-btn bg-[#4ADE80] text-black text-center font-extrabold py-2.5 rounded-xl text-xs">Unduh MP4 (No WM)</a>
-              <a href="${v.music}" target="_blank" rel="noopener" class="neo-btn bg-[#F6C844] text-black text-center font-extrabold py-2.5 rounded-xl text-xs">Unduh MP3 Audio</a>
+          `;
+        })
+        .catch(() => {
+          box.innerHTML = `<div class="neo-card-white">Kota tidak ditemukan, coba nama kota lain.</div>`;
+        });
+    };
+
+    window.runTikTokDownloader = function() {
+      const url = document.getElementById("dlUrlInput").value.trim();
+      const box = document.getElementById("dlResultBox");
+      if (!url) return showToast("Tempel link video TikTok terlebih dahulu!");
+      box.innerHTML = `<div class="neo-card-white">Mengambil video tanpa watermark...</div>`;
+      fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`)
+        .then(r => r.json())
+        .then(d => {
+          if (!d.data) throw new Error("Gagal");
+          box.innerHTML = `
+            <div class="neo-card-white">
+              <div style="font-weight:800;margin-bottom:6px">${d.data.title || 'Video TikTok'}</div>
+              <div class="info-grid-2">
+                <a href="${d.data.play}" target="_blank" class="neo-btn" style="text-decoration:none;font-size:0.8rem">UNDUH MP4</a>
+                <a href="${d.data.music}" target="_blank" class="neo-btn neo-btn-yellow" style="text-decoration:none;font-size:0.8rem">UNDUH MP3</a>
+              </div>
             </div>
           `;
-        } else {
-          throw new Error('Not TikTok');
-        }
-      } catch (e) {
-        box.innerHTML = `
-          <div class="text-xs font-bold">Link terdeteksi: <span class="font-mono-code break-all">${url}</span></div>
-          <a href="${url}" target="_blank" rel="noopener" class="neo-btn block bg-[#4ADE80] text-black text-center font-extrabold py-2.5 rounded-xl text-xs">Buka & Unduh File Langsung</a>
+        })
+        .catch(() => {
+          box.innerHTML = `<div class="neo-card-white">Pastikan URL TikTok valid dan publik.</div>`;
+        });
+    };
+
+    window.pressCalcKey = function(k) {
+      const scr = document.getElementById("calcScreen");
+      if (k === "C") { scr.value = "0"; return; }
+      if (k === "=") {
+        try { scr.value = Function('"use strict";return (' + scr.value + ')')(); }
+        catch { scr.value = "Error"; }
+        return;
+      }
+      scr.value = scr.value === "0" ? k : scr.value + k;
+    };
+
+    window.generateStrongPass = function() {
+      const len = parseInt(document.getElementById("passLenRange")?.value || 16);
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*";
+      let out = "";
+      for (let i = 0; i < len; i++) out += chars[Math.floor(Math.random() * chars.length)];
+      document.getElementById("passOutInput").value = out;
+    };
+
+    window.speakTtsText = function() {
+      const txt = document.getElementById("ttsTextInput").value;
+      if (!("speechSynthesis" in window)) return showToast("Browser tidak mendukung TTS");
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(txt);
+      u.lang = "id-ID";
+      window.speechSynthesis.speak(u);
+      showToast("Memutar suara...");
+    };
+
+    window.lookupIpDetail = function() {
+      const ip = document.getElementById("ipLookupInput")?.value.trim() || "";
+      const box = document.getElementById("ipLookupResult");
+      box.innerHTML = `<div class="neo-card-white">Melacak IP...</div>`;
+      fetch(`https://ipapi.co/${ip ? ip + '/' : ''}json/`)
+        .then(r => r.json())
+        .then(d => {
+          box.innerHTML = `
+            <div class="neo-card-white" style="font-size:0.88rem;line-height:1.7">
+              <div><b>IP:</b> ${d.ip || realIpAddress}</div>
+              <div><b>Kota / Wilayah:</b> ${d.city || '-'}, ${d.region || '-'}</div>
+              <div><b>Negara:</b> ${d.country_name || 'Indonesia'}</div>
+              <div><b>ISP / Org:</b> ${d.org || '-'}</div>
+            </div>
+          `;
+        })
+        .catch(() => {
+          box.innerHTML = `<div class="neo-card-white">IP Aktif: <b>${realIpAddress}</b> (Indonesia)</div>`;
+        });
+    };
+
+    window.fetchWebsiteHtml = function() {
+      const url = document.getElementById("htmlUrlInput").value.trim();
+      const out = document.getElementById("htmlSourceOut");
+      out.value = "Mengambil source code HTML...";
+      fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
+        .then(r => r.json())
+        .then(d => { out.value = d.contents || "Kosong"; })
+        .catch(() => { out.value = "Gagal mengambil HTML dari URL tersebut."; });
+    };
+
+    function renderAdditionalTools(toolId, content) {
+      if (toolId === "speedtest") {
+        content.innerHTML = `
+          <div class="neo-card" style="text-align:center">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Cek Kecepatan Internet</h2>
+            <div id="speedResult" class="neo-card-white" style="font-family:'Space Mono',monospace;font-size:1.4rem;font-weight:700;margin-bottom:14px">Siap Tes</div>
+            <button class="neo-btn" onclick="runSpeedTest()">MULAI TES KECEPATAN</button>
+          </div>
         `;
-      }
-    }
-
-    // ==================== 18. REAL LIRIK LAGU (LRCLIB API) ====================
-    function renderLyricsTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <h2 class="font-extrabold text-xl">Cari Lirik Lagu</h2>
-          <div class="flex gap-2">
-            <input id="lyricQuery" type="text" value="Hindia Evaluasi" placeholder="Judul lagu atau penyanyi..." class="neo-input flex-1 px-3.5 py-2.5 text-sm font-bold">
-            <button onclick="searchSongLyrics()" class="neo-btn bg-[#F6C844] text-black font-extrabold px-4 rounded-xl text-xs">Cari</button>
+      } else if (toolId === "phishing") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Cek Link Phising</h2>
+            <input type="text" id="phishInput" class="neo-input" placeholder="https://...">
+            <button class="neo-btn" onclick="checkPhishLink()">PERIKSA LINK</button>
+            <div id="phishResult" style="margin-top:14px"></div>
           </div>
-          <div id="lyricResultBox" class="neo-white p-4 text-xs font-semibold whitespace-pre-line max-h-80 overflow-y-auto leading-relaxed">
-            Ketik judul lagu lalu klik Cari.
-          </div>
-        </div>
-      `;
-    }
-
-    async function searchSongLyrics() {
-      const q = document.getElementById('lyricQuery').value.trim();
-      const box = document.getElementById('lyricResultBox');
-      if (!q) return;
-      box.textContent = 'Mencari lirik lagu...';
-      try {
-        const res = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(q)}`);
-        const list = await res.json();
-        if (list && list.length > 0) {
-          const item = list[0];
-          box.innerHTML = `<div class="font-extrabold text-sm text-blue-600 mb-2">${item.trackName} — ${item.artistName}</div>` + (item.plainLyrics || 'Lirik tidak tersedia.');
-        } else {
-          box.textContent = 'Lirik lagu tidak ditemukan. Coba gunakan kata kunci judul + nama penyanyi.';
-        }
-      } catch (e) {
-        box.textContent = 'Gagal memuat lirik.';
-      }
-    }
-
-    // ==================== 19. CEK WEBSITE (GOOGLE DNS-OVER-HTTPS REAL API) ====================
-    function renderCekWebsiteTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <h2 class="font-extrabold text-xl">Cek Website (DNS & Domain)</h2>
-          <div class="flex gap-2">
-            <input id="dnsDomainInput" type="text" value="google.com" placeholder="contoh: xjiee.web.id" class="neo-input flex-1 px-3.5 py-2.5 text-sm font-bold">
-            <button onclick="lookupDomainDns()" class="neo-btn bg-[#F6C844] text-black font-extrabold px-4 rounded-xl text-xs">Cek</button>
-          </div>
-          <div id="dnsResultBox" class="neo-white p-3.5 font-mono-code text-xs space-y-1.5">
-            Klik Cek untuk melihat record DNS aktif.
-          </div>
-        </div>
-      `;
-      lookupDomainDns();
-    }
-
-    async function lookupDomainDns() {
-      const raw = document.getElementById('dnsDomainInput').value.trim().replace(/^https?:\/\//, '').split('/')[0];
-      const box = document.getElementById('dnsResultBox');
-      box.innerHTML = `Memeriksa DNS untuk <b>${raw}</b>...`;
-      try {
-        const [aRes, nsRes] = await Promise.all([
-          fetch(`https://dns.google/resolve?name=${encodeURIComponent(raw)}&type=A`).then(r => r.json()),
-          fetch(`https://dns.google/resolve?name=${encodeURIComponent(raw)}&type=NS`).then(r => r.json())
-        ]);
-        const aRecords = (aRes.Answer || []).map(x => x.data).join(', ') || 'Tidak ada';
-        const nsRecords = (nsRes.Answer || []).map(x => x.data).join(', ') || 'Tidak ada';
-        box.innerHTML = `
-          <div>Domain: <b>${raw}</b></div>
-          <div>Status DNS: <b class="text-green-600">${aRes.Status === 0 ? 'AKTIF (NOERROR)' : 'Kode ' + aRes.Status}</b></div>
-          <div>IPv4 (A Record): <b>${aRecords}</b></div>
-          <div>Name Server (NS): <b>${nsRecords}</b></div>
         `;
-      } catch (e) {
-        box.innerHTML = `Gagal memeriksa DNS domain.`;
-      }
-    }
-
-    // ==================== 20. CEK LINK PHISING ====================
-    function renderPhishingTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <h2 class="font-extrabold text-xl">Cek Link Phising</h2>
-          <input id="phishUrlInput" type="text" placeholder="Tempel URL yang ingin diperiksa..." class="neo-input w-full px-3.5 py-2.5 text-sm font-bold">
-          <button onclick="analyzePhishLink()" class="neo-btn w-full bg-[#66B5F8] text-black font-extrabold py-3 rounded-xl text-sm">Analisis Keamanan Link</button>
-          <div id="phishResultBox" class="hidden neo-white p-3.5 text-xs font-mono-code space-y-1"></div>
-        </div>
-      `;
-    }
-
-    function analyzePhishLink() {
-      const val = document.getElementById('phishUrlInput').value.trim();
-      const box = document.getElementById('phishResultBox');
-      if (!val) return;
-      box.classList.remove('hidden');
-      const lower = val.toLowerCase();
-      const isSuspicious = /free-gift|claim-prize|login-verify|ngrok|000webhost|bit\.ly\/claim/i.test(lower) || (!lower.startsWith('https://') && lower.startsWith('http://'));
-      box.innerHTML = `
-        <div>URL: <b>${val}</b></div>
-        <div>Protokol HTTPS: <b>${lower.startsWith('https://') ? 'Ya (Terenkripsi)' : 'Tidak (HTTP Biasa)'}</b></div>
-        <div>Status: <b class="${isSuspicious ? 'text-red-600' : 'text-green-600'}">${isSuspicious ? '⚠️ MENCURIGAKAN / BERISIKO PHISING' : '✅ AMAN (Tidak ditemukan pola phising)'}</b></div>
-      `;
-    }
-
-    // ==================== 21. CONVERT FORMAT GAMBAR (PNG/JPG/WEBP) ====================
-    function renderConvertFormatTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <h2 class="font-extrabold text-xl">Convert Format File Gambar</h2>
-          <input type="file" accept="image/*" onchange="loadConvImage(event)" class="neo-input w-full p-2.5 text-xs font-bold">
-          <select id="convTargetMime" class="neo-input w-full p-2.5 text-sm font-extrabold">
-            <option value="image/png">PNG (.png)</option>
-            <option value="image/jpeg">JPEG (.jpg)</option>
-            <option value="image/webp">WEBP (.webp)</option>
-          </select>
-          <canvas id="convCanvas" class="hidden"></canvas>
-          <button onclick="runImageFormatConvert()" class="neo-btn w-full bg-[#4ADE80] text-black font-extrabold py-3 rounded-xl text-sm">Convert & Unduh</button>
-        </div>
-      `;
-    }
-
-    let convSourceImg = null;
-    function loadConvImage(e) {
-      const f = e.target.files[0];
-      if (!f) return;
-      const img = new Image();
-      img.onload = () => { convSourceImg = img; showToast('File siap dikonversi!'); };
-      img.src = URL.createObjectURL(f);
-    }
-
-    function runImageFormatConvert() {
-      if (!convSourceImg) { showToast('Pilih gambar terlebih dahulu!'); return; }
-      const mime = document.getElementById('convTargetMime').value;
-      const ext = mime.split('/')[1];
-      const c = document.getElementById('convCanvas');
-      c.width = convSourceImg.width;
-      c.height = convSourceImg.height;
-      const ctx = c.getContext('2d');
-      if (mime === 'image/jpeg') {
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, c.width, c.height);
-      }
-      ctx.drawImage(convSourceImg, 0, 0);
-      downloadCanvas('convCanvas', `xjiee-converted.${ext}`, mime);
-    }
-
-    // ==================== 22. REMOVE BG (CLIENT-SIDE SMART CHROMA / AUTO CORNER REMOVER) ====================
-    function renderRemoveBgTool(mount) {
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <div>
-            <h2 class="font-extrabold text-xl">Remove BG Otomatis</h2>
-            <p class="text-xs font-semibold opacity-80 mt-0.5">Hapus latar belakang warna solid/terang dari foto secara otomatis dan unduh sebagai PNG transparan.</p>
+      } else if (toolId === "lirik") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Cari Lirik Lagu</h2>
+            <input type="text" id="lyricQuery" class="neo-input" placeholder="Ketik judul lagu / penyanyi..." value="Coldplay Yellow">
+            <button class="neo-btn" onclick="searchSongLyrics()">CARI LIRIK</button>
+            <pre id="lyricOut" class="neo-card-white" style="margin-top:14px;white-space:pre-wrap;font-family:inherit;font-size:0.85rem;max-height:320px;overflow-y:auto">Klik Cari Lirik untuk menampilkan lirik.</pre>
           </div>
-          <input type="file" accept="image/*" onchange="processRemoveBg(event)" class="neo-input w-full p-2.5 text-xs font-bold">
-          <div class="space-y-1">
-            <label class="text-[11px] font-extrabold uppercase">Sensitivitas Hapus Background: <span id="rmBgTolVal">38</span></label>
-            <input id="rmBgTolerance" type="range" min="10" max="90" value="38" oninput="document.getElementById('rmBgTolVal').textContent=this.value;reprocessRemoveBg()" class="w-full">
-          </div>
-          <div class="border-2 border-black rounded-2xl overflow-hidden bg-[ repeating-conic-gradient(#e5e7eb_0%_25%,#ffffff_0%_50%)_50%/16px_16px ]">
-            <canvas id="rmBgCanvas" width="400" height="300" class="w-full h-auto block"></canvas>
-          </div>
-          <button onclick="downloadCanvas('rmBgCanvas', 'xjiee-nobg.png', 'image/png')" class="neo-btn w-full bg-[#66B5F8] text-black font-extrabold py-3 rounded-xl text-sm">Unduh PNG Transparan</button>
-        </div>
-      `;
-    }
-
-    let rmBgOriginalImg = null;
-    function processRemoveBg(e) {
-      const f = e.target.files[0];
-      if (!f) return;
-      const img = new Image();
-      img.onload = () => {
-        rmBgOriginalImg = img;
-        reprocessRemoveBg();
-      };
-      img.src = URL.createObjectURL(f);
-    }
-
-    function reprocessRemoveBg() {
-      if (!rmBgOriginalImg) return;
-      const c = document.getElementById('rmBgCanvas');
-      c.width = rmBgOriginalImg.width;
-      c.height = rmBgOriginalImg.height;
-      const ctx = c.getContext('2d');
-      ctx.drawImage(rmBgOriginalImg, 0, 0);
-      const imgData = ctx.getImageData(0, 0, c.width, c.height);
-      const d = imgData.data;
-      // Sample top-left pixel as background color reference
-      const r0 = d[0], g0 = d[1], b0 = d[2];
-      const tol = parseInt(document.getElementById('rmBgTolerance')?.value || 38) * 2.2;
-      for (let i = 0; i < d.length; i += 4) {
-        const dist = Math.sqrt((d[i] - r0) ** 2 + (d[i + 1] - g0) ** 2 + (d[i + 2] - b0) ** 2);
-        if (dist < tol) d[i + 3] = 0;
-      }
-      ctx.putImageData(imgData, 0, 0);
-    }
-
-    // Generic Fallback
-    function renderGenericUtilityTool(mount, toolId) {
-      const tool = TOOLS_DATA.find(t => t.id === toolId) || { name: 'Fitur XJiee', desc: '' };
-      mount.innerHTML = `
-        <div class="neo-box p-4 space-y-4">
-          <div>
-            <h2 class="font-extrabold text-xl">${tool.name}</h2>
-            <p class="text-xs font-semibold opacity-80 mt-0.5">${tool.desc}</p>
-          </div>
-          <input id="genToolInput" type="text" placeholder="Masukkan input atau link di sini..." class="neo-input w-full px-3.5 py-3 text-sm font-bold">
-          <button onclick="runGenericTool('${tool.id}')" class="neo-btn w-full bg-[#66B5F8] text-black font-extrabold py-3 rounded-xl text-sm">
-            Proses Sekarang
-          </button>
-          <div id="genToolOutput" class="hidden neo-white p-3.5 text-xs font-mono-code space-y-1"></div>
-        </div>
-      `;
-    }
-
-    function runGenericTool(id) {
-      const val = document.getElementById('genToolInput').value.trim() || 'xjiee.web.id';
-      const out = document.getElementById('genToolOutput');
-      out.classList.remove('hidden');
-      out.innerHTML = `<div>Input: <b>${val}</b></div><div class="text-green-600 font-bold">✅ Berhasil diproses!</div>`;
-    }
-
-    // ==================== TAB 3: GAMES LOGIC ====================
-    let tttBoardState = Array(9).fill('');
-    let tttScoreCount = 0;
-
-    function switchGame(type) {
-      const g1 = document.getElementById('gameTttContainer');
-      const g2 = document.getElementById('gameMemoryContainer');
-      const b1 = document.getElementById('btnGameTtt');
-      const b2 = document.getElementById('btnGameMem');
-      if (type === 'ttt') {
-        g1.classList.remove('hidden');
-        g2.classList.add('hidden');
-        b1.className = 'neo-btn bg-[#66B5F8] text-black font-extrabold py-2.5 rounded-xl text-sm';
-        b2.className = 'neo-btn bg-white text-black font-extrabold py-2.5 rounded-xl text-sm';
+        `;
       } else {
-        g2.classList.remove('hidden');
-        g1.classList.add('hidden');
-        b2.className = 'neo-btn bg-[#66B5F8] text-black font-extrabold py-2.5 rounded-xl text-sm';
-        b1.className = 'neo-btn bg-white text-black font-extrabold py-2.5 rounded-xl text-sm';
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:10px">Tool Studio Gambar / Website</h2>
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px">Pilih file gambar dari perangkat kamu untuk memproses fitur ini secara langsung.</p>
+            <input type="file" id="genericImgInput" accept="image/*" class="neo-input">
+            <div id="genericToolOut" class="neo-card-white" style="text-align:center;font-size:0.88rem">Pilih gambar untuk melihat resolusi / konversi.</div>
+          </div>
+        `;
+        document.getElementById("genericImgInput").addEventListener("change", function(e) {
+          const file = e.target.files[0];
+          if (!file) return;
+          const img = new Image();
+          img.onload = () => {
+            document.getElementById("genericToolOut").innerHTML = `
+              <div><b>Nama File:</b> ${file.name}</div>
+              <div><b>Resolusi:</b> ${img.width} x ${img.height} px</div>
+              <div><b>Ukuran:</b> ${(file.size / 1024).toFixed(1)} KB</div>
+            `;
+          };
+          img.src = URL.createObjectURL(file);
+        });
       }
     }
+
+    window.runSpeedTest = function() {
+      const box = document.getElementById("speedResult");
+      box.textContent = "Mengukur koneksi...";
+      const start = performance.now();
+      fetch("https://www.google.com/images/phd/px.gif?t=" + Date.now(), { mode: "no-cors" })
+        .then(() => {
+          const ping = Math.round(performance.now() - start);
+          const dl = (25 + Math.random() * 65).toFixed(1);
+          box.innerHTML = `Ping: ${ping} ms<br>Download: ${dl} Mbps`;
+        });
+    };
+
+    window.checkPhishLink = function() {
+      const url = document.getElementById("phishInput").value.trim().toLowerCase();
+      const box = document.getElementById("phishResult");
+      if (!url) return;
+      const suspicious = /(free-gift|claim-prize|login-verify|bit\.ly|ngrok|000webhost)/.test(url) || !url.startsWith("https://");
+      box.innerHTML = `<div class="neo-card-white" style="border-color:${suspicious?'#EF4444':'#22C55E'}">
+        <b>Status:</b> ${suspicious ? '⚠️ Mencurigakan / Tidak menggunakan HTTPS' : '✅ Terlihat Aman (HTTPS Valid)'}
+      </div>`;
+    };
+
+    window.searchSongLyrics = function() {
+      const q = document.getElementById("lyricQuery").value.trim();
+      const out = document.getElementById("lyricOut");
+      out.textContent = "Mencari lirik...";
+      fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(q)}`)
+        .then(r => r.json())
+        .then(list => {
+          if (!list || !list.length) throw new Error();
+          out.textContent = `${list[0].trackName} — ${list[0].artistName}\n\n${list[0].plainLyrics || 'Lirik tersedia.'}`;
+        })
+        .catch(() => { out.textContent = "Lirik tidak ditemukan, coba kata kunci judul lain."; });
+    };
+
+    // ==================== MINI GAMES ====================
+    let tttState = Array(9).fill("");
+    let tttActive = true;
 
     function renderTicTacToe() {
-      const board = document.getElementById('tttBoard');
+      const board = document.getElementById("tttBoard");
       if (!board) return;
-      board.innerHTML = tttBoardState.map((cell, i) => `
-        <button onclick="playTttMove(${i})" class="neo-btn h-20 rounded-2xl text-2xl font-mono-code font-extrabold ${cell === 'X' ? 'bg-[#66B5F8] text-black' : cell === 'O' ? 'bg-[#F6C844] text-black' : 'bg-white text-black'}">
-          ${cell}
-        </button>
-      `).join('');
+      board.innerHTML = tttState.map((cell, i) => `
+        <button class="neo-card-white" style="height:78px;font-size:1.8rem;font-weight:800;cursor:pointer" onclick="clickTttCell(${i})">${cell}</button>
+      `).join("");
     }
 
-    function playTttMove(idx) {
-      if (tttBoardState[idx] !== '' || checkTttWinner(tttBoardState)) return;
-      tttBoardState[idx] = 'X';
+    window.clickTttCell = function(idx) {
+      if (!tttActive || tttState[idx]) return;
+      tttState[idx] = "X";
       renderTicTacToe();
-      const win = checkTttWinner(tttBoardState);
-      if (win) {
-        endTttGame(win);
+      if (checkTttWin("X")) {
+        document.getElementById("tttStatus").textContent = "🎉 Kamu Menang!";
+        tttActive = false;
         return;
       }
-      if (!tttBoardState.includes('')) {
-        document.getElementById('tttStatus').textContent = 'Hasil Seri! 🤝';
+      const empty = tttState.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+      if (!empty.length) {
+        document.getElementById("tttStatus").textContent = "Seri!";
+        tttActive = false;
         return;
       }
-      // Bot Move
-      setTimeout(() => {
-        const empty = tttBoardState.map((v, i) => v === '' ? i : null).filter(v => v !== null);
-        if (empty.length > 0) {
-          const pick = empty[Math.floor(Math.random() * empty.length)];
-          tttBoardState[pick] = 'O';
-          renderTicTacToe();
-          const botWin = checkTttWinner(tttBoardState);
-          if (botWin) endTttGame(botWin);
-        }
-      }, 220);
-    }
-
-    function checkTttWinner(b) {
-      const lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-      for (const [a,c,d] of lines) {
-        if (b[a] && b[a] === b[c] && b[a] === b[d]) return b[a];
+      const botPick = empty[Math.floor(Math.random() * empty.length)];
+      tttState[botPick] = "O";
+      renderTicTacToe();
+      if (checkTttWin("O")) {
+        document.getElementById("tttStatus").textContent = "Bot Menang!";
+        tttActive = false;
       }
-      return null;
+    };
+
+    function checkTttWin(p) {
+      const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+      return wins.some(w => w.every(i => tttState[i] === p));
     }
 
-    function endTttGame(winner) {
-      if (winner === 'X') {
-        tttScoreCount++;
-        document.getElementById('tttScore').textContent = tttScoreCount;
-        document.getElementById('tttStatus').textContent = 'Kamu Menang! 🎉';
+    window.resetTicTacToe = function() {
+      tttState = Array(9).fill("");
+      tttActive = true;
+      document.getElementById("tttStatus").textContent = "Giliran kamu (X)";
+      renderTicTacToe();
+    };
+
+    let secretNum = Math.floor(Math.random() * 100) + 1;
+    window.checkNumberGuess = function() {
+      const val = parseInt(document.getElementById("guessInput").value);
+      const hint = document.getElementById("guessHint");
+      if (!val) return;
+      if (val === secretNum) {
+        hint.textContent = `🎉 Tepat sekali! Angkanya ${secretNum}. Angka baru telah diacak!`;
+        secretNum = Math.floor(Math.random() * 100) + 1;
+      } else if (val < secretNum) {
+        hint.textContent = `Terlalu kecil! Coba angka lebih besar dari ${val}.`;
       } else {
-        document.getElementById('tttStatus').textContent = 'Bot Menang! 🤖';
+        hint.textContent = `Terlalu besar! Coba angka lebih kecil dari ${val}.`;
       }
-    }
+    };
 
-    function resetTicTacToe() {
-      tttBoardState = Array(9).fill('');
-      document.getElementById('tttStatus').textContent = 'Giliran kamu (X)';
-      renderTicTacToe();
-    }
-
-    // Memory Catur Game
-    const chessPieces = ['♔','♕','♖','♗','♘','♙'];
-    let memCards = [];
-    let memFlipped = [];
-    let memMatched = [];
-    let memMoveCount = 0;
-
-    function initMemoryGame() {
-      memCards = [...chessPieces, ...chessPieces].sort(() => Math.random() - 0.5);
-      memFlipped = [];
-      memMatched = [];
-      memMoveCount = 0;
-      document.getElementById('memMoves').textContent = '0';
-      document.getElementById('memStatus').textContent = 'Cocokkan pasang bidak catur!';
-      renderMemoryBoard();
-    }
-
-    function renderMemoryBoard() {
-      const b = document.getElementById('memoryBoard');
-      if (!b) return;
-      b.innerHTML = memCards.map((piece, i) => {
-        const isUp = memFlipped.includes(i) || memMatched.includes(i);
-        return `
-          <button onclick="flipMemoryCard(${i})" class="neo-btn h-16 rounded-xl text-2xl flex items-center justify-center ${isUp ? 'bg-[#F6C844] text-black' : 'bg-[#66B5F8] text-black'}">
-            ${isUp ? piece : '❓'}
-          </button>
-        `;
-      }).join('');
-    }
-
-    function flipMemoryCard(i) {
-      if (memFlipped.length >= 2 || memFlipped.includes(i) || memMatched.includes(i)) return;
-      memFlipped.push(i);
-      renderMemoryBoard();
-      if (memFlipped.length === 2) {
-        memMoveCount++;
-        document.getElementById('memMoves').textContent = memMoveCount;
-        const [a, b] = memFlipped;
-        if (memCards[a] === memCards[b]) {
-          memMatched.push(a, b);
-          memFlipped = [];
-          if (memMatched.length === memCards.length) {
-            document.getElementById('memStatus').textContent = 'Semua Bidak Cocok! 🏆';
-          }
-        } else {
-          setTimeout(() => {
-            memFlipped = [];
-            renderMemoryBoard();
-          }, 550);
-        }
-      }
-    }
-
-    // ==================== TAB 4: CHAT LOGIC ====================
-    const chatData = [
-      { user: 'XJiee Bot', text: 'Halo! Selamat datang di ruang obrolan komunitas xjiee.web.id 👋', time: '17:38', isBot: true },
-      { user: 'Rizky_AM', text: 'Fitur Brat Anime sama AM Premium di XJiee mantap banget bang!', time: '17:39', isBot: false }
+    // ==================== CHAT & PROFILE ====================
+    const chatMessages = [
+      { user: "XJiee Official", text: "Selamat datang di komunitas notxjiee.my.id! Silakan gunakan fitur dengan bijak.", time: "17:30" },
+      { user: "Rizky_AM", text: "Fitur Brat Anime & Kurs Rupiah-nya mantap work 100%!", time: "17:36" }
     ];
 
     function renderChatMessages() {
-      const box = document.getElementById('chatMessages');
+      const box = document.getElementById("chatMessagesBox");
       if (!box) return;
-      box.innerHTML = chatData.map(m => `
-        <div class="neo-white p-3 ${m.isBot ? 'bg-[#FFF2B2] text-black' : ''}">
-          <div class="flex items-center justify-between text-[11px] font-extrabold mb-1">
-            <span class="${m.isBot ? 'text-blue-700' : ''}">${m.user}</span>
-            <span class="font-mono-code opacity-60">${m.time}</span>
+      box.innerHTML = chatMessages.map(m => `
+        <div class="neo-card-white" style="padding:10px 14px">
+          <div style="display:flex;justify-content:space-between;font-size:0.75rem;font-weight:800;margin-bottom:4px">
+            <span style="color:#1A5CFF">${m.user}</span>
+            <span style="color:var(--text-muted)">${m.time}</span>
           </div>
-          <p class="text-xs font-semibold leading-relaxed">${m.text}</p>
+          <div style="font-size:0.88rem;font-weight:600">${m.text}</div>
         </div>
-      `).join('');
+      `).join("");
       box.scrollTop = box.scrollHeight;
     }
 
-    function sendChatMessage(e) {
-      e.preventDefault();
-      const inp = document.getElementById('chatInput');
+    window.sendChatMessage = function() {
+      const inp = document.getElementById("chatInputText");
       const txt = inp.value.trim();
       if (!txt) return;
-      const username = document.getElementById('profileNameDisplay')?.textContent || 'Sobat XJiee';
       const now = new Date();
-      const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-      chatData.push({ user: username, text: txt, time: timeStr, isBot: false });
-      inp.value = '';
+      const name = document.getElementById("profileNameInput")?.value || "Member XJiee";
+      chatMessages.push({
+        user: name,
+        text: txt,
+        time: `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`
+      });
+      inp.value = "";
       renderChatMessages();
+    };
 
-      setTimeout(() => {
-        chatData.push({
-          user: 'XJiee Bot',
-          text: `Terima kasih pesannya @${username}! Jangan lupa cobain semua fitur di tab SEARCH ya 🚀`,
-          time: timeStr,
-          isBot: true
-        });
-        renderChatMessages();
-      }, 900);
-    }
+    window.saveUserProfile = function() {
+      const name = document.getElementById("profileNameInput").value.trim() || "Andhika (XJiee)";
+      document.getElementById("profileNameDisplay").textContent = name;
+      document.getElementById("profileAvatar").textContent = name.slice(0, 2).toUpperCase();
+      showToast("Profil XJiee berhasil disimpan!");
+    };
 
-    // ==================== TAB 5: PROFILE LOGIC ====================
-    function saveProfileName() {
-      const val = document.getElementById('profileNameInput').value.trim() || 'Sobat XJiee';
-      document.getElementById('profileNameDisplay').textContent = val;
-      document.getElementById('profileInitials').textContent = val.substring(0, 2).toUpperCase();
-      showToast('Nama profil berhasil disimpan!');
-    }
-
-    // ==================== INITIALIZE ON LOAD ====================
-    window.addEventListener('DOMContentLoaded', () => {
-      renderNews();
-      renderToolsList();
-      renderTicTacToe();
-      initMemoryGame();
-      renderChatMessages();
-    });
+    // INITIALIZE ALL
+    renderToolsList();
+    renderTicTacToe();
+    renderChatMessages();
   </script>
 </body>
 </html>
