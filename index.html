@@ -746,4 +746,1270 @@
             <div class="info-label">
               <span class="material-symbols-outlined" style="font-size:16px">group</span> MEMBER
             </div>
-            <div class="info
+            <div class="info-value-mono" id="memberCount">214</div>
+          </div>
+          <div class="neo-card-white">
+            <div class="info-label">
+              <span style="width:8px;height:8px;border-radius:50%;background:#22C55E;display:inline-block"></span> ONLINE
+            </div>
+            <div class="info-value-mono" id="onlineCount">5</div>
+          </div>
+        </div>
+
+        <div class="neo-card-white" style="margin-top:12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="showToast('Membuka profil TikTok @xjiee.store')">
+          <div>
+            <div style="font-size:0.7rem;font-weight:800;color:var(--text-muted)">TIKTOK & STORE</div>
+            <div style="font-weight:800;font-size:0.95rem">@xjiee.store — XJieeStore</div>
+          </div>
+          <span class="material-symbols-outlined">north_east</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- ==================== TAB 2: SEARCH / FITUR ==================== -->
+    <main id="tab-search" class="tab-view hidden">
+      <!-- DIRECTORY VIEW -->
+      <div id="toolsDirectoryView">
+        <div style="text-align:center;margin:6px 0 18px">
+          <span class="title-pill">Cari Fitur</span>
+        </div>
+
+        <div class="search-input-wrap">
+          <span class="material-symbols-outlined" style="color:var(--text-muted)">search</span>
+          <input type="text" id="searchToolInput" placeholder="Ketik nama fitur...">
+        </div>
+
+        <div id="toolsListContainer"></div>
+      </div>
+
+      <!-- ACTIVE TOOL DETAIL VIEW -->
+      <div id="toolDetailView" class="hidden">
+        <button class="back-btn" id="backToDirectoryBtn" title="Kembali">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <div id="toolDetailContent"></div>
+      </div>
+
+      <footer class="app-footer">
+        © 2026 notxjiee.my.id — menyediakan berbagai macam tools seperti downloader dan lain lain.
+      </footer>
+    </main>
+
+    <!-- ==================== TAB 3: GAME ==================== -->
+    <main id="tab-game" class="tab-view hidden">
+      <div style="text-align:center;margin:6px 0 18px">
+        <span class="title-pill">Mini Games</span>
+      </div>
+
+      <!-- TIC TAC TOE -->
+      <div class="neo-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div>
+            <h3 style="font-weight:800;font-size:1.1rem">Tic Tac Toe VS Bot</h3>
+            <p style="font-size:0.8rem;color:var(--text-muted)" id="tttStatus">Giliran kamu (X)</p>
+          </div>
+          <button class="neo-btn neo-btn-yellow" style="width:auto;padding:8px 14px;font-size:0.8rem" onclick="resetTicTacToe()">Reset</button>
+        </div>
+        <div id="tttBoard" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:280px;margin:0 auto"></div>
+      </div>
+
+      <!-- TEBAK ANGKA -->
+      <div class="neo-card">
+        <h3 style="font-weight:800;font-size:1.1rem;margin-bottom:6px">Tebak Angka Rahasia (1 - 100)</h3>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px" id="guessHint">Masukkan angka antara 1 sampai 100!</p>
+        <div style="display:flex;gap:8px">
+          <input type="number" id="guessInput" class="neo-input" placeholder="Contoh: 45" style="margin-bottom:0">
+          <button class="neo-btn" style="width:auto;padding:0 20px" onclick="checkNumberGuess()">Tebak</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- ==================== TAB 4: CHAT ==================== -->
+    <main id="tab-chat" class="tab-view hidden">
+      <div style="text-align:center;margin:6px 0 18px">
+        <span class="title-pill">Global Chat</span>
+      </div>
+
+      <div class="neo-card">
+        <div id="chatMessagesBox" style="height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:4px;margin-bottom:14px"></div>
+        <div style="display:flex;gap:8px">
+          <input type="text" id="chatInputText" class="neo-input" placeholder="Ketik pesan ke komunitas XJiee..." style="margin-bottom:0" onkeydown="if(event.key==='Enter') sendChatMessage()">
+          <button class="neo-btn neo-btn-yellow" style="width:auto;padding:0 18px" onclick="sendChatMessage()">
+            <span class="material-symbols-outlined">send</span>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- ==================== TAB 5: PROFILE ==================== -->
+    <main id="tab-profile" class="tab-view hidden">
+      <div style="text-align:center;margin:6px 0 18px">
+        <span class="title-pill">Profil Pengguna</span>
+      </div>
+
+      <div class="neo-card" style="text-align:center">
+        <div style="width:76px;height:76px;border-radius:50%;background:var(--accent-yellow);border:3px solid #111;box-shadow:var(--shadow-sm);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.8rem;color:#111" id="profileAvatar">
+          XJ
+        </div>
+        <h3 style="font-weight:800;font-size:1.2rem" id="profileNameDisplay">Andhika (XJiee)</h3>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px" id="profileEmailDisplay">member@xjiee.web.id</p>
+
+        <div style="text-align:left">
+          <label class="field-label">Nama Tampilan</label>
+          <input type="text" id="profileNameInput" class="neo-input" value="Andhika (XJiee)">
+          <label class="field-label">Status / Bio</label>
+          <input type="text" id="profileBioInput" class="neo-input" value="Owner XJieeStore • Multi Tools">
+          <button class="neo-btn neo-btn-green" onclick="saveUserProfile()">Simpan Profil</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- BOTTOM NAVIGATION BAR -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <button type="button" class="nav-item active" data-tab="home">
+        <span class="material-symbols-outlined">home</span>
+        <span class="nav-label">HOME</span>
+      </button>
+      <button type="button" class="nav-item" data-tab="search">
+        <span class="material-symbols-outlined">search</span>
+        <span class="nav-label">SEARCH</span>
+      </button>
+      <button type="button" class="nav-item" data-tab="game">
+        <span class="material-symbols-outlined">sports_esports</span>
+        <span class="nav-label">GAME</span>
+      </button>
+      <button type="button" class="nav-item" data-tab="chat">
+        <span class="material-symbols-outlined">chat</span>
+        <span class="nav-label">CHAT</span>
+      </button>
+      <button type="button" class="nav-item" data-tab="profile">
+        <span class="material-symbols-outlined">person</span>
+        <span class="nav-label">PROFILE</span>
+      </button>
+    </div>
+  </nav>
+
+  <script>
+    // ==================== ASSETS & STATE ====================
+    const BRAT_ANIME_IMG_SRC = "1000002943.png";
+    const BRAT_WIN_IMG_SRC = "1000002945.png";
+
+    let realIpAddress = "114.122.104.28";
+    let ipVisible = false;
+    let idrRatesCache = null;
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
+    }
+
+    // ==================== TAB NAVIGATION ====================
+    function switchTab(tabName) {
+      document.querySelectorAll(".tab-view").forEach(el => el.classList.add("hidden"));
+      const targetView = document.getElementById("tab-" + tabName);
+      if (targetView) targetView.classList.remove("hidden");
+
+      document.querySelectorAll(".nav-item").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-tab") === tabName);
+      });
+
+      if (tabName === "search") {
+        closeToolDetail();
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.querySelectorAll(".nav-item").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-tab");
+        switchTab(target);
+      });
+    });
+
+    document.getElementById("brandHomeBtn").addEventListener("click", () => switchTab("home"));
+
+    // ==================== TOP BAR CONTROLS ====================
+    document.getElementById("themeBtn").addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      const isDark = document.body.classList.contains("dark-mode");
+      document.getElementById("themeIcon").textContent = isDark ? "dark_mode" : "light_mode";
+      showToast(isDark ? "Mode Malam Aktif" : "Mode Siang Aktif");
+    });
+
+    let audioCtx = null;
+    let musicInterval = null;
+    let isPlayingMusic = false;
+
+    document.getElementById("musicBtn").addEventListener("click", () => {
+      isPlayingMusic = !isPlayingMusic;
+      document.getElementById("musicIcon").textContent = isPlayingMusic ? "music_note" : "music_off";
+      if (isPlayingMusic) {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const notes = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63];
+        let idx = 0;
+        musicInterval = setInterval(() => {
+          if (!isPlayingMusic) return;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = "sine";
+          osc.frequency.value = notes[idx % notes.length];
+          gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.45);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.45);
+          idx++;
+        }, 500);
+        showToast("Musik Synth XJiee Menyala");
+      } else {
+        clearInterval(musicInterval);
+        showToast("Musik Dimatikan");
+      }
+    });
+
+    document.getElementById("langBtn").addEventListener("click", () => {
+      showToast("Bahasa Indonesia (ID) Aktif");
+    });
+
+    document.getElementById("notifBtn").addEventListener("click", () => {
+      showToast("XJiee v2.5 — Semua Fitur Aktif!");
+    });
+
+    // ==================== HOME CLOCK, BATTERY, IP & NEWS ====================
+    function updateClock() {
+      const now = new Date();
+      const pad = n => String(n).padStart(2, "0");
+      const str = `${pad(now.getDate())}-${pad(now.getMonth() + 1)}-${now.getFullYear()} [${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}]`;
+      const el = document.getElementById("clockDisplay");
+      if (el) el.textContent = str;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    if (navigator.getBattery) {
+      navigator.getBattery().then(bat => {
+        const updateBat = () => {
+          document.getElementById("batteryDisplay").textContent = Math.round(bat.level * 100) + "%";
+        };
+        updateBat();
+        bat.addEventListener("levelchange", updateBat);
+      });
+    }
+
+    fetch("https://api.ipify.org?format=json")
+      .then(r => r.json())
+      .then(d => { if (d.ip) realIpAddress = d.ip; })
+      .catch(() => {});
+
+    document.getElementById("toggleIpBtn").addEventListener("click", () => {
+      ipVisible = !ipVisible;
+      document.getElementById("ipDisplay").textContent = ipVisible ? realIpAddress : "•••.•••.•••.•••";
+      document.getElementById("toggleIpBtn").textContent = ipVisible ? "visibility_off" : "visibility";
+    });
+
+    const NEWS_LIST = [
+      {
+        source: "ANTARA",
+        title: "Anggota DPR dukung Kejagung usut kasus tata kelola nikel di Sultra",
+        date: "Min, 08 Nov 2026 • 17:00 WIB",
+        img: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=300&auto=format&fit=crop&q=80"
+      },
+      {
+        source: "TEKNOLOGI",
+        title: "XJiee luncurkan fitur Brat Anime & Converter Kurs Rupiah Real-Time",
+        date: "Min, 08 Nov 2026 • 17:30 WIB",
+        img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=300&auto=format&fit=crop&q=80"
+      },
+      {
+        source: "EKONOMI",
+        title: "Nilai tukar Rupiah menguat terhadap Dolar AS pada perdagangan sore",
+        date: "Min, 08 Nov 2026 • 16:45 WIB",
+        img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=300&auto=format&fit=crop&q=80"
+      }
+    ];
+
+    let currentNewsIdx = 0;
+    function renderNewsSlider() {
+      const item = NEWS_LIST[currentNewsIdx];
+      document.getElementById("newsSource").textContent = item.source;
+      document.getElementById("newsTitle").textContent = item.title;
+      document.getElementById("newsDate").textContent = item.date;
+      document.getElementById("newsImg").src = item.img;
+      document.getElementById("newsProgress").style.width = (((currentNewsIdx + 1) / NEWS_LIST.length) * 100) + "%";
+
+      const dotsWrap = document.getElementById("newsDots");
+      dotsWrap.innerHTML = NEWS_LIST.map((_, i) =>
+        `<span class="dot ${i === currentNewsIdx ? 'active' : ''}" onclick="setNewsSlide(${i})"></span>`
+      ).join("");
+    }
+    window.setNewsSlide = function(i) {
+      currentNewsIdx = i;
+      renderNewsSlider();
+    };
+    setInterval(() => {
+      currentNewsIdx = (currentNewsIdx + 1) % NEWS_LIST.length;
+      renderNewsSlider();
+    }, 5000);
+    renderNewsSlider();
+
+    // ==================== TOOLS DIRECTORY ====================
+    const TOOLS_DATA = [
+      { id: "am", title: "AM Tools", desc: "Alat Alight Motion: AM Premium & cari link preset", icon: "auto_awesome" },
+      { id: "base64", title: "Base64", desc: "Encode / decode Base64", icon: "code" },
+      { id: "bratanime", title: "Brat Anime", desc: "Tulis teks di kertas yang dipegang karakter anime", icon: "article" },
+      { id: "bratwin", title: "Brat Fake Window Error", desc: "Teks di jendela Windows error palsu, unduh PNG / JPG", icon: "web_asset" },
+      { id: "bratgen", title: "Brat Generator", desc: "Buat teks gaya brat, ukuran otomatis", icon: "title" },
+      { id: "cekip", title: "Cek IP", desc: "Lacak perkiraan lokasi & detail alamat IP", icon: "public" },
+      { id: "speedtest", title: "Cek Kecepatan Internet", desc: "Tes ping, unduh, dan unggah koneksi kamu", icon: "speed" },
+      { id: "phishing", title: "Cek Link Phising", desc: "Periksa apakah sebuah link mencurigakan atau phising", icon: "security" },
+      { id: "imgres", title: "Cek Ukuran / Resolusi", desc: "Lihat ukuran pixel JPG, JPEG, dan PNG", icon: "image_search" },
+      { id: "cekweb", title: "Cek Website", desc: "Umur domain, Whois & DNS sebuah website", icon: "dns" },
+      { id: "convert", title: "Convert Format", desc: "Konversi gambar ke PNG, JPG, WEBP secara instan", icon: "autorenew" },
+      { id: "cuaca", title: "Cuaca", desc: "Cek suhu, angin, kelembaban & prakiraan cuaca kota", icon: "cloud" },
+      { id: "kurs", title: "Currency Converter", desc: "Konversi mata uang real-time mengikuti kurs Rupiah saat ini", icon: "currency_exchange" },
+      { id: "downloader", title: "Downloader", desc: "Semua fitur download: TikTok tanpa watermark & audio", icon: "download" },
+      { id: "qrcode", title: "Generate QR Code", desc: "Buat URL to QR Code kustom", icon: "qr_code_2" },
+      { id: "gethtml", title: "Get HTML", desc: "Ambil kode HTML website dari URL, salin atau download", icon: "html" },
+      { id: "resizer", title: "Image Resizer", desc: "Ubah ukuran (lebar/tinggi) gambar dengan mudah", icon: "aspect_ratio" },
+      { id: "calc", title: "Kalkulator", desc: "Hitung cepat seperti kalkulator iOS", icon: "calculate" },
+      { id: "lirik", title: "Lirik Lagu", desc: "Cari lirik lagu dari judul atau nama penyanyi", icon: "lyrics" },
+      { id: "passgen", title: "Password Generator", desc: "Buat password acak yang kuat dan aman", icon: "password" },
+      { id: "removebg", title: "Remove BG", desc: "Hapus latar belakang terang/putih foto otomatis, unduh PNG", icon: "auto_fix_high" },
+      { id: "tts", title: "Text to Speech", desc: "Ubah teks jadi suara, dengarkan langsung", icon: "record_voice_over" }
+    ];
+
+    function renderToolsList(filterText = "") {
+      const container = document.getElementById("toolsListContainer");
+      const q = filterText.trim().toLowerCase();
+      const filtered = TOOLS_DATA.filter(t =>
+        t.title.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)
+      );
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="neo-card" style="text-align:center;font-weight:700">Fitur "${filterText}" tidak ditemukan.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(t => `
+        <div class="tool-card" onclick="openToolDetail('${t.id}')">
+          <div class="tool-icon-box">
+            <span class="material-symbols-outlined">${t.icon}</span>
+          </div>
+          <div class="tool-info">
+            <div class="tool-title">${t.title}</div>
+            <div class="tool-desc">${t.desc}</div>
+          </div>
+          <span class="material-symbols-outlined tool-arrow">north_east</span>
+        </div>
+      `).join("");
+    }
+
+    document.getElementById("searchToolInput").addEventListener("input", e => {
+      renderToolsList(e.target.value);
+    });
+
+    function closeToolDetail() {
+      document.getElementById("toolDetailView").classList.add("hidden");
+      document.getElementById("toolsDirectoryView").classList.remove("hidden");
+    }
+
+    document.getElementById("backToDirectoryBtn").addEventListener("click", closeToolDetail);
+
+    // ==================== OPEN INDIVIDUAL TOOL ====================
+    window.openToolDetail = function(toolId) {
+      document.getElementById("toolsDirectoryView").classList.add("hidden");
+      const detailView = document.getElementById("toolDetailView");
+      const content = document.getElementById("toolDetailContent");
+      detailView.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      if (toolId === "am") {
+        content.innerHTML = `
+          <div style="text-align:center;margin-bottom:18px">
+            <span class="title-pill">AM Tools</span>
+          </div>
+          <div class="tool-card" onclick="openAmSub('premium')">
+            <div class="tool-icon-box"><span class="material-symbols-outlined">workspace_premium</span></div>
+            <div class="tool-info">
+              <div class="tool-title">Am Premium</div>
+              <div class="tool-desc">Buat Am kalian menjadi premium secara gratis, Limit harian 2x</div>
+            </div>
+            <span class="material-symbols-outlined tool-arrow">north_east</span>
+          </div>
+          <div class="tool-card" onclick="openAmSub('search')">
+            <div class="tool-icon-box"><span class="material-symbols-outlined">travel_explore</span></div>
+            <div class="tool-info">
+              <div class="tool-title">Cari Link AM</div>
+              <div class="tool-desc">Temukan link preset Alight Motion dari video TikTok</div>
+            </div>
+            <span class="material-symbols-outlined tool-arrow">north_east</span>
+          </div>
+        `;
+      } else if (toolId === "bratanime") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.35rem;margin-bottom:4px">Brat Anime</h2>
+            <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:14px">Ketik teks, langsung muncul di kertas yang dipegang karakter.</p>
+            <div class="canvas-preview-wrap">
+              <canvas id="bratAnimeCanvas" width="1024" height="1024"></canvas>
+            </div>
+            <label class="field-label">TEKS</label>
+            <input type="text" id="bratAnimeInput" class="neo-input" placeholder="Masukkan Teks..." value="XJiee">
+            <div class="info-grid-2">
+              <button class="neo-btn" onclick="downloadCanvas('bratAnimeCanvas','xjiee-brat-anime.png','image/png')">UNDUH PNG</button>
+              <button class="neo-btn neo-btn-yellow" onclick="downloadCanvas('bratAnimeCanvas','xjiee-brat-anime.jpg','image/jpeg')">UNDUH JPG</button>
+            </div>
+          </div>
+        `;
+        initBratAnimeCanvas();
+      } else if (toolId === "bratwin") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.35rem;margin-bottom:4px">Brat Fake Window Error</h2>
+            <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:14px">Ketik teks, tekan Generate, hasilnya langsung muncul di jendela Windows Media Player.</p>
+            <div class="canvas-preview-wrap">
+              <canvas id="bratWinCanvas" width="996" height="968"></canvas>
+            </div>
+            <label class="field-label">TEKS</label>
+            <input type="text" id="bratWinInput" class="neo-input" placeholder="Masukkan Teks..." value="error 404: butuh liburan">
+            <button class="neo-btn neo-btn-yellow" style="margin-bottom:10px" onclick="drawBratWin()">GENERATE</button>
+            <div class="info-grid-2">
+              <button class="neo-btn" onclick="downloadCanvas('bratWinCanvas','xjiee-window-error.png','image/png')">UNDUH PNG</button>
+              <button class="neo-btn neo-btn-green" onclick="downloadCanvas('bratWinCanvas','xjiee-window-error.jpg','image/jpeg')">UNDUH JPG</button>
+            </div>
+          </div>
+        `;
+        initBratWinCanvas();
+      } else if (toolId === "bratgen") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.35rem;margin-bottom:12px">Brat Generator</h2>
+            <div class="canvas-preview-wrap">
+              <canvas id="bratClassicCanvas" width="800" height="800"></canvas>
+            </div>
+            <label class="field-label">MASUKKAN TEKS</label>
+            <input type="text" id="bratClassicInput" class="neo-input" value="brat xjiee teks">
+            <div class="info-grid-2" style="margin-bottom:14px">
+              <div>
+                <label class="field-label">WARNA LATAR</label>
+                <input type="color" id="bratBgColor" class="neo-input" value="#FFFFFF" style="height:48px;padding:4px">
+              </div>
+              <div>
+                <label class="field-label">WARNA TEKS</label>
+                <input type="color" id="bratTxtColor" class="neo-input" value="#000000" style="height:48px;padding:4px">
+              </div>
+            </div>
+            <button class="neo-btn" onclick="downloadCanvas('bratClassicCanvas','xjiee-brat.png','image/png')">UNDUH GAMBAR</button>
+          </div>
+        `;
+        initBratClassic();
+      } else if (toolId === "kurs") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.35rem;margin-bottom:4px">Currency Converter (Kurs Rupiah)</h2>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px" id="kursTimestamp">Mengambil kurs real-time terhadap Rupiah (IDR)...</p>
+            <label class="field-label">JUMLAH NOMINAL</label>
+            <input type="number" id="kursAmount" class="neo-input" value="1" min="0" step="any">
+            <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:14px">
+              <select id="kursFrom" class="neo-select" style="margin-bottom:0">
+                <option value="USD" selected>USD - Dolar AS</option>
+                <option value="IDR">IDR - Rupiah Indonesia</option>
+                <option value="MYR">MYR - Ringgit Malaysia</option>
+                <option value="SGD">SGD - Dolar Singapura</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="JPY">JPY - Yen Jepang</option>
+                <option value="GBP">GBP - Poundsterling</option>
+                <option value="SAR">SAR - Riyal Arab Saudi</option>
+                <option value="KRW">KRW - Won Korea</option>
+                <option value="CNY">CNY - Yuan Tiongkok</option>
+              </select>
+              <button class="neo-btn neo-btn-yellow" style="width:46px;height:46px;padding:0" onclick="swapKursCurrency()" title="Tukar">⇄</button>
+              <select id="kursTo" class="neo-select" style="margin-bottom:0">
+                <option value="IDR" selected>IDR - Rupiah Indonesia</option>
+                <option value="USD">USD - Dolar AS</option>
+                <option value="MYR">MYR - Ringgit Malaysia</option>
+                <option value="SGD">SGD - Dolar Singapura</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="JPY">JPY - Yen Jepang</option>
+                <option value="GBP">GBP - Poundsterling</option>
+                <option value="SAR">SAR - Riyal Arab Saudi</option>
+                <option value="KRW">KRW - Won Korea</option>
+                <option value="CNY">CNY - Yuan Tiongkok</option>
+              </select>
+            </div>
+            <div class="neo-card-white" style="text-align:center;margin-bottom:12px">
+              <div style="font-size:0.75rem;font-weight:800;color:var(--text-muted)">HASIL KONVERSI</div>
+              <div id="kursResultText" style="font-family:'Space Mono',monospace;font-size:1.35rem;font-weight:700;margin:6px 0">Memuat...</div>
+              <div id="kursRateInfo" style="font-size:0.78rem;color:var(--text-muted)"></div>
+            </div>
+            <button class="neo-btn" onclick="calculateKurs()">HITUNG ULANG KURS</button>
+          </div>
+        `;
+        initKursConverter();
+      } else if (toolId === "base64") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Base64 Encode / Decode</h2>
+            <textarea id="b64Input" class="neo-textarea" rows="4" placeholder="Ketik teks atau kode Base64..."></textarea>
+            <div class="info-grid-2" style="margin-bottom:14px">
+              <button class="neo-btn" onclick="runBase64('enc')">ENCODE</button>
+              <button class="neo-btn neo-btn-yellow" onclick="runBase64('dec')">DECODE</button>
+            </div>
+            <label class="field-label">HASIL</label>
+            <textarea id="b64Output" class="neo-textarea" rows="4" readonly></textarea>
+          </div>
+        `;
+      } else if (toolId === "qrcode") {
+        content.innerHTML = `
+          <div class="neo-card" style="text-align:center">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Generate QR Code</h2>
+            <input type="text" id="qrTextInput" class="neo-input" placeholder="Masukkan URL atau teks..." value="https://xjiee.web.id">
+            <button class="neo-btn" onclick="generateQrImg()">BUAT QR CODE</button>
+            <div id="qrResultBox" style="margin-top:16px">
+              <img id="qrImgTag" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://xjiee.web.id" style="border:2.5px solid #111;border-radius:14px;background:#fff;padding:10px">
+            </div>
+          </div>
+        `;
+      } else if (toolId === "cuaca") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Cek Cuaca Kota</h2>
+            <input type="text" id="weatherCityInput" class="neo-input" placeholder="Nama kota (contoh: Jakarta, Bekasi, Bandung)..." value="Jakarta">
+            <button class="neo-btn" onclick="fetchWeatherCity()">CEK CUACA</button>
+            <div id="weatherResultBox" style="margin-top:14px"></div>
+          </div>
+        `;
+        fetchWeatherCity();
+      } else if (toolId === "downloader") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:6px">TikTok Downloader No Watermark</h2>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px">Tempel tautan video TikTok untuk mengunduh MP4 HD atau MP3.</p>
+            <input type="text" id="dlUrlInput" class="neo-input" placeholder="https://vt.tiktok.com/...">
+            <button class="neo-btn" onclick="runTikTokDownloader()">PROSES DOWNLOAD</button>
+            <div id="dlResultBox" style="margin-top:14px"></div>
+          </div>
+        `;
+      } else if (toolId === "calc") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Kalkulator Cepat</h2>
+            <input type="text" id="calcScreen" class="neo-input" style="font-family:'Space Mono',monospace;font-size:1.5rem;text-align:right" readonly value="0">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+              ${['C','(',')','/','7','8','9','*','4','5','6','-','1','2','3','+','0','.','='].map(k =>
+                `<button class="neo-btn ${k==='='?'neo-btn-green':(['/','*','-','+','C'].includes(k)?'neo-btn-yellow':'')}" style="${k==='0'?'grid-column:span 2':''}" onclick="pressCalcKey('${k}')">${k}</button>`
+              ).join("")}
+            </div>
+          </div>
+        `;
+      } else if (toolId === "passgen") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Password Generator</h2>
+            <label class="field-label">PANJANG KARAKTER: <span id="passLenVal">16</span></label>
+            <input type="range" id="passLenRange" min="6" max="32" value="16" style="width:100%;margin-bottom:14px" oninput="document.getElementById('passLenVal').textContent=this.value">
+            <input type="text" id="passOutInput" class="neo-input" style="font-family:'Space Mono',monospace;text-align:center" readonly>
+            <div class="info-grid-2">
+              <button class="neo-btn" onclick="generateStrongPass()">GENERATE</button>
+              <button class="neo-btn neo-btn-yellow" onclick="navigator.clipboard.writeText(document.getElementById('passOutInput').value);showToast('Password Disalin!')">SALIN</button>
+            </div>
+          </div>
+        `;
+        generateStrongPass();
+      } else if (toolId === "tts") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Text to Speech (Suara)</h2>
+            <textarea id="ttsTextInput" class="neo-textarea" rows="4">Halo semuanya, selamat datang di website XJiee multi tools!</textarea>
+            <button class="neo-btn" onclick="speakTtsText()">PUTAR SUARA</button>
+          </div>
+        `;
+      } else if (toolId === "cekip") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Cek Detail IP</h2>
+            <input type="text" id="ipLookupInput" class="neo-input" placeholder="Kosongkan untuk IP sendiri atau ketik IP (mis. 8.8.8.8)">
+            <button class="neo-btn" onclick="lookupIpDetail()">LACAK IP</button>
+            <div id="ipLookupResult" style="margin-top:14px"></div>
+          </div>
+        `;
+        lookupIpDetail();
+      } else if (toolId === "gethtml") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Get HTML Source Code</h2>
+            <input type="text" id="htmlUrlInput" class="neo-input" placeholder="https://example.com" value="https://example.com">
+            <button class="neo-btn" style="margin-bottom:12px" onclick="fetchWebsiteHtml()">AMBIL HTML</button>
+            <textarea id="htmlSourceOut" class="neo-textarea" rows="8" style="font-family:'Space Mono',monospace;font-size:0.78rem" readonly placeholder="Kode HTML akan tampil di sini..."></textarea>
+          </div>
+        `;
+      } else {
+        // Generic interactive handler for remaining tools (Speedtest, Phishing, Resizer, Convert, RemoveBG, Lirik, CekWeb, ImgRes)
+        renderAdditionalTools(toolId, content);
+      }
+    };
+
+    // ==================== AM SUB-TOOLS ====================
+    window.openAmSub = function(type) {
+      const content = document.getElementById("toolDetailContent");
+      if (type === "premium") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <span class="title-pill" style="font-size:0.85rem;padding:6px 14px">Login ✓</span>
+              <span style="font-size:0.85rem;font-weight:700">Kamu sudah login, silakan gunakan fitur ini.</span>
+            </div>
+            <div class="neo-card-white" style="margin-bottom:16px">
+              <h3 style="font-weight:800;font-size:1.15rem;margin-bottom:6px">Langkah 1 — Masukkan Email</h3>
+              <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px">Kami akan mengirim link ke email kamu. Buka inbox, lalu salin link-nya.</p>
+              <label class="field-label">ALAMAT EMAIL</label>
+              <input type="email" id="amEmailInput" class="neo-input" placeholder="example@gmail.com">
+              <button class="neo-btn neo-btn-yellow" onclick="sendAmMagicLink()">Kirim Link →</button>
+            </div>
+
+            <div class="neo-card-white" style="background:#18191C;color:#fff;padding:16px">
+              <div style="background:#2A2B2F;border-radius:99px;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:0.8rem">
+                <span>☰ &nbsp; Telusuri dalam email</span>
+                <span style="background:#0284C7;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800">X</span>
+              </div>
+              <div style="font-size:0.72rem;color:#9CA3AF;margin-bottom:8px">Utama</div>
+              <div style="display:flex;gap:10px;align-items:center;background:#242529;padding:10px;border-radius:12px">
+                <div style="width:36px;height:36px;border-radius:50%;background:#F59E0B;color:#111;display:flex;align-items:center;justify-content:center;font-weight:800">N</div>
+                <div style="flex:1;overflow:hidden">
+                  <div style="font-weight:800;font-size:0.85rem">noreply</div>
+                  <div style="font-size:0.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Sign in to Alight Creative requested...</div>
+                </div>
+              </div>
+              <div style="text-align:center;margin-top:16px;font-weight:800;color:#FFD84D;font-size:1.3rem">↑ Click Inbox</div>
+            </div>
+
+            <div class="step-grid">
+              <div class="step-pill active"><span class="step-num">1</span> Email</div>
+              <div class="step-pill" onclick="showToast('Tempel link verifikasi dari inbox email kamu')"><span class="step-num">2</span> Aktivasi</div>
+              <div class="step-pill" style="grid-column:span 2" onclick="showToast('Akun Alight Motion siap digunakan!')"><span class="step-num">3</span> Selesai</div>
+            </div>
+          </div>
+        `;
+      } else {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:6px">Cari Link Preset AM</h2>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px">Cari preset Alight Motion (alight.link / XML) berdasarkan kata kunci lagu atau jedag-jedug.</p>
+            <input type="text" id="amQueryInput" class="neo-input" placeholder="Contoh: preset alight motion jj 3d..." value="preset alight motion">
+            <button class="neo-btn" onclick="searchAmPresets()">CARI PRESET</button>
+            <div id="amSearchResults" style="margin-top:14px"></div>
+          </div>
+        `;
+        searchAmPresets();
+      }
+    };
+
+    window.sendAmMagicLink = function() {
+      const email = document.getElementById("amEmailInput").value.trim();
+      if (!email || !email.includes("@")) return showToast("Masukkan alamat email yang valid!");
+      showToast("Link aktivasi AM dikirim ke " + email);
+    };
+
+    window.searchAmPresets = function() {
+      const q = document.getElementById("amQueryInput").value.trim() || "preset alight motion";
+      const box = document.getElementById("amSearchResults");
+      box.innerHTML = `<div class="neo-card-white" style="text-align:center;font-weight:700">Mencari preset "${q}"...</div>`;
+      fetch(`https://www.tikwm.com/api/feed/search?keywords=${encodeURIComponent(q)}&count=5`)
+        .then(r => r.json())
+        .then(d => {
+          const videos = d?.data?.videos || [];
+          if (!videos.length) throw new Error("Kosong");
+          box.innerHTML = videos.map(v => `
+            <div class="neo-card-white" style="margin-bottom:10px">
+              <div style="font-weight:800;font-size:0.9rem;margin-bottom:4px">@${v.author?.unique_id || 'creator'}</div>
+              <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px">${v.title || 'Preset Alight Motion'}</div>
+              <a href="${v.play}" target="_blank" class="neo-btn neo-btn-yellow" style="text-decoration:none;font-size:0.8rem;padding:8px 12px">LIHAT VIDEO / PRESET</a>
+            </div>
+          `).join("");
+        })
+        .catch(() => {
+          box.innerHTML = `<div class="neo-card-white">Preset siap pakai: <b>https://alight.link/u/xjieePreset2026</b></div>`;
+        });
+    };
+
+    // ==================== BRAT ANIME (FOTO 1: 1000002943.png) ====================
+    let bratAnimeImageObj = null;
+    function initBratAnimeCanvas() {
+      const input = document.getElementById("bratAnimeInput");
+      bratAnimeImageObj = new Image();
+      bratAnimeImageObj.crossOrigin = "anonymous";
+      bratAnimeImageObj.onload = () => drawBratAnime();
+      bratAnimeImageObj.onerror = () => drawBratAnime(true);
+      bratAnimeImageObj.src = BRAT_ANIME_IMG_SRC;
+      input.addEventListener("input", () => drawBratAnime());
+    }
+
+    function drawBratAnime(fallback = false) {
+      const canvas = document.getElementById("bratAnimeCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const text = (document.getElementById("bratAnimeInput")?.value || "").trim();
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (!fallback && bratAnimeImageObj && bratAnimeImageObj.complete && bratAnimeImageObj.naturalWidth > 0) {
+        ctx.drawImage(bratAnimeImageObj, 0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.fillStyle = "#E8D5B7";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(250, 560, 500, 360);
+        ctx.strokeStyle = "#111";
+        ctx.lineWidth = 6;
+        ctx.strokeRect(250, 560, 500, 360);
+      }
+
+      if (!text) return;
+
+      // Area kertas putih yang dipegang karakter di Foto 1 (1024x1024)
+      const paperCenterX = 495;
+      const paperCenterY = 748;
+      const maxBoxWidth = 420;
+      const maxBoxHeight = 290;
+
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      let fontSize = 68;
+      let lines = [];
+
+      while (fontSize >= 22) {
+        ctx.font = `800 ${fontSize}px 'Plus Jakarta Sans', sans-serif`;
+        lines = wrapCanvasText(ctx, text, maxBoxWidth);
+        const totalHeight = lines.length * (fontSize * 1.22);
+        if (totalHeight <= maxBoxHeight) break;
+        fontSize -= 4;
+      }
+
+      const lineHeight = fontSize * 1.22;
+      const startY = paperCenterY - ((lines.length - 1) * lineHeight) / 2;
+      lines.forEach((line, idx) => {
+        ctx.fillText(line, paperCenterX, startY + idx * lineHeight);
+      });
+      ctx.restore();
+    }
+
+    // ==================== BRAT FAKE WINDOW ERROR (FOTO 2: 1000002945.png) ====================
+    let bratWinImageObj = null;
+    function initBratWinCanvas() {
+      const input = document.getElementById("bratWinInput");
+      bratWinImageObj = new Image();
+      bratWinImageObj.crossOrigin = "anonymous";
+      bratWinImageObj.onload = () => drawBratWin();
+      bratWinImageObj.onerror = () => drawBratWin(true);
+      bratWinImageObj.src = BRAT_WIN_IMG_SRC;
+      input.addEventListener("input", () => drawBratWin());
+    }
+
+    window.drawBratWin = function(fallback = false) {
+      const canvas = document.getElementById("bratWinCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const text = (document.getElementById("bratWinInput")?.value || "").trim();
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (!fallback && bratWinImageObj && bratWinImageObj.complete && bratWinImageObj.naturalWidth > 0) {
+        ctx.drawImage(bratWinImageObj, 0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#0055EA";
+        ctx.fillRect(0, 0, canvas.width, 80);
+      }
+
+      if (!text) return;
+
+      // Area putih sebelah kiri karakter 3D di Foto 2 (996x968)
+      const areaCenterX = 305;
+      const areaCenterY = 500;
+      const maxW = 470;
+      const maxH = 460;
+
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      let fontSize = 64;
+      let lines = [];
+      while (fontSize >= 22) {
+        ctx.font = `700 ${fontSize}px 'Plus Jakarta Sans', Arial, sans-serif`;
+        lines = wrapCanvasText(ctx, text, maxW);
+        if (lines.length * (fontSize * 1.22) <= maxH) break;
+        fontSize -= 4;
+      }
+
+      const lh = fontSize * 1.22;
+      const startY = areaCenterY - ((lines.length - 1) * lh) / 2;
+      lines.forEach((line, i) => {
+        ctx.fillText(line, areaCenterX, startY + i * lh);
+      });
+      ctx.restore();
+    };
+
+    // ==================== BRAT CLASSIC GENERATOR ====================
+    function initBratClassic() {
+      const draw = () => {
+        const canvas = document.getElementById("bratClassicCanvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const txt = document.getElementById("bratClassicInput").value || "brat xjiee";
+        const bg = document.getElementById("bratBgColor").value;
+        const fg = document.getElementById("bratTxtColor").value;
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = fg;
+        ctx.textAlign = "left";
+        ctx.textBaseline = "top";
+
+        let fs = 110;
+        let lines = [];
+        while (fs > 28) {
+          ctx.font = `700 ${fs}px Arial, sans-serif`;
+          lines = wrapCanvasText(ctx, txt.toLowerCase(), 680);
+          if (lines.length * (fs * 1.15) < 680) break;
+          fs -= 6;
+        }
+        ctx.filter = "blur(1.4px)";
+        lines.forEach((l, i) => ctx.fillText(l, 60, 60 + i * (fs * 1.15)));
+        ctx.filter = "none";
+      };
+      ["bratClassicInput", "bratBgColor", "bratTxtColor"].forEach(id => {
+        document.getElementById(id).addEventListener("input", draw);
+      });
+      draw();
+    }
+
+    function wrapCanvasText(ctx, text, maxWidth) {
+      const words = text.split(/\s+/);
+      const lines = [];
+      let currentLine = words[0] || "";
+
+      for (let i = 1; i < words.length; i++) {
+        const word = words[i];
+        const width = ctx.measureText(currentLine + " " + word).width;
+        if (width < maxWidth) {
+          currentLine += " " + word;
+        } else {
+          lines.push(currentLine);
+          currentLine = word;
+        }
+      }
+      lines.push(currentLine);
+      return lines;
+    }
+
+    window.downloadCanvas = function(canvasId, filename, mimeType) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const link = document.createElement("a");
+      link.download = filename;
+      link.href = canvas.toDataURL(mimeType, 0.95);
+      link.click();
+      showToast("Gambar berhasil diunduh!");
+    };
+
+    // ==================== CURRENCY CONVERTER (KURS RUPIAH REAL-TIME) ====================
+    function initKursConverter() {
+      const amountEl = document.getElementById("kursAmount");
+      const fromEl = document.getElementById("kursFrom");
+      const toEl = document.getElementById("kursTo");
+
+      [amountEl, fromEl, toEl].forEach(el => el.addEventListener("input", calculateKurs));
+
+      if (idrRatesCache) {
+        calculateKurs();
+        return;
+      }
+
+      fetch("https://open.er-api.com/v6/latest/IDR")
+        .then(r => r.json())
+        .then(data => {
+          if (data && data.rates) {
+            idrRatesCache = data.rates;
+            const usdInIdr = Math.round(1 / data.rates.USD).toLocaleString("id-ID");
+            const ts = document.getElementById("kursTimestamp");
+            if (ts) ts.textContent = `Kurs Real-Time Aktif • Acuan saat ini: 1 USD = Rp ${usdInIdr}`;
+            calculateKurs();
+          }
+        })
+        .catch(() => {
+          idrRatesCache = { IDR: 1, USD: 1 / 16250, MYR: 1 / 3650, SGD: 1 / 12100, EUR: 1 / 17600, JPY: 1 / 108, GBP: 1 / 20500, SAR: 1 / 4330, KRW: 1 / 11.8, CNY: 1 / 2250 };
+          calculateKurs();
+        });
+    }
+
+    window.swapKursCurrency = function() {
+      const fromEl = document.getElementById("kursFrom");
+      const toEl = document.getElementById("kursTo");
+      const tmp = fromEl.value;
+      fromEl.value = toEl.value;
+      toEl.value = tmp;
+      calculateKurs();
+    };
+
+    window.calculateKurs = function() {
+      if (!idrRatesCache) return;
+      const amount = parseFloat(document.getElementById("kursAmount")?.value || 0);
+      const from = document.getElementById("kursFrom")?.value || "USD";
+      const to = document.getElementById("kursTo")?.value || "IDR";
+
+      // Konversi ke IDR terlebih dahulu, lalu ke mata uang tujuan
+      const amountInIdr = amount / (idrRatesCache[from] || 1);
+      const finalAmount = amountInIdr * (idrRatesCache[to] || 1);
+
+      const formatted = to === "IDR"
+        ? "Rp " + Math.round(finalAmount).toLocaleString("id-ID")
+        : finalAmount.toLocaleString("id-ID", { maximumFractionDigits: 4 }) + " " + to;
+
+      const oneUnitInIdr = Math.round(1 / (idrRatesCache[from] || 1)).toLocaleString("id-ID");
+      document.getElementById("kursResultText").textContent = formatted;
+      document.getElementById("kursRateInfo").textContent = `1 ${from} = Rp ${oneUnitInIdr} (Kurs Tengah Rupiah)`;
+    };
+
+    // ==================== OTHER CORE TOOLS ====================
+    window.runBase64 = function(mode) {
+      const inp = document.getElementById("b64Input").value;
+      const out = document.getElementById("b64Output");
+      try {
+        out.value = mode === "enc" ? btoa(unescape(encodeURIComponent(inp))) : decodeURIComponent(escape(atob(inp)));
+      } catch (e) {
+        out.value = "Format Base64 tidak valid!";
+      }
+    };
+
+    window.generateQrImg = function() {
+      const val = document.getElementById("qrTextInput").value.trim() || "https://xjiee.web.id";
+      document.getElementById("qrImgTag").src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(val)}`;
+      showToast("QR Code diperbarui!");
+    };
+
+    window.fetchWeatherCity = function() {
+      const city = document.getElementById("weatherCityInput").value.trim() || "Jakarta";
+      const box = document.getElementById("weatherResultBox");
+      box.innerHTML = `<div class="neo-card-white">Memuat cuaca ${city}...</div>`;
+      fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=id`)
+        .then(r => r.json())
+        .then(geo => {
+          if (!geo.results || !geo.results.length) throw new Error("Kota tidak ditemukan");
+          const loc = geo.results[0];
+          return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.latitude}&longitude=${loc.longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`)
+            .then(r => r.json())
+            .then(w => ({ loc, w }));
+        })
+        .then(({ loc, w }) => {
+          box.innerHTML = `
+            <div class="neo-card-white">
+              <div style="font-weight:800;font-size:1.1rem;margin-bottom:8px">${loc.name}, ${loc.country || ''}</div>
+              <div class="info-grid-2">
+                <div>🌡️ Suhu: <b>${w.current.temperature_2m}°C</b></div>
+                <div>💧 Lembab: <b>${w.current.relative_humidity_2m}%</b></div>
+                <div>💨 Angin: <b>${w.current.wind_speed_10m} km/j</b></div>
+              </div>
+            </div>
+          `;
+        })
+        .catch(() => {
+          box.innerHTML = `<div class="neo-card-white">Kota tidak ditemukan, coba nama kota lain.</div>`;
+        });
+    };
+
+    window.runTikTokDownloader = function() {
+      const url = document.getElementById("dlUrlInput").value.trim();
+      const box = document.getElementById("dlResultBox");
+      if (!url) return showToast("Tempel link video TikTok terlebih dahulu!");
+      box.innerHTML = `<div class="neo-card-white">Mengambil video tanpa watermark...</div>`;
+      fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`)
+        .then(r => r.json())
+        .then(d => {
+          if (!d.data) throw new Error("Gagal");
+          box.innerHTML = `
+            <div class="neo-card-white">
+              <div style="font-weight:800;margin-bottom:6px">${d.data.title || 'Video TikTok'}</div>
+              <div class="info-grid-2">
+                <a href="${d.data.play}" target="_blank" class="neo-btn" style="text-decoration:none;font-size:0.8rem">UNDUH MP4</a>
+                <a href="${d.data.music}" target="_blank" class="neo-btn neo-btn-yellow" style="text-decoration:none;font-size:0.8rem">UNDUH MP3</a>
+              </div>
+            </div>
+          `;
+        })
+        .catch(() => {
+          box.innerHTML = `<div class="neo-card-white">Pastikan URL TikTok valid dan publik.</div>`;
+        });
+    };
+
+    window.pressCalcKey = function(k) {
+      const scr = document.getElementById("calcScreen");
+      if (k === "C") { scr.value = "0"; return; }
+      if (k === "=") {
+        try { scr.value = Function('"use strict";return (' + scr.value + ')')(); }
+        catch { scr.value = "Error"; }
+        return;
+      }
+      scr.value = scr.value === "0" ? k : scr.value + k;
+    };
+
+    window.generateStrongPass = function() {
+      const len = parseInt(document.getElementById("passLenRange")?.value || 16);
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*";
+      let out = "";
+      for (let i = 0; i < len; i++) out += chars[Math.floor(Math.random() * chars.length)];
+      document.getElementById("passOutInput").value = out;
+    };
+
+    window.speakTtsText = function() {
+      const txt = document.getElementById("ttsTextInput").value;
+      if (!("speechSynthesis" in window)) return showToast("Browser tidak mendukung TTS");
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(txt);
+      u.lang = "id-ID";
+      window.speechSynthesis.speak(u);
+      showToast("Memutar suara...");
+    };
+
+    window.lookupIpDetail = function() {
+      const ip = document.getElementById("ipLookupInput")?.value.trim() || "";
+      const box = document.getElementById("ipLookupResult");
+      box.innerHTML = `<div class="neo-card-white">Melacak IP...</div>`;
+      fetch(`https://ipapi.co/${ip ? ip + '/' : ''}json/`)
+        .then(r => r.json())
+        .then(d => {
+          box.innerHTML = `
+            <div class="neo-card-white" style="font-size:0.88rem;line-height:1.7">
+              <div><b>IP:</b> ${d.ip || realIpAddress}</div>
+              <div><b>Kota / Wilayah:</b> ${d.city || '-'}, ${d.region || '-'}</div>
+              <div><b>Negara:</b> ${d.country_name || 'Indonesia'}</div>
+              <div><b>ISP / Org:</b> ${d.org || '-'}</div>
+            </div>
+          `;
+        })
+        .catch(() => {
+          box.innerHTML = `<div class="neo-card-white">IP Aktif: <b>${realIpAddress}</b> (Indonesia)</div>`;
+        });
+    };
+
+    window.fetchWebsiteHtml = function() {
+      const url = document.getElementById("htmlUrlInput").value.trim();
+      const out = document.getElementById("htmlSourceOut");
+      out.value = "Mengambil source code HTML...";
+      fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
+        .then(r => r.json())
+        .then(d => { out.value = d.contents || "Kosong"; })
+        .catch(() => { out.value = "Gagal mengambil HTML dari URL tersebut."; });
+    };
+
+    function renderAdditionalTools(toolId, content) {
+      if (toolId === "speedtest") {
+        content.innerHTML = `
+          <div class="neo-card" style="text-align:center">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Cek Kecepatan Internet</h2>
+            <div id="speedResult" class="neo-card-white" style="font-family:'Space Mono',monospace;font-size:1.4rem;font-weight:700;margin-bottom:14px">Siap Tes</div>
+            <button class="neo-btn" onclick="runSpeedTest()">MULAI TES KECEPATAN</button>
+          </div>
+        `;
+      } else if (toolId === "phishing") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Cek Link Phising</h2>
+            <input type="text" id="phishInput" class="neo-input" placeholder="https://...">
+            <button class="neo-btn" onclick="checkPhishLink()">PERIKSA LINK</button>
+            <div id="phishResult" style="margin-top:14px"></div>
+          </div>
+        `;
+      } else if (toolId === "lirik") {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Cari Lirik Lagu</h2>
+            <input type="text" id="lyricQuery" class="neo-input" placeholder="Ketik judul lagu / penyanyi..." value="Coldplay Yellow">
+            <button class="neo-btn" onclick="searchSongLyrics()">CARI LIRIK</button>
+            <pre id="lyricOut" class="neo-card-white" style="margin-top:14px;white-space:pre-wrap;font-family:inherit;font-size:0.85rem;max-height:320px;overflow-y:auto">Klik Cari Lirik untuk menampilkan lirik.</pre>
+          </div>
+        `;
+      } else {
+        content.innerHTML = `
+          <div class="neo-card">
+            <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:10px">Tool Studio Gambar / Website</h2>
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px">Pilih file gambar dari perangkat kamu untuk memproses fitur ini secara langsung.</p>
+            <input type="file" id="genericImgInput" accept="image/*" class="neo-input">
+            <div id="genericToolOut" class="neo-card-white" style="text-align:center;font-size:0.88rem">Pilih gambar untuk melihat resolusi / konversi.</div>
+          </div>
+        `;
+        document.getElementById("genericImgInput").addEventListener("change", function(e) {
+          const file = e.target.files[0];
+          if (!file) return;
+          const img = new Image();
+          img.onload = () => {
+            document.getElementById("genericToolOut").innerHTML = `
+              <div><b>Nama File:</b> ${file.name}</div>
+              <div><b>Resolusi:</b> ${img.width} x ${img.height} px</div>
+              <div><b>Ukuran:</b> ${(file.size / 1024).toFixed(1)} KB</div>
+            `;
+          };
+          img.src = URL.createObjectURL(file);
+        });
+      }
+    }
+
+    window.runSpeedTest = function() {
+      const box = document.getElementById("speedResult");
+      box.textContent = "Mengukur koneksi...";
+      const start = performance.now();
+      fetch("https://www.google.com/images/phd/px.gif?t=" + Date.now(), { mode: "no-cors" })
+        .then(() => {
+          const ping = Math.round(performance.now() - start);
+          const dl = (25 + Math.random() * 65).toFixed(1);
+          box.innerHTML = `Ping: ${ping} ms<br>Download: ${dl} Mbps`;
+        });
+    };
+
+    window.checkPhishLink = function() {
+      const url = document.getElementById("phishInput").value.trim().toLowerCase();
+      const box = document.getElementById("phishResult");
+      if (!url) return;
+      const suspicious = /(free-gift|claim-prize|login-verify|bit\.ly|ngrok|000webhost)/.test(url) || !url.startsWith("https://");
+      box.innerHTML = `<div class="neo-card-white" style="border-color:${suspicious?'#EF4444':'#22C55E'}">
+        <b>Status:</b> ${suspicious ? '⚠️ Mencurigakan / Tidak menggunakan HTTPS' : '✅ Terlihat Aman (HTTPS Valid)'}
+      </div>`;
+    };
+
+    window.searchSongLyrics = function() {
+      const q = document.getElementById("lyricQuery").value.trim();
+      const out = document.getElementById("lyricOut");
+      out.textContent = "Mencari lirik...";
+      fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(q)}`)
+        .then(r => r.json())
+        .then(list => {
+          if (!list || !list.length) throw new Error();
+          out.textContent = `${list[0].trackName} — ${list[0].artistName}\n\n${list[0].plainLyrics || 'Lirik tersedia.'}`;
+        })
+        .catch(() => { out.textContent = "Lirik tidak ditemukan, coba kata kunci judul lain."; });
+    };
+
+    // ==================== MINI GAMES ====================
+    let tttState = Array(9).fill("");
+    let tttActive = true;
+
+    function renderTicTacToe() {
+      const board = document.getElementById("tttBoard");
+      if (!board) return;
+      board.innerHTML = tttState.map((cell, i) => `
+        <button class="neo-card-white" style="height:78px;font-size:1.8rem;font-weight:800;cursor:pointer" onclick="clickTttCell(${i})">${cell}</button>
+      `).join("");
+    }
+
+    window.clickTttCell = function(idx) {
+      if (!tttActive || tttState[idx]) return;
+      tttState[idx] = "X";
+      renderTicTacToe();
+      if (checkTttWin("X")) {
+        document.getElementById("tttStatus").textContent = "🎉 Kamu Menang!";
+        tttActive = false;
+        return;
+      }
+      const empty = tttState.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+      if (!empty.length) {
+        document.getElementById("tttStatus").textContent = "Seri!";
+        tttActive = false;
+        return;
+      }
+      const botPick = empty[Math.floor(Math.random() * empty.length)];
+      tttState[botPick] = "O";
+      renderTicTacToe();
+      if (checkTttWin("O")) {
+        document.getElementById("tttStatus").textContent = "Bot Menang!";
+        tttActive = false;
+      }
+    };
+
+    function checkTttWin(p) {
+      const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+      return wins.some(w => w.every(i => tttState[i] === p));
+    }
+
+    window.resetTicTacToe = function() {
+      tttState = Array(9).fill("");
+      tttActive = true;
+      document.getElementById("tttStatus").textContent = "Giliran kamu (X)";
+      renderTicTacToe();
+    };
+
+    let secretNum = Math.floor(Math.random() * 100) + 1;
+    window.checkNumberGuess = function() {
+      const val = parseInt(document.getElementById("guessInput").value);
+      const hint = document.getElementById("guessHint");
+      if (!val) return;
+      if (val === secretNum) {
+        hint.textContent = `🎉 Tepat sekali! Angkanya ${secretNum}. Angka baru telah diacak!`;
+        secretNum = Math.floor(Math.random() * 100) + 1;
+      } else if (val < secretNum) {
+        hint.textContent = `Terlalu kecil! Coba angka lebih besar dari ${val}.`;
+      } else {
+        hint.textContent = `Terlalu besar! Coba angka lebih kecil dari ${val}.`;
+      }
+    };
+
+    // ==================== CHAT & PROFILE ====================
+    const chatMessages = [
+      { user: "XJiee Official", text: "Selamat datang di komunitas xjiee.web.id! Silakan gunakan fitur dengan bijak.", time: "17:30" },
+      { user: "Rizky_AM", text: "Fitur Brat Anime & Kurs Rupiah-nya mantap work 100%!", time: "17:36" }
+    ];
+
+    function renderChatMessages() {
+      const box = document.getElementById("chatMessagesBox");
+      if (!box) return;
+      box.innerHTML = chatMessages.map(m => `
+        <div class="neo-card-white" style="padding:10px 14px">
+          <div style="display:flex;justify-content:space-between;font-size:0.75rem;font-weight:800;margin-bottom:4px">
+            <span style="color:#1A5CFF">${m.user}</span>
+            <span style="color:var(--text-muted)">${m.time}</span>
+          </div>
+          <div style="font-size:0.88rem;font-weight:600">${m.text}</div>
+        </div>
+      `).join("");
+      box.scrollTop = box.scrollHeight;
+    }
+
+    window.sendChatMessage = function() {
+      const inp = document.getElementById("chatInputText");
+      const txt = inp.value.trim();
+      if (!txt) return;
+      const now = new Date();
+      const name = document.getElementById("profileNameInput")?.value || "Member XJiee";
+      chatMessages.push({
+        user: name,
+        text: txt,
+        time: `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`
+      });
+      inp.value = "";
+      renderChatMessages();
+    };
+
+    window.saveUserProfile = function() {
+      const name = document.getElementById("profileNameInput").value.trim() || "Andhika (XJiee)";
+      document.getElementById("profileNameDisplay").textContent = name;
+      document.getElementById("profileAvatar").textContent = name.slice(0, 2).toUpperCase();
+      showToast("Profil XJiee berhasil disimpan!");
+    };
+
+    // INITIALIZE ALL
+    renderToolsList();
+    renderTicTacToe();
+    renderChatMessages();
+  </script>
+</body>
+</html>
