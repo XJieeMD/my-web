@@ -3,125 +3,86 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pengingat Tugas</title>
+<title>Kalkulator</title>
 <style>
-:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mut:#6b7385;--bd:#e3e6ee;--ac:#4f46e5;--ok:#16a34a;--warn:#dc2626;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1c1f2b;--tx:#eceef5;--mut:#9aa2b5;--bd:#2c3040;--ac:#818cf8;--ok:#4ade80;--warn:#f87171}}
-:root[data-theme="dark"]{--bg:#12141c;--card:#1c1f2b;--tx:#eceef5;--mut:#9aa2b5;--bd:#2c3040;--ac:#818cf8;--ok:#4ade80;--warn:#f87171}
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mut:#6b7385;--key:#eef0f6;--op:#4f46e5;--opx:#fff;--eq:#16a34a}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1c1f2b;--tx:#eceef5;--mut:#9aa2b5;--key:#2a2e3f;--op:#818cf8;--opx:#12141c;--eq:#4ade80}}
+:root[data-theme="dark"]{--bg:#12141c;--card:#1c1f2b;--tx:#eceef5;--mut:#9aa2b5;--key:#2a2e3f;--op:#818cf8;--opx:#12141c;--eq:#4ade80}
 *{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.wrap{max-width:720px;margin:0 auto;padding:20px 16px 60px}
-h1{font-size:1.5rem;margin:0 0 4px}.sub{color:var(--mut);margin:0 0 18px;font-size:.9rem}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px}
-input[type=text],input[type=date],textarea{width:100%;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;margin-bottom:8px}
-.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
-button{font:inherit;border:0;border-radius:10px;padding:9px 14px;cursor:pointer;background:var(--ac);color:#fff}
-button.g{background:transparent;color:var(--ac);border:1px solid var(--bd);padding:5px 10px;font-size:.85rem}
-button.d{color:var(--warn)}
-.tabs{display:flex;gap:6px;margin:16px 0 12px}
-.tab{flex:1;background:var(--card);color:var(--tx);border:1px solid var(--bd)}
-.tab.on{background:var(--ac);color:#fff;border-color:var(--ac)}
-.t{display:flex;gap:12px;align-items:flex-start}
-.t input[type=checkbox]{width:22px;height:22px;margin-top:3px;accent-color:var(--ok);flex:none}
-.t h3{margin:0;font-size:1rem;word-break:break-word}
-.done h3{text-decoration:line-through;color:var(--mut)}
-.m{font-size:.82rem;color:var(--mut)}.late{color:var(--warn);font-weight:600}
-.files{display:flex;flex-direction:column;gap:6px;margin-top:8px}
-.f{display:flex;gap:6px;align-items:center;justify-content:space-between;border:1px solid var(--bd);border-radius:10px;padding:6px 8px}
-.f span{font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.f div{display:flex;gap:6px;flex:none}
-.empty{text-align:center;color:var(--mut);padding:30px 0}
-#mod{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:20}
-#mod.on{display:flex}
-#box{background:var(--card);border-radius:14px;padding:12px;width:100%;max-width:700px;max-height:90%;display:flex;flex-direction:column;gap:8px}
-#view{overflow:auto;text-align:center;flex:1}#view img{max-width:100%}#view iframe{width:100%;height:65vh;border:0}
-#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;display:none;z-index:30}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--tx);font:18px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:16px}
+.calc{width:100%;max-width:340px;background:var(--card);border-radius:20px;padding:16px;box-shadow:0 8px 30px rgba(0,0,0,.12)}
+.scr{background:var(--bg);border-radius:14px;padding:12px 14px;margin-bottom:14px;text-align:right;min-height:84px;display:flex;flex-direction:column;justify-content:flex-end}
+#his{color:var(--mut);font-size:.85rem;min-height:1.3em;overflow:hidden;white-space:nowrap}
+#out{font-size:2.2rem;font-weight:600;overflow-x:auto;white-space:nowrap}
+.pad{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+button{font:inherit;font-size:1.25rem;border:0;border-radius:14px;height:60px;background:var(--key);color:var(--tx);cursor:pointer}
+button:active{transform:scale(.96)}
+button.o{background:var(--op);color:var(--opx)}
+button.e{background:var(--eq);color:#fff}
+button.w{grid-column:span 2}
 </style>
 </head>
 <body>
-<div class="wrap">
-<h1>📚 Pengingat Tugas</h1>
-<p class="sub">Simpan tugas + dokumennya, centang kalau sudah selesai.</p>
-
-<div class="card">
-<input type="text" id="jd" placeholder="Judul tugas (mis. Laporan Praktikum)" maxlength="120">
-<div class="row"><input type="date" id="dl" aria-label="Deadline"><input type="file" id="fl" multiple></div>
-<textarea id="ct" rows="2" placeholder="Catatan (opsional)"></textarea>
-<button id="add">+ Tambah Tugas</button>
+<div class="calc">
+<div class="scr"><div id="his"></div><div id="out">0</div></div>
+<div class="pad">
+<button data-a="C" class="o">C</button><button data-a="del" class="o">⌫</button><button data-a="%" class="o">%</button><button data-o="÷" class="o">÷</button>
+<button data-n="7">7</button><button data-n="8">8</button><button data-n="9">9</button><button data-o="×" class="o">×</button>
+<button data-n="4">4</button><button data-n="5">5</button><button data-n="6">6</button><button data-o="−" class="o">−</button>
+<button data-n="1">1</button><button data-n="2">2</button><button data-n="3">3</button><button data-o="+" class="o">+</button>
+<button data-a="neg">±</button><button data-n="0">0</button><button data-n=".">.</button><button data-a="=" class="e">=</button>
 </div>
-
-<div class="tabs">
-<button class="tab on" id="tb0">Belum Tuntas (0)</button>
-<button class="tab" id="tb1">Tuntas (0)</button>
 </div>
-<div id="list"></div>
-</div>
-
-<div id="mod"><div id="box"><div id="view"></div><div class="row"><button class="g" id="mdl">⬇ Download</button><button id="mcl">Tutup</button></div></div></div>
-<div id="toast"></div>
-
 <script>
-var tasks=[],tab=0,cur=null,dbh=null,mem=false,pend=null;
-var $=function(i){return document.getElementById(i)};
-function toast(s){var t=$('toast');t.textContent=s;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display='none'},2600)}
-function openDB(){return new Promise(function(res){
- try{var r=indexedDB.open('tugas-db',1);
- r.onupgradeneeded=function(){r.result.createObjectStore('tasks',{keyPath:'id'})};
- r.onsuccess=function(){dbh=r.result;res()};r.onerror=function(){mem=true;res()}
- }catch(e){mem=true;res()}})}
-function tx(m){return dbh.transaction('tasks',m).objectStore('tasks')}
-function loadAll(){return new Promise(function(res){
- if(mem||!dbh)return res();
- var q=tx('readonly').getAll();q.onsuccess=function(){tasks=q.result;res()};q.onerror=function(){res()}})}
-function put(t){if(mem||!dbh)return;try{tx('readwrite').put(t)}catch(e){toast('Gagal menyimpan')}}
-function del(id){if(mem||!dbh)return;try{tx('readwrite').delete(id)}catch(e){}}
-function sz(n){return n>1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB'}
-function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function render(){
- var a=tasks.filter(function(t){return !t.done}),b=tasks.filter(function(t){return t.done});
- $('tb0').textContent='Belum Tuntas ('+a.length+')';$('tb1').textContent='Tuntas ('+b.length+')';
- $('tb0').className='tab'+(tab==0?' on':'');$('tb1').className='tab'+(tab==1?' on':'');
- var L=(tab==0?a:b).sort(function(x,y){return (x.dl||'9999').localeCompare(y.dl||'9999')||x.id-y.id});
- var h='';
- if(!L.length)h='<div class="empty">'+(tab==0?'Tidak ada tugas yang belum tuntas 🎉':'Belum ada tugas yang tuntas.')+'</div>';
- L.forEach(function(t){
-  var late=!t.done&&t.dl&&t.dl<new Date().toISOString().slice(0,10);
-  h+='<div class="card'+(t.done?' done':'')+'"><div class="t"><input type="checkbox" data-c="'+t.id+'"'+(t.done?' checked':'')+' aria-label="Tandai selesai"><div style="flex:1;min-width:0"><h3>'+esc(t.title)+'</h3>'
-  +(t.dl?'<div class="m'+(late?' late':'')+'">Deadline: '+t.dl+(late?' (terlambat)':'')+'</div>':'')
-  +(t.note?'<div class="m">'+esc(t.note)+'</div>':'');
-  if(t.files&&t.files.length){h+='<div class="files">';
-   t.files.forEach(function(f,i){h+='<div class="f"><span>📎 '+esc(f.name)+' · '+sz(f.size)+'</span><div><button class="g" data-v="'+t.id+':'+i+'">Lihat</button><button class="g" data-d="'+t.id+':'+i+'">⬇</button></div></div>'});h+='</div>'}
-  h+='</div><button class="g d" data-x="'+t.id+'" aria-label="Hapus">'+(pend==t.id?'Yakin hapus?':'🗑')+'</button></div></div>'});
- $('list').innerHTML=h}
-function getF(s){var p=s.split(':'),t=tasks.filter(function(x){return x.id==p[0]})[0];return t&&t.files[+p[1]]}
-function dl(f){
- var go=function(d){return d.save({filename:f.name,data:f.blob}).then(function(){toast('File disimpan')}).catch(function(e){
-  toast(e&&e.code=='declined'?'Download dibatalkan':e&&e.code=='rejected_extension'?'Format file ini tidak bisa didownload dari sini':'Download gagal')})};
- if(window.claude&&claude.use){claude.use('downloads').then(function(d){if(d)go(d);else fb(f)}).catch(function(){fb(f)})}else fb(f)}
-function fb(f){var u=URL.createObjectURL(f.blob),a=document.createElement('a');a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}
-function view(f){
- cur=f;var v=$('view'),u=URL.createObjectURL(f.blob);view.u&&URL.revokeObjectURL(view.u);view.u=u;
- if(f.type.indexOf('image/')==0)v.innerHTML='<img alt="">',v.firstChild.src=u;
- else if(f.type=='application/pdf')v.innerHTML='<iframe title="PDF"></iframe>',v.firstChild.src=u;
- else v.innerHTML='<p class="m">Pratinjau tidak tersedia untuk file ini. Gunakan tombol Download.</p>';
- $('mod').className='on'}
-$('add').onclick=function(){
- var title=$('jd').value.trim();if(!title){toast('Isi judul tugas dulu');return}
- var files=[].slice.call($('fl').files).map(function(f){return {name:f.name,size:f.size,type:f.type||'application/octet-stream',blob:f}});
- var t={id:Date.now(),title:title,dl:$('dl').value,note:$('ct').value.trim(),done:false,files:files};
- tasks.push(t);put(t);$('jd').value='';$('dl').value='';$('ct').value='';$('fl').value='';tab=0;render();toast('Tugas ditambahkan')};
-$('tb0').onclick=function(){tab=0;render()};$('tb1').onclick=function(){tab=1;render()};
-$('list').onclick=function(e){
- var el=e.target,k;
- if(k=el.getAttribute('data-c')){var t=tasks.filter(function(x){return x.id==k})[0];t.done=el.checked;put(t);render();toast(t.done?'Dipindah ke Tuntas':'Dikembalikan ke Belum Tuntas')}
- else if(k=el.getAttribute('data-v'))view(getF(k));
- else if(k=el.getAttribute('data-d'))dl(getF(k));
- else if(k=el.getAttribute('data-x')){if(pend==k){pend=null;tasks=tasks.filter(function(x){return x.id!=k});del(+k);render();toast('Tugas dihapus')}else{pend=k;render();clearTimeout(window.ph);window.ph=setTimeout(function(){pend=null;render()},3000)}}};
-$('mcl').onclick=function(){$('mod').className='';$('view').innerHTML=''};
-$('mdl').onclick=function(){cur&&dl(cur)};
-openDB().then(loadAll).then(function(){render();if(mem)toast('Penyimpanan browser tidak tersedia, data hilang saat ditutup')});
+var cur='0',prev=null,op=null,fresh=false,err=false;
+/* Hasil lucu-lucuan: tulis "angka1+operator+angka2": "teks yang muncul". Operator: + − × ÷ */
+var EGGS={'1+1':'Hello World','2+1':'BEGO LU!'};
+var out=document.getElementById('out'),his=document.getElementById('his');
+function fmt(s){if(err)return s;var p=String(s).split('.');p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');return p.join(',')}
+function show(){out.textContent=fmt(cur);his.textContent=(prev!==null&&op)?fmt(prev)+' '+op:''}
+function calc(a,b,o){
+ a=parseFloat(a);b=parseFloat(b);var r;
+ if(o=='+')r=a+b;else if(o=='−')r=a-b;else if(o=='×')r=a*b;else{if(b===0){err=true;return 'Tidak bisa dibagi 0'}r=a/b}
+ return String(parseFloat(r.toPrecision(12)))}
+function num(d){
+ if(err)reset();
+ if(fresh){cur='0';fresh=false}
+ if(d=='.'){if(cur.indexOf('.')<0)cur+='.'}
+ else cur=(cur=='0')?d:(cur.length<15?cur+d:cur);
+ show()}
+function oper(o){
+ if(err)return;
+ if(op&&!fresh){cur=calc(prev,cur,op);if(err){show();return}}
+ prev=cur;op=o;fresh=true;show()}
+function eq(){
+ if(err||!op||prev===null)return;
+ var h=fmt(prev)+' '+op+' '+fmt(cur)+' =';
+ var egg=EGGS[parseFloat(prev)+op+parseFloat(cur)];
+ if(egg){cur=egg;err=true;prev=null;op=null;show();his.textContent=h;return}
+ cur=calc(prev,cur,op);prev=null;op=null;fresh=true;show();his.textContent=h}
+function reset(){cur='0';prev=null;op=null;fresh=false;err=false;show()}
+function act(a){
+ if(a=='C')reset();
+ else if(err)return;
+ else if(a=='del'){if(fresh)return;cur=cur.length>1&&!(cur.length==2&&cur[0]=='-')?cur.slice(0,-1):'0';show()}
+ else if(a=='neg'){if(cur!='0'){cur=cur[0]=='-'?cur.slice(1):'-'+cur;show()}}
+ else if(a=='%'){cur=String(parseFloat((parseFloat(cur)/100).toPrecision(12)));show()}
+ else if(a=='=')eq()}
+document.querySelector('.pad').addEventListener('click',function(e){
+ var b=e.target.closest('button');if(!b)return;
+ if(b.dataset.n!==undefined)num(b.dataset.n);
+ else if(b.dataset.o)oper(b.dataset.o);
+ else act(b.dataset.a)});
+document.addEventListener('keydown',function(e){
+ var k=e.key,m={'*':'×','/':'÷','-':'−','+':'+'};
+ if(/^[0-9.]$/.test(k))num(k);
+ else if(m[k]){e.preventDefault();oper(m[k])}
+ else if(k==','){num('.')}
+ else if(k=='Enter'||k=='='){e.preventDefault();act('=')}
+ else if(k=='Backspace')act('del');
+ else if(k=='Escape'||k=='Delete')act('C');
+ else if(k=='%')act('%')});
+show();
 </script>
 </body>
 </html>
