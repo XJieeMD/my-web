@@ -852,7 +852,7 @@
           XJ
         </div>
         <h3 style="font-weight:800;font-size:1.2rem" id="profileNameDisplay">Andhika (XJiee)</h3>
-        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px" id="profileEmailDisplay">member@xjiee.web.id</p>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px" id="profileEmailDisplay">member@notxjiee.my.id</p>
 
         <div style="text-align:left">
           <label class="field-label">Nama Tampilan</label>
@@ -1269,10 +1269,10 @@
         content.innerHTML = `
           <div class="neo-card" style="text-align:center">
             <h2 style="font-weight:800;font-size:1.3rem;margin-bottom:12px">Generate QR Code</h2>
-            <input type="text" id="qrTextInput" class="neo-input" placeholder="Masukkan URL atau teks..." value="https://xjiee.web.id">
+            <input type="text" id="qrTextInput" class="neo-input" placeholder="Masukkan URL atau teks..." value="https://notxjiee.my.id">
             <button class="neo-btn" onclick="generateQrImg()">BUAT QR CODE</button>
             <div id="qrResultBox" style="margin-top:16px">
-              <img id="qrImgTag" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://xjiee.web.id" style="border:2.5px solid #111;border-radius:14px;background:#fff;padding:10px">
+              <img id="qrImgTag" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://notxjiee.my.id" style="border:2.5px solid #111;border-radius:14px;background:#fff;padding:10px">
             </div>
           </div>
         `;
@@ -1694,7 +1694,7 @@
     };
 
     window.generateQrImg = function() {
-      const val = document.getElementById("qrTextInput").value.trim() || "https://xjiee.web.id";
+      const val = document.getElementById("qrTextInput").value.trim() || "https://notxjiee.my.id";
       document.getElementById("qrImgTag").src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(val)}`;
       showToast("QR Code diperbarui!");
     };
@@ -1965,7 +1965,7 @@
 
     // ==================== CHAT & PROFILE ====================
     const chatMessages = [
-      { user: "XJiee Official", text: "Selamat datang di komunitas xjiee.web.id! Silakan gunakan fitur dengan bijak.", time: "17:30" },
+      { user: "XJiee Official", text: "Selamat datang di komunitas notxjiee.my.id! Silakan gunakan fitur dengan bijak.", time: "17:30" },
       { user: "Rizky_AM", text: "Fitur Brat Anime & Kurs Rupiah-nya mantap work 100%!", time: "17:36" }
     ];
 
